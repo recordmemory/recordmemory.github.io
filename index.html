@@ -859,6 +859,122 @@
   .gnopt svg { flex: none; }
   .gnopt.wide { grid-column: 1 / -1; background: #fff; border: 1px dashed var(--line2); color: var(--sub); }
   .gnopt.wide.on { background: var(--book, var(--ink)); border: 1px solid var(--book, var(--ink)); color: #4a3500; }
+
+  /* =====================================================================
+     크기·간격 통일  (기준 = 상단 고정탭 .tools .tabs)
+       소형 컨트롤  : 높이 28px · 알약(999px) · 글자 13px · 간격 5px
+       분할 버튼    : 상단 목록/달력 탭(.views)과 동일 (바깥 10px / 안쪽 26px·8px)
+       입력칸·창 버튼: 높이 40px · 모서리 10px(입력칸) / 알약(버튼) · 간격 8px
+       카드 안 간격 : 16 / 12 / 6px
+     ===================================================================== */
+  :root { --ctl: 28px; --fld: 40px; --gap: 5px; }
+
+  /* 헤더 */
+  .hact .hl-b { gap: var(--gap); }
+  .hact #import, .hact #export {
+    height: var(--ctl); padding: 0 12px; gap: 5px; border-radius: 999px; font-size: 13px; font-weight: 500;
+  }
+  .hact #import svg, .hact #export svg { width: 13px; height: 13px; }
+  .hact #editBtn, .hact #adminLink { font-size: 13px; }
+
+  /* 상단 필터 줄(돋보기 · 후기 · 별점 · 생각 포함)도 고정탭과 같은 28px */
+  #rtabs { height: var(--ctl); }
+  #rtabs button { height: var(--ctl); font-size: 13px; }
+  #rtabs .sbtn { width: var(--ctl); height: var(--ctl); }
+  #rtabs .fsel { height: var(--ctl); font-size: 13px; }
+  #rtabs button.tgl { height: var(--ctl); font-size: 13px; }
+  #qbox input[type=search] { height: var(--ctl); padding: 0 12px; border-radius: 999px; }
+
+  /* 목록 · 펼친 카드 */
+  .abar { gap: var(--gap); }
+  .abar button, .actions button {
+    height: var(--ctl); padding: 0 12px; border-radius: 999px; font-size: 13px; font-weight: 500;
+  }
+  .abar .tog { min-width: 58px; }
+  .actions { gap: var(--gap); }
+
+  /* 하단 도크 */
+  #dock .in { gap: var(--gap); }
+  #dock button { height: var(--ctl); border-radius: 999px; font-size: 13px; font-weight: 500; }
+  #dock .dadd { font-weight: 700; }
+  #dock .dtop { width: var(--ctl); }
+
+  /* 달력 */
+  .calcard .calhead { gap: var(--gap); }
+  .calcard .calhead button { height: var(--ctl); }
+  .calcard .calhead .navb { width: var(--ctl); }
+  .calcard .calhead .todayb { padding: 0 12px; margin-right: 0; font-weight: 500; }
+  .dayhead button { height: var(--ctl); padding: 0 12px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+
+  /* 통계 */
+  .sub { gap: var(--gap); }
+  .sub button { height: var(--ctl); padding: 0 8px; font-size: 13px; font-weight: 500; }
+  .sub button.on { font-weight: 700; }
+  .range input { height: var(--fld); padding: 0 10px; font-size: 16px; }
+
+  /* 생각(타임라인) · 덧붙이기 */
+  .cb { gap: var(--gap); }
+  .cb button, .tent .edit .cb button {
+    height: var(--ctl); padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 500;
+  }
+  .cb .primary, .tent .edit .cb button.primary { font-weight: 700; }
+  .tlcompose .cb button { height: var(--ctl); padding: 0 16px; font-size: 13px; font-weight: 700; }
+  .moreTl { height: var(--ctl); padding: 0 16px; font-size: 13px; font-weight: 500; }
+
+  /* 입력창 상단 바 · 카테고리 · 읽기 상태 */
+  .editbar, .wbar, .gbar { gap: 10px; }
+  .barbtn { height: var(--ctl); padding: 0 12px; font-size: 13.5px; }
+  .barbtn.save { padding: 0 16px; font-size: 13.5px; }
+  #kinds { gap: var(--gap); }
+  #kinds button { height: 34px; padding: 0 2px; gap: 5px; font-size: 15px; font-weight: 500; }
+  #kinds button.on { font-weight: 700; }
+  #stKinds { gap: 0; padding: 2px; border-radius: 10px; }
+  #stKinds button { height: 26px; font-size: 13.5px; }
+
+  /* 입력칸: 높이 40px · 모서리 10px */
+  .fcard input[type=text], .fcard input[type=date], .fcard .timeBtn {
+    min-height: var(--fld); padding: 0 12px; border-radius: 10px;
+  }
+  .fcard input[type=date], .fcard .timeBtn { min-height: var(--fld); }
+  .fcard textarea { padding: 10px 12px; border-radius: 10px; }
+  .fcard #text { padding: 13px 14px 34px; border-radius: 12px; }
+  #cDate { height: var(--fld); padding: 0 12px; }
+  .gnchev { width: 32px; height: 32px; margin-top: -16px; }
+  .gngrid { gap: var(--gap); }
+  .gnopt { height: var(--fld); border-radius: 10px; }
+
+  /* 카드 안 간격: 카드 16 / 항목 12 / 라벨 6 */
+  .fcard { padding: 16px; margin-top: 12px; }
+  .fcard label { margin: 0 0 6px 2px; }
+  .fcard label.tl, .thead label.tl { margin: 0 0 0 2px; }
+  .fld { margin-top: 12px; }
+  .row2 { margin-top: 12px; gap: 8px; }
+  .row2 > .fld { margin-top: 0; }
+  #creatorBox { margin-top: 12px; }
+  .thead { margin: 0; }
+  .fcard .paper { margin-top: 12px; }
+  .gbtn { height: var(--ctl); padding: 0 12px; font-size: 13px; font-weight: 500; }
+  #writer #rateBox #gOpen2 { height: var(--ctl); padding: 0 12px; }
+
+  /* 가이드 질문 창 */
+  .gtabs { gap: var(--gap); padding: 8px 16px; }
+  .gtabs button { height: var(--fld); padding: 0 14px; gap: 5px; font-size: 14px; }
+  .gtabs .bd { min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; font-size: 11px; }
+  .gall { height: var(--ctl); font-size: 13px; }
+  .gfoot { gap: 8px; }
+  .grand, .gclear, .gins { height: var(--fld); font-size: 14px; }
+
+  /* 시간 선택 창 */
+  .cbtns { gap: 8px; }
+  .cbtns button { height: var(--fld); padding: 0; border-radius: 999px; font-size: 14px; }
+  .ampm { gap: var(--gap); }
+  .ampm button { height: var(--ctl); padding: 0 12px; font-size: 13px; }
+  .btns { gap: 8px; }
+  .btns button { height: var(--fld); padding: 0; border-radius: 999px; font-size: 14px; }
+
+  .fcard textarea { display: block; }
+  .range input { border-radius: 10px; }
+  .barbtn { border-radius: 999px; }
 </style>
 </head>
 <body>
