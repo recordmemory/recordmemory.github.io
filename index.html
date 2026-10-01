@@ -18,10 +18,10 @@
     --mute: #a0a4b6;
     --line: #e5e7f0;
     --line2: #d5d8e4;
-    --book: #2c7a5a;
+    --book: #e8b400;
     --movie: #c8443b;
     --show: #6b46b8;
-    --musical: #c93a86;
+    --musical: #ee5fa0;
     --star: #e3a11c;
     --sun: #cf5048;
     --sat: #4468b0;
@@ -29,10 +29,10 @@
     --serif: "Noto Serif KR", "Nanum Myeongjo", "Batang", serif;
   }
   /* 카테고리 고유 색: 탭, 입력창 버튼, 달력 점, 목록, 통계가 모두 같은 색을 씀 */
-  [data-k="book"], [data-f="book"], [data-type="book"], [data-t="book"] { --c: var(--book); }
-  [data-k="movie"], [data-f="movie"], [data-type="movie"], [data-t="movie"] { --c: var(--movie); }
-  [data-k="play"], [data-f="play"], [data-type="play"], [data-t="play"] { --c: var(--show); }
-  [data-k="musical"], [data-f="musical"], [data-type="musical"], [data-t="musical"] { --c: var(--musical); }
+  [data-k="book"], [data-f="book"], [data-type="book"], [data-t="book"] { --c: var(--book); --cf: #4a3500; --ct: #b08700; }
+  [data-k="movie"], [data-f="movie"], [data-type="movie"], [data-t="movie"] { --c: var(--movie); --cf: #fff; --ct: var(--movie); }
+  [data-k="play"], [data-f="play"], [data-type="play"], [data-t="play"] { --c: var(--show); --cf: #fff; --ct: var(--show); }
+  [data-k="musical"], [data-f="musical"], [data-type="musical"], [data-t="musical"] { --c: var(--musical); --cf: #fff; --ct: var(--musical); }
 
   [hidden] { display: none !important; }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -45,9 +45,9 @@
 
   /* 헤더 */
   header { padding-top: env(safe-area-inset-top); }
-  .hrow { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 22px 16px 4px; }
-  header h1 { margin: 0; font-family: var(--serif); font-size: 26px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
-  header p { margin: 3px 0 0; color: var(--sub); font-size: 13px; }
+  .hrow { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 34px 16px 16px; }
+  header h1 { margin: 0; font-family: var(--serif); font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+  header p { margin: 7px 0 0; color: var(--sub); font-size: 13.5px; }
   .hact { display: flex; gap: 6px; flex: none; }
   .ghost {
     display: inline-flex; align-items: center; gap: 5px; height: 32px; padding: 0 12px;
@@ -71,12 +71,12 @@
     height: 28px; padding: 0 2px; border: 1.5px solid var(--c, var(--ink)); background: var(--paper);
     color: var(--ink); border-radius: 8px; font-size: 13px; cursor: pointer; white-space: nowrap;
   }
-  .tabs button.on { background: var(--c, var(--ink)); color: #fff; font-weight: 700; }
+  .tabs button.on { background: var(--c, var(--ink)); color: var(--cf, #fff); font-weight: 700; }
   .tabs button[data-f]:not([data-f="all"])::before,
   .kinds button[data-k]::before {
     content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--c); flex: none;
   }
-  .tabs button.on::before, .kinds button.on::before { background: #fff !important; }
+  .tabs button.on::before, .kinds button.on::before { background: var(--cf, #fff) !important; }
 
   .rtabs { margin-bottom: 6px; gap: 5px; }
   .rtabs button { height: 26px; font-size: 12.5px; }
@@ -114,7 +114,7 @@
   .stars { flex: none; color: var(--star); font-size: 11px; letter-spacing: 1px; }
   .stars i { color: var(--line2); font-style: normal; }
   .l2 { display: flex; align-items: center; margin-top: 1px; font-size: 12.5px; color: var(--sub); white-space: nowrap; min-width: 0; }
-  .l2 .kind { flex: none; color: var(--c); font-weight: 700; }
+  .l2 .kind { flex: none; color: var(--ct, var(--c)); font-weight: 700; }
   .l2 .m { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .l2 .m.d { flex: none; }
   .l2 .m::before {
@@ -122,7 +122,7 @@
     margin: 0 7px; vertical-align: -1px;
   }
   .badge {
-    flex: none; margin-left: 6px; background: var(--book); color: #fff; border-radius: 5px;
+    flex: none; margin-left: 6px; background: var(--book); color: #4a3500; border-radius: 5px;
     padding: 0 6px; font-size: 11px; font-weight: 600; line-height: 17px;
   }
   .detail { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
@@ -148,7 +148,7 @@
     border-bottom: 1px solid var(--line); cursor: pointer;
   }
   .hl { display: flex; align-items: center; gap: 8px; height: 40px; }
-  .hl .kind { flex: none; color: var(--c); font-weight: 700; font-size: 12.5px; }
+  .hl .kind { flex: none; color: var(--ct, var(--c)); font-weight: 700; font-size: 12.5px; }
   .hl .ht {
     flex: 1; min-width: 0; font-family: var(--serif); font-size: 14.5px; font-weight: 600;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -188,10 +188,10 @@
     color: var(--ink); font-size: 13.5px; cursor: pointer; white-space: nowrap;
     display: flex; align-items: center; justify-content: center;
   }
-  #dock .dclose { flex: 1; }
+  #dock .dclose { flex: 1 1 0; min-width: 0; }
   #dock .dclose:disabled { opacity: .4; cursor: default; }
-  #dock .dadd { flex: 1.6; background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 700; }
-  #dock .dtop { flex: none; width: 44px; }
+  #dock .dadd { flex: 2 1 0; min-width: 0; background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 700; }
+  #dock .dtop { flex: none; width: 28px; padding: 0; }
 
   /* 달력 */
   #calWrap { padding: 4px 16px; }
@@ -251,6 +251,14 @@
   .crow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
   .crow .num { color: var(--sub); }
   .crow .pct { text-align: right; font-weight: 700; }
+  .grow { padding: 9px 0; font-size: 14px; }
+  .grow + .grow { border-top: 1px solid var(--line); }
+  .grow .gl1 { display: flex; align-items: baseline; gap: 10px; }
+  .grow .gl1 b { flex: 1; min-width: 0; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .grow .gl1 .num { color: var(--sub); }
+  .grow .gl1 .pct { min-width: 40px; text-align: right; font-weight: 700; }
+  .grow .gbar { margin-top: 6px; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .grow .gbar i { display: block; height: 100%; border-radius: 3px; background: var(--c); }
   .prow { padding: 11px 16px; }
   .prow + .prow { border-top: 1px solid var(--line); }
   .pl1 { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; }
@@ -295,7 +303,7 @@
     border: 1.5px solid var(--c, var(--line2)); background: var(--paper); border-radius: 10px;
     padding: 10px 0; font-size: 14px; cursor: pointer; color: var(--ink);
   }
-  .kinds button.on { background: var(--c, var(--ink)); border-color: var(--c, var(--ink)); color: #fff; font-weight: 700; }
+  .kinds button.on { background: var(--c, var(--ink)); border-color: var(--c, var(--ink)); color: var(--cf, #fff); font-weight: 700; }
   .timeBtn {
     width: 100%; text-align: left; border: 1px solid var(--line); background: var(--paper);
     color: var(--ink); border-radius: 12px; padding: 11px 12px; font-size: 16px;
@@ -398,8 +406,8 @@
   /* 생각 정리 기능 */
   .tk { margin-top: 3px; font-size: 13px; color: #3a3f55; display: flex; align-items: baseline; min-width: 0; }
   .tk .tt { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .tk::before { content: "\201C"; flex: none; color: var(--c); font-weight: 700; margin-right: 2px; }
-  .tk::after { content: "\201D"; flex: none; color: var(--c); font-weight: 700; margin-left: 2px; }
+  .tk::before { content: "\201C"; flex: none; color: var(--ct, var(--c)); font-weight: 700; margin-right: 2px; }
+  .tk::after { content: "\201D"; flex: none; color: var(--ct, var(--c)); font-weight: 700; margin-left: 2px; }
   .lcnt { flex: none; margin-left: auto; padding-left: 8px; font-size: 11.5px; color: var(--mute); }
   .quote {
     margin-top: 8px; padding: 4px 0 4px 12px; border-left: 2px solid var(--c);
@@ -440,13 +448,16 @@
     flex: none; border: 1px solid var(--line2); background: var(--paper); border-radius: 999px;
     padding: 5px 12px; font-size: 13px; color: var(--ink); cursor: pointer; white-space: nowrap;
   }
-  #gstrip { flex: none; padding: 8px 12px; border-bottom: 1px solid var(--line); background: var(--bg); }
   #writer #rateBox {
     flex: none; display: flex; align-items: center; gap: 10px; padding: 2px 14px;
     border-bottom: 1px solid var(--line); background: var(--bg);
   }
   #writer #rateBox label { margin: 0; }
-  #writer .rate button { font-size: 30px; padding: 2px 3px; }
+  #writer .rate button { font-size: 28px; padding: 2px 2px; }
+  #writer #rateBox { gap: 6px; }
+  #writer #rateBox .rval { margin-left: 4px; min-width: 24px; }
+  #rateBox #gOpen2 { display: none; }
+  #writer #rateBox #gOpen2 { display: inline-flex; margin-left: auto; flex: none; height: 28px; padding: 0 10px; }
 
 
   /* ===== 디자인 개선: 헤더 2×2 버튼 / 필터 / 달력 ===== */
@@ -470,7 +481,7 @@
   }
   .tools .tabs button[data-f]:not([data-f="all"])::before { width: 7px; height: 7px; }
   .tools .tabs button.on {
-    background: var(--c, var(--ink)); border-color: var(--c, var(--ink)); color: #fff; font-weight: 700;
+    background: var(--c, var(--ink)); border-color: var(--c, var(--ink)); color: var(--cf, #fff); font-weight: 700;
     box-shadow: 0 3px 8px color-mix(in srgb, var(--c, var(--ink)) 32%, transparent);
   }
 
@@ -638,7 +649,7 @@
     display: block; width: 100%; text-align: left; border: 0; background: none; padding: 2px 0 0; cursor: pointer;
     font-size: 12.5px; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .tent .tlink b { color: var(--c); font-weight: 700; }
+  .tent .tlink b { color: var(--ct, var(--c)); font-weight: 700; }
   .tent .tx { font-size: 15px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; margin-top: 3px; }
   .tent.lt .tx { color: #3c4157; }
   .tent .edit textarea { min-height: 80px; font-size: 15px; padding: 9px 11px; margin-top: 4px; }
@@ -665,7 +676,7 @@
     border: 1px solid var(--line2); background: var(--paper); color: var(--ink);
     font-size: 13.5px; font-weight: 500; font-family: inherit; transition: background .15s, border-color .15s, color .15s;
   }
-  #kinds button.on { background: var(--c, var(--ink)); border-color: var(--c, var(--ink)); color: #fff; font-weight: 700; }
+  #kinds button.on { background: var(--c, var(--ink)); border-color: var(--c, var(--ink)); color: var(--cf, #fff); font-weight: 700; }
 
   /* 카드 */
   .fcard { background: var(--paper); border-radius: 16px; box-shadow: 0 0 0 1px var(--line); padding: 14px 14px 16px; margin-top: 10px; }
@@ -732,7 +743,6 @@
     background: var(--paper); color: var(--ink); border-radius: 999px; font-size: 13px; font-family: inherit; cursor: pointer; white-space: nowrap;
   }
   .gbtn::before { content: "+"; font-size: 16px; line-height: 1; color: var(--sub); margin-top: -1px; }
-  #gstrip { flex: none; padding: 8px 12px; border-bottom: 1px solid var(--line); background: var(--bg); }
   #guide {
     position: fixed; left: 0; right: 0; top: 0; height: 100dvh; background: var(--bg); z-index: 35;
     display: flex; justify-content: center; overscroll-behavior: contain;
@@ -755,12 +765,12 @@
     border: 1px solid var(--line2); background: var(--paper); color: var(--ink); font-size: 13.5px; font-weight: 500;
     font-family: inherit; white-space: nowrap; cursor: pointer; transition: background .15s, border-color .15s, color .15s;
   }
-  .gtabs button.on { background: var(--c, var(--ink)); border-color: var(--c, var(--ink)); color: #fff; font-weight: 700; }
+  .gtabs button.on { background: var(--c, var(--ink)); border-color: var(--c, var(--ink)); color: var(--cf, #fff); font-weight: 700; }
   .gtabs .bd {
-    min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--c, var(--ink)); color: #fff;
+    min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--c, var(--ink)); color: var(--cf, #fff);
     font-size: 11.5px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;
   }
-  .gtabs button.on .bd { background: #fff; color: var(--c, var(--ink)); }
+  .gtabs button.on .bd { background: var(--cf, #fff); color: var(--c, var(--ink)); }
   .gbody { flex: 1; min-height: 0; overflow-y: auto; padding: 12px 16px 20px; -webkit-overflow-scrolling: touch; }
   .gq { background: var(--paper); border-radius: 16px; box-shadow: 0 0 0 1px var(--line); margin-bottom: 10px; transition: box-shadow .15s; }
   .gq.on { box-shadow: 0 0 0 1.5px var(--c, var(--ink)); }
@@ -798,18 +808,20 @@
   .gfoot { flex-wrap: wrap; row-gap: 8px; }
   .gsum { flex: 1 0 100%; min-width: 0; font-size: 13px; color: var(--sub); line-height: 1.35; }
   .grand {
-    display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border: 1px solid var(--line2); background: var(--paper);
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 40px; padding: 0 8px; border: 1px solid var(--line2); background: var(--paper);
     color: var(--ink); border-radius: 999px; font-size: 14px; font-family: inherit; cursor: pointer;
+    flex: 1 1 0; min-width: 0; white-space: nowrap;
   }
   .grand:active { background: #eef0f7; }
   .gclear {
-    height: 40px; padding: 0 14px; border: 1px solid var(--line2); background: var(--paper); color: var(--ink); border-radius: 999px;
+    height: 40px; padding: 0 8px; border: 1px solid var(--line2); background: var(--paper); color: var(--ink); border-radius: 999px;
     font-size: 14px; font-family: inherit; cursor: pointer;
+    flex: 1 1 0; min-width: 0; white-space: nowrap;
   }
   .gclear:disabled { opacity: .4; }
   .gins {
-    height: 40px; padding: 0 22px; border: 0; background: var(--ink); color: #fff; border-radius: 999px; font-size: 14.5px;
-    font-weight: 700; font-family: inherit; cursor: pointer; flex: 1; min-width: 0;
+    height: 40px; padding: 0 8px; border: 0; background: var(--ink); color: #fff; border-radius: 999px; font-size: 14.5px;
+    font-weight: 700; font-family: inherit; cursor: pointer; flex: 1 1 0; min-width: 0; white-space: nowrap;
   }
   .gins:disabled { opacity: .3; cursor: default; }
 
@@ -843,10 +855,10 @@
   }
   .gnopt > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .gnopt:active { background: #e9ebf5; }
-  .gnopt.on { background: var(--book, var(--ink)); border-color: var(--book, var(--ink)); color: #fff; font-weight: 700; }
+  .gnopt.on { background: var(--book, var(--ink)); border-color: var(--book, var(--ink)); color: #4a3500; font-weight: 700; }
   .gnopt svg { flex: none; }
   .gnopt.wide { grid-column: 1 / -1; background: #fff; border: 1px dashed var(--line2); color: var(--sub); }
-  .gnopt.wide.on { background: var(--book, var(--ink)); border: 1px solid var(--book, var(--ink)); color: #fff; }
+  .gnopt.wide.on { background: var(--book, var(--ink)); border: 1px solid var(--book, var(--ink)); color: #4a3500; }
 </style>
 </head>
 <body>
@@ -877,7 +889,7 @@
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
         <span>백업</span>
       </button>
-      <input type="file" id="file" accept="application/json,.json" hidden>
+      <input type="file" id="file" accept="application/json,.json,text/csv,.csv" hidden>
       </div>
     </div>
   </div>
@@ -1032,6 +1044,7 @@
         <div id="rateBox">
           <label>별점</label>
           <div class="rate" id="rate"></div>
+          <button type="button" class="gbtn" id="gOpen2">가이드 질문</button>
         </div>
         <div id="rateAnchor" hidden></div>
 
@@ -1044,7 +1057,7 @@
       <section class="fcard" id="cardText">
         <div class="thead">
           <label class="tl">후기</label>
-          <button type="button" class="gbtn" id="gOpen">가이드 질문 넣기</button>
+          <button type="button" class="gbtn" id="gOpen">가이드 질문</button>
         </div>
         <div class="paper">
           <textarea id="text" readonly placeholder="이 작품은 어땠나요? 여기를 눌러 전체 화면으로 적어보세요." aria-label="후기"></textarea>
@@ -1062,7 +1075,6 @@
       <b id="wtitle">후기</b>
       <button type="button" class="barbtn save" id="wdone">완료</button>
     </div>
-    <div id="gstrip"><button type="button" class="gbtn" id="gOpen2">가이드 질문 넣기</button></div>
     <textarea id="wtext" placeholder="이 작품은 어땠나요? 자유롭게 적어보세요." aria-label="후기 쓰기"></textarea>
   </div>
 </div>
@@ -1866,6 +1878,39 @@
     });
     return pane;
   }
+  function genrePane(items) {
+    var books = items.filter(function (r) { return r.type === "book"; });
+    if (!books.length) return null;
+    var cnt = {};
+    books.forEach(function (r) {
+      var g = (r.genre || "").trim();
+      if (GENRES.indexOf(g) < 0) g = "기타";
+      cnt[g] = (cnt[g] || 0) + 1;
+    });
+    var keys = Object.keys(cnt).sort(function (a, b) {
+      if (a === "기타") return 1;
+      if (b === "기타") return -1;
+      return cnt[b] - cnt[a] || GENRES.indexOf(a) - GENRES.indexOf(b);
+    });
+    var pane = el("div", "pane"); pane.dataset.t = "book";
+    var h = el("div", "phead");
+    h.appendChild(el("b", "", "책 장르"));
+    h.appendChild(el("span", "tot", "총 " + books.length + "권"));
+    pane.appendChild(h);
+    keys.forEach(function (g) {
+      var row = el("div", "grow");
+      var l1 = el("div", "gl1");
+      l1.appendChild(el("b", "", g));
+      l1.appendChild(el("span", "num", cnt[g] + "권"));
+      l1.appendChild(el("span", "pct", pct(cnt[g], books.length)));
+      row.appendChild(l1);
+      var bar = el("div", "gbar"), fill = el("i");
+      fill.style.width = Math.round(cnt[g] / books.length * 100) + "%";
+      bar.appendChild(fill); row.appendChild(bar);
+      pane.appendChild(row);
+    });
+    return pane;
+  }
   function periodRow(label, items) {
     var total = items.length, c = tally(items);
     var row = el("div", "prow" + (total ? "" : " zero"));
@@ -1963,6 +2008,7 @@
         return (!stat.from || r.date >= stat.from) && (!stat.to || r.date <= stat.to);
       });
       w.appendChild(summaryPane(inR, "선택한 기간"));
+      var gpR = genrePane(inR); if (gpR) w.appendChild(gpR);
       var mk = {};
       inR.forEach(function (r) { mk[r.date.slice(0, 7)] = 1; });
       var mkeys = Object.keys(mk).sort();
@@ -1984,6 +2030,7 @@
 
       var inY = dated.filter(function (r) { return r.date.indexOf(yp) === 0; });
       w.appendChild(summaryPane(inY, y + "년 전체"));
+      var gpY = genrePane(inY); if (gpY) w.appendChild(gpY);
       var mdefs = [];
       for (var mm = 1; mm <= 12; mm++) {
         (function (mm) {
@@ -2004,6 +2051,7 @@
 
     else {
       w.appendChild(summaryPane(dated, "전체"));
+      var gpA = genrePane(dated); if (gpA) w.appendChild(gpA);
       var years = {};
       dated.forEach(function (r) { years[r.date.slice(0, 4)] = 1; });
       var ys = Object.keys(years).sort().reverse();
@@ -2144,7 +2192,10 @@
       var pool = [];
       th.qs.forEach(function (_, qi) { var p = prev[ti + "-" + qi]; if (!(p && p.on)) pool.push(qi); });
       if (!pool.length) pool = th.qs.map(function (_, i) { return i; });
-      gst(ti, pool[Math.floor(Math.random() * pool.length)]).on = true;
+      var pick = pool[Math.floor(Math.random() * pool.length)];
+      var st = gst(ti, pick);
+      st.on = true;
+      st.subs = th.qs[pick].s.map(function () { return true; });
     });
     renderGuide();
     $("gBody").scrollTop = 0;
@@ -2626,7 +2677,106 @@
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
   }
+  /* ---------- 플앱 CSV 불러오기 ---------- */
+  function parseCsv(t) {
+    var rows = [], row = [], cell = "", q = false, i = 0, c;
+    if (t.charCodeAt(0) === 0xFEFF) t = t.slice(1);
+    for (; i < t.length; i++) {
+      c = t[i];
+      if (q) {
+        if (c === '"') { if (t[i + 1] === '"') { cell += '"'; i++; } else q = false; }
+        else cell += c;
+      } else if (c === '"') q = true;
+      else if (c === ",") { row.push(cell); cell = ""; }
+      else if (c === "\n" || c === "\r") {
+        if (c === "\r" && t[i + 1] === "\n") i++;
+        row.push(cell); cell = "";
+        if (row.length > 1 || row[0] !== "") rows.push(row);
+        row = [];
+      } else cell += c;
+    }
+    if (cell !== "" || row.length) { row.push(cell); rows.push(row); }
+    return rows;
+  }
+  function csvKind(cal, title, place, shop) {
+    var c = String(cal || "");
+    if (/뮤지컬/.test(c)) return "musical";
+    if (/영화/.test(c)) return "movie";
+    if (/연극|공연/.test(c)) return "play";
+    if (/책|도서/.test(c)) return "book";
+    if (/^\s*뮤지컬(\s|<|〈|\()/.test(title)) return "musical";
+    if (/^\s*영화(\s|<|〈|\()/.test(title)) return "movie";
+    if (/^\s*(연극|공연)(\s|<|〈|\()/.test(title)) return "play";
+    if (/CGV|메가박스|롯데시네마|시네|씨네/.test(place + " " + shop)) return "movie";
+    return "play";
+  }
+  function csvTitle(t) {
+    t = String(t || "").replace(/^\s*(뮤지컬|연극|공연|영화)\s*(?=[<〈(]|\s|$)/, "");
+    t = t.replace(/[<〈]\s*/g, "").replace(/\s*[>〉]/g, "");
+    return t.replace(/\s+/g, " ").trim();
+  }
+  /* 출연 칸: 쉼표·줄바꿈이 있으면 그걸로, 없으면 공백으로 이름을 나눠 "이름, 이름" 형태로 */
+  function csvCast(t) {
+    t = String(t || "").trim();
+    if (!t) return "";
+    var parts = /[,\n\r]/.test(t) ? t.split(/[,\n\r]+/) : t.split(/\s+/);
+    var out = [];
+    parts.forEach(function (x) { x = x.replace(/\s+/g, " ").trim(); if (x && out.indexOf(x) < 0) out.push(x); });
+    return out.join(", ");
+  }
+  function dupKey(title, date, time) { return csvTitle(title).toLowerCase() + "|" + date + "|" + time; }
+  function importCsv(file) {
+    var rd = new FileReader();
+    rd.onload = function () {
+      try {
+        var txt = new TextDecoder("utf-8").decode(rd.result);
+        if (txt.indexOf("\uFFFD") > -1) { try { txt = new TextDecoder("euc-kr").decode(rd.result); } catch (e2) {} }
+        var rows = parseCsv(txt);
+        var hd = (rows[0] || []).map(function (h) { return String(h).trim(); });
+        var ix = function (name) { return hd.indexOf(name); };
+        var iT = ix("제목"), iD = ix("일시");
+        if (iT < 0 || iD < 0) throw 0;
+        var iC = ix("캘린더"), iA = ix("출연"), iP = ix("장소"), iS = ix("좌석"), iB = ix("구매처"), iM = ix("리뷰/메모");
+        var seen = {};
+        data.forEach(function (r) { seen[dupKey(r.title, r.date || "", r.time || "")] = 1; });
+        var added = 0, dup = 0, bad = 0, base = Date.now(), n = { play: 0, musical: 0, movie: 0, book: 0 };
+        rows.slice(1).forEach(function (r) {
+          var get = function (i) { return i >= 0 && r[i] != null ? String(r[i]).trim() : ""; };
+          var title = csvTitle(get(iT));
+          var dm = get(iD).match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+          if (!title || !dm) { bad++; return; }
+          var date = dm[1] + "-" + pad(+dm[2]) + "-" + pad(+dm[3]);
+          var tm = get(iD).match(/(\d{1,2}):(\d{2})\s*$/);
+          var time = tm ? pad(+tm[1]) + ":" + tm[2] : "";
+          var type = csvKind(get(iC), get(iT), get(iP), get(iB));
+          var key = dupKey(title, date, type === "movie" ? "" : time);
+          if (seen[key]) { dup++; return; }
+          seen[key] = 1;
+          var place = get(iP), memo = get(iM), note = "", text = "";
+          if (memo.length > 30) text = memo; else note = memo.replace(/\s*[\r\n]+\s*/g, " ");
+          if (type === "movie" && place) note = note ? place + " · " + note : place;
+          data.push({
+            id: base + added, type: type, title: title,
+            creator: type === "movie" || type === "book" ? "" : place,
+            genre: "", cast: type === "movie" ? "" : csvCast(get(iA)), seat: get(iS), note: note.slice(0, 100),
+            time: type === "movie" ? "" : time, status: "done", date: date, rating: 0,
+            text: text, take: "", quote: "", tags: [], later: []
+          });
+          n[type]++; added++;
+        });
+        persist(); render();
+        var parts = [];
+        if (n.musical) parts.push("뮤지컬 " + n.musical);
+        if (n.play) parts.push("연극·공연 " + n.play);
+        if (n.movie) parts.push("영화 " + n.movie);
+        alert("CSV에서 " + added + "개를 불러왔어요." + (parts.length ? " (" + parts.join(", ") + ")" : "") +
+          (dup ? "\n이미 있는 기록 " + dup + "개는 건너뛰었어요." : "") + (bad ? "\n제목이나 날짜를 읽지 못한 " + bad + "개는 건너뛰었어요." : ""));
+      } catch (e) { alert("플앱 CSV 형식이 아니에요. (제목, 일시 칸이 필요해요)"); }
+    };
+    rd.readAsArrayBuffer(file);
+  }
   function importData(file) {
+    if (/\.csv$/i.test(file.name) || file.type === "text/csv") { importCsv(file); return; }
     var rd = new FileReader();
     rd.onload = function () {
       try {
