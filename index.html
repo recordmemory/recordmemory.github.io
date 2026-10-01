@@ -975,6 +975,32 @@
   .fcard textarea { display: block; }
   .range input { border-radius: 10px; }
   .barbtn { border-radius: 999px; }
+
+  /* ===== 사용가이드 버튼(수정·GitHub와 같은 크기/서식) + 사용가이드 창 ===== */
+  .hact #howtoBtn {
+    height: auto; padding: 2px 0; border: 0; border-radius: 0; background: transparent; box-shadow: none;
+    color: var(--mute); font-size: 13px; font-weight: 400; gap: 4px;
+  }
+  .hact #howtoBtn svg { width: 12px; height: 12px; stroke-width: 2; }
+  .hact #howtoBtn:active { background: transparent; color: var(--ink); }
+  .hact #howtoBtn { order: 3; }
+
+  #howto {
+    position: fixed; left: 0; right: 0; top: 0; height: 100dvh; background: var(--bg); z-index: 36;
+    display: flex; justify-content: center; overscroll-behavior: contain;
+  }
+  #howto[hidden] { display: none; }
+  #hBody { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+  .hq .gqh { align-items: center; cursor: default; padding-bottom: 6px; }
+  .hq .gqt { font-size: 15.5px; }
+  .hchev {
+    flex: none; width: 8px; height: 8px; margin: -3px 4px 0 0; border-right: 2px solid var(--sub); border-bottom: 2px solid var(--sub);
+    transform: rotate(45deg); transition: transform .18s;
+  }
+  .hq.open .hchev { transform: rotate(-135deg); margin-top: 3px; }
+  .hq.open { box-shadow: 0 0 0 1.5px var(--ink); }
+  .hp { padding: 0 16px 15px; font-size: 14.5px; line-height: 1.75; color: var(--ink); letter-spacing: -0.01em; }
+  .hp b { font-weight: 700; }
 </style>
 </head>
 <body>
@@ -995,6 +1021,10 @@
         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="none" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a10.9 10.9 0 0 1 5.76 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
         <span>GitHub</span>
       </a>
+      <button type="button" class="ghost" id="howtoBtn" aria-label="사용가이드 열기">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 0 4 20.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 1 1.5 1.5z"/></svg>
+        <span>사용가이드</span>
+      </button>
       </div>
       <div class="hline hl-b">
       <button type="button" class="ghost" id="import" aria-label="백업 불러오기">
@@ -1213,6 +1243,18 @@
       </button>
       <button type="button" class="gins" id="gIns" disabled>넣기</button>
     </div>
+  </div>
+</div>
+
+<div id="howto" hidden>
+  <div class="gcol" role="dialog" aria-modal="true" aria-label="사용가이드">
+    <div class="gbar">
+      <button type="button" class="barbtn" id="hClose">닫기</button>
+      <b>사용가이드</b>
+      <span class="barbtn" aria-hidden="true"></span>
+    </div>
+    <div class="gtabs" id="hTabs" role="tablist"></div>
+    <div class="gbody" id="hBody"></div>
   </div>
 </div>
 
@@ -2244,6 +2286,89 @@
     }
   }
   function closeGuide() { popLayer("guide"); }
+
+  /* ---------- 사용가이드 ---------- */
+  var HOWTO = [
+    { t: "시작하기", items: [
+      { h: "이런 앱이에요", p: "책, 영화, 연극, 뮤지컬을 보고 난 뒤의 마음을 차곡차곡 모아두는 나만의 기록장이에요. 별점 하나, 한 줄만 남겨도 충분하고, 마음이 동하는 날엔 길게 써도 돼요. 정답도 의무도 없으니 편하게 쓰세요." },
+      { h: "이렇게 시작하세요", p: "하단의 「+ 후기 추가」를 눌러 방금 본 작품 하나를 기록해보세요. 별점과 한줄평만 남겨도 첫 기록이 완성돼요. 더 하고 싶은 말이 생기면 후기를 쓰고, 며칠 뒤 새로운 생각이 떠오르면 「생각 덧붙이기」로 이어가면 돼요." },
+      { h: "앱 제목 바꾸기", p: "맨 위의 「수정」을 누르면 \"나의 후기\"를 내가 원하는 이름으로 바꿀 수 있어요. 「○○의 기록장」처럼 나만의 이름을 붙이면 더 내 공간처럼 느껴져요. 「확인」을 누르면 저장돼요." },
+      { h: "알아두면 편해요", p: "쓰다가 실수로 닫아도 걱정 마세요. 작성 중인 내용이 있으면 먼저 물어봐요. 뒤로가기는 한 번 더 눌러야 나가지니 실수로 앱이 꺼지지 않아요. 기록이 많아졌을 땐 하단 「모두 닫기」로 펼친 카드를 한 번에 접고, 「↑」로 맨 위로 돌아갈 수 있어요." }
+    ] },
+    { t: "기록하기", items: [
+      { h: "작품 정보", p: "먼저 책, 영화, 연극, 뮤지컬 중 무엇인지 고르고 제목과 저자(극장)를 적어요. 장르는 목록에서 고르거나 직접 입력할 수 있어요. 나중에 \"그때 본 그 연극이 뭐였지?\" 싶을 때 찾아볼 수 있는 가장 기본적인 단서가 돼요." },
+      { h: "날짜와 상태", p: "책은 다 읽은 날, 연극·뮤지컬은 관람 일시를 골라요. 시간은 5분 단위로 맞출 수 있어요. 아직 읽고 있는 책이라면 「읽는 중」으로 표시해두세요. 다 읽은 뒤 완독으로 바꾸면 그날이 기록으로 남아요. 언제 어떤 작품을 만났는지가 쌓이면, 그 자체가 나의 한 해가 돼요." },
+      { h: "연극·뮤지컬 전용 칸", p: "좌석과 캐스팅을 적어둘 수 있어요. \"그날 그 배우가 나왔었지\" 하는 기억은 같은 작품도 회차마다 다르게 만들어요. 좌석을 적어두면 다음 관람 때 시야와 거리를 비교하기도 좋아요. 캐스팅은 쉼표나 줄바꿈으로 구분하면 돼요." },
+      { h: "별점·한줄평", p: "별점은 0.5점 단위로, 한줄평은 120자까지 남길 수 있어요. 한줄평은 목록에 바로 보여서, 나중에 훑어볼 때 그때의 첫인상이 한눈에 떠올라요. 길게 쓸 기운이 없는 날엔 이 두 가지만 남겨도 충분해요." },
+      { h: "후기", p: "후기 칸을 누르면 방해 없이 전체 화면에서 쓸 수 있어요. 글자 수도 함께 보여서 얼마나 썼는지 알 수 있어요. 잘 쓰려고 하지 않아도 돼요. 지금 드는 느낌을 있는 그대로 적어두면, 시간이 지난 뒤 가장 값진 기록이 돼요." },
+      { h: "비고", p: "같이 본 사람, 앉았던 자리, 재관람 여부 같은 짧은 메모를 100자까지 남겨요. 작품 자체보다 그날의 분위기를 기억하게 해주는 작은 단서예요." },
+      { h: "수정·삭제", p: "카드를 펼치면 「수정」「삭제」 버튼이 있어요. 관람 직후엔 쓰지 못한 내용을 나중에 채우거나, 마음이 바뀌어 고칠 수 있어요. 삭제는 되돌릴 수 없으니 신중하게 눌러주세요." }
+    ] },
+    { t: "감상 가이드", items: [
+      { h: "가이드 질문 열기", p: "별점 아래와 후기 위에 있는 「가이드 질문」 버튼을 눌러요. 후기를 쓰려는데 첫 문장이 막막할 때, 질문이 먼저 말을 걸어줘요. 책은 장르(에세이, 시, 희곡, 철학 등)에 따라 질문이 달라져서, 작품에 맞는 이야기를 꺼낼 수 있어요." },
+      { h: "질문 고르기", p: "위쪽 탭에서 주제를 고르고, 마음이 가는 질문을 눌러 선택해요. 질문마다 딸림 질문이 달려 있어서 한 걸음 더 깊이 생각해볼 수 있어요. 「딸림 질문 모두 선택」으로 한 번에 고를 수도 있어요. 이 질문들은 정답을 알려주는 게 아니라, 내 안의 생각을 꺼내도록 돕는 도구예요." },
+      { h: "후기에 넣기", p: "「N개 넣기」를 누르면 고른 질문이 후기 칸에 들어가요. 그 아래에 내 생각을 이어서 쓰면 돼요. 잘못 골랐다면 「비우기」로 선택을 초기화할 수 있어요." },
+      { h: "랜덤 선택", p: "「랜덤 선택」을 누르면 주제마다 질문을 하나씩 무작위로 뽑아줘요. 뭘 쓸지 전혀 감이 안 올 때, 우연히 만난 질문이 예상 못 한 생각의 문을 열어주기도 해요." }
+    ] },
+    { t: "생각 남기기", items: [
+      { h: "생각 덧붙이기", p: "과거의 후기를 보고 새로운 생각을 덧붙일 수 있어요. 처음엔 별로라고 생각했는데 며칠 뒤 어느 장면이 자꾸 떠오를 때, 기록 카드의 「생각 덧붙이기」를 눌러보세요. 원래 후기는 그대로 두고 새 생각만 날짜와 함께 쌓이니까, 한 작품에 대한 내 마음이 어떻게 자라났는지 볼 수 있어요. 덧붙인 생각은 각각 따로 지울 수도 있어요." },
+      { h: "독립 생각", p: "작품과 상관없이 문득 떠오른 생각은 타임라인 위쪽 입력칸에 적고 「올리기」를 눌러요. 아직 정리되지 않은 생각, 일단 붙잡아두고 싶은 한마디를 가볍게 남기는 곳이에요. 나중에 수정하거나 삭제할 수 있어요." },
+      { h: "되돌아보기", p: "30일 이상 지난 기록 중 하나를 골라 다시 보여줘요. 1년 넘은 기록이 있다면 이맘때 본 작품이 먼저 나와요. 그때의 나는 이 작품을 어떻게 느꼈는지 다시 만나고, 「열어보기」로 전체를 보거나 「생각 덧붙이기」로 지금의 생각을 보탤 수 있어요. 마음에 안 들면 「다른 기록」으로 넘겨보세요." }
+    ] },
+    { t: "둘러보기", items: [
+      { h: "목록", p: "저장한 기록을 최근 순으로 훑어볼 수 있어요. 위쪽 탭(전체, 책, 영화, 연극, 뮤지컬)으로 종류별로 모아 보고, 카드를 펼치면 자세한 내용이 나와요. 한줄평만 쭉 읽어도 그동안의 감상이 한눈에 지나가요." },
+      { h: "검색·필터", p: "돋보기를 누르면 제목, 저자, 후기 내용으로 검색할 수 있어요. 후기 있음/없음, 별점(5점, 4.5↑, 4↑, 3↑, 3 미만, 별점 없음)으로 좁혀 볼 수도 있어요. 예를 들어 \"후기 쓴 연극 중 4점 이상\"만 모아 보면 나의 최애 목록이 돼요." },
+      { h: "생각 포함", p: "이 버튼을 켜면 목록에 덧붙인 생각도 함께 보여요. 작품만 볼 때와 생각까지 볼 때, 두 가지 모드로 둘러볼 수 있어요." },
+      { h: "달력", p: "날짜를 기준으로 언제 어떤 작품을 만났는지 한눈에 보여줘요. 날짜를 누르고 「이 날 기록하기」를 누르면 그날 바로 새 기록을 추가할 수 있어요. 그날 남긴 생각도 함께 볼 수 있어요." },
+      { h: "타임라인", p: "독립 생각과 덧붙인 생각이 날짜순으로 이어져요. 덧붙인 생각을 누르면 해당 작품으로 바로 이동해요. 내 생각이 시간 위에 어떻게 흘러왔는지 돌아보는 일기장 같은 공간이에요." },
+      { h: "통계", p: "이번 달, 최근 3개월, 올해, 전체 기간별로 얼마나 기록했는지 볼 수 있어요. 달별·연도별 카테고리 편수와 책 장르까지 살펴보면 나의 취향이 숫자로 보여요. 날짜가 없는 기록(읽는 중인 책 등)은 통계에서 빠져요." }
+    ] },
+    { t: "백업·불러오기", items: [
+      { h: "저장 방식", p: "이 앱은 회원가입이 없고, 기록은 **지금 쓰는 브라우저에만** 저장돼요. 그래서 다른 사람과 기록이 섞이지 않고 온전히 나만의 공간이에요. 대신 브라우저 데이터를 지우거나 기기를 바꾸면 기록이 사라질 수 있으니, 아래 백업을 꼭 해두세요." },
+      { h: "백업", p: "맨 위의 「백업」을 누르면 JSON 파일로 저장돼요. 덧붙인 생각과 독립 생각도 함께 담겨요. 기기를 바꾸기 전, 브라우저를 초기화하기 전, 그리고 기록이 어느 정도 쌓였을 때 한 번씩 해두면 소중한 기록을 지킬 수 있어요." },
+      { h: "불러오기", p: "「불러오기」에서 백업했던 JSON 파일을 고르면 기록이 복구돼요. 이미 있는 기록은 중복으로 추가되지 않고, 비어 있던 정보만 채워져요. 새 기기에서도 그대로 이어서 쓸 수 있어요." },
+      { h: "CSV 가져오기", p: "다른 곳에 정리해둔 기록이 있다면 같은 「불러오기」 버튼으로 CSV 파일도 가져올 수 있어요. 「제목」과 「일시」 칸이 꼭 있어야 해요. 이미 있는 기록은 건너뛰어서 중복 걱정 없이 옮겨올 수 있어요." }
+    ] }
+  ];
+  var hTab = 0;
+  function hRichText(node, txt) {
+    /* **굵게** 표시만 지원 */
+    String(txt).split("**").forEach(function (part, i) {
+      if (!part) return;
+      if (i % 2) node.appendChild(el("b", "", part));
+      else node.appendChild(document.createTextNode(part));
+    });
+  }
+  function renderHowto() {
+    var tabs = $("hTabs"), body = $("hBody");
+    tabs.textContent = "";
+    HOWTO.forEach(function (sec, ti) {
+      var b = el("button", ti === hTab ? "on" : "", sec.t);
+      b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-selected", ti === hTab ? "true" : "false");
+      b.onclick = function () { hTab = ti; renderHowto(); $("hBody").scrollTop = 0; };
+      tabs.appendChild(b);
+    });
+    var cur = tabs.querySelector("button.on");
+    if (cur && cur.scrollIntoView) { try { cur.scrollIntoView({ block: "nearest", inline: "nearest" }); } catch (e) {} }
+    body.textContent = "";
+    HOWTO[hTab].items.forEach(function (it) {
+      var card = el("div", "gq hq");
+      var head = el("div", "gqh hh");
+      head.appendChild(el("span", "gqt", it.h));
+      card.appendChild(head);
+      var p = el("div", "hp"); hRichText(p, it.p); card.appendChild(p);
+      body.appendChild(card);
+    });
+  }
+  function openHowto() {
+    hTab = 0;
+    $("howto").hidden = false;
+    pushLayer("howto");
+    renderHowto();
+    $("hBody").scrollTop = 0;
+  }
+  function hideHowto() { $("howto").hidden = true; }
+  function closeHowto() { popLayer("howto"); }
   function renderGuide() {
     var set = guideSet(gKey), th = set.themes[gTab];
     var tabs = $("gTabs");
@@ -2552,6 +2677,7 @@
     if (name === "clock") hideClock();
     else if (name === "writer") hideWriter();
     else if (name === "guide") hideGuide();
+    else if (name === "howto") hideHowto();
     else if (name === "form") { hideForm(); formSnap = ""; }
   }
   /* 닫기/취소 버튼: 기록(history)도 한 칸 되돌려서 뒤로가기와 똑같이 동작 */
@@ -2580,6 +2706,7 @@
   function requestClose() {
     var top = layers[layers.length - 1];
     if (top === "guide") closeGuide();
+    else if (top === "howto") closeHowto();
     else if (top === "writer") closeWriter();
     else if (top === "clock") closeClock();
     else if (top === "form") closeForm();
@@ -3063,6 +3190,8 @@
   if (window.ResizeObserver) new ResizeObserver(updateToolH).observe(document.querySelector(".tools"));
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateToolH);
 
+  $("howtoBtn").onclick = openHowto;
+  $("hClose").onclick = closeHowto;
   $("gOpen").onclick = openGuide;
   $("gOpen2").onclick = openGuide;
   $("gClose").onclick = closeGuide;
