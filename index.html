@@ -104,7 +104,8 @@
   .card { position: relative; padding: 10px 14px 10px 20px; cursor: pointer; }
   .card + .card { border-top: 1px solid var(--line); }
   .card:active { background: #f7f8fb; }
-  .card .bar { position: absolute; left: 9px; top: 11px; bottom: 11px; width: 3px; border-radius: 2px; background: var(--c); z-index: 4; }
+  .card .bar { position: absolute; left: 9px; top: 11px; bottom: 11px; width: 3px; border-radius: 2px; background: var(--c); z-index: 3; }   /* 층 순서(아래→위): 버튼 줄 1 < 제목 줄 2 < 색 띠 3 < PDF 선택 바 4 < 상단 도구 5 */
+  .card:has(.cfloat) .bar { z-index: 0; }   /* 세부정보 덮개가 떠 있는 동안만 색 띠를 덮개 아래로 */
   .l1 { display: flex; align-items: baseline; gap: 8px; }
   .card h2 {
     flex: 1; min-width: 0; margin: 0; font-family: var(--serif); font-size: 15.5px; font-weight: 600;
@@ -143,7 +144,7 @@
   .card.open { cursor: default; }
   .card.open:active { background: transparent; }
   .chead {
-    position: sticky; top: var(--toolh, 0px); z-index: 3; background: var(--paper);
+    position: sticky; top: var(--toolh, 0px); z-index: 2; background: var(--paper);
     margin: -10px -14px 0 -20px; padding: 0 14px 0 20px; height: var(--headh);
     border-bottom: 1px solid var(--line); cursor: pointer;
   }
@@ -160,7 +161,7 @@
   .cinfo .tk { display: block; margin-top: 6px; }
   .cinfo .tk .tt { white-space: normal; overflow: visible; text-overflow: clip; }
   .abar {
-    position: sticky; top: calc(var(--toolh, 0px) + var(--headh)); z-index: 3; background: var(--paper);
+    position: sticky; top: calc(var(--toolh, 0px) + var(--headh)); z-index: 1; background: var(--paper);
     display: flex; align-items: center; gap: 6px;
     margin: 0 -14px 0 -20px; padding: 6px 14px 6px 20px;
     border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
@@ -544,6 +545,16 @@
     opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 50; white-space: nowrap;
   }
   #toast.show { opacity: 1; transform: translate(-50%, 0); }
+  /* 상단 안내: 알약 모양 상자에 흰 글자, 천천히 떴다가(페이드인) 사라짐(페이드아웃) */
+  #topHint {
+    position: fixed; left: 50%; top: calc(env(safe-area-inset-top) + 14px); z-index: 60;
+    max-width: calc(100% - 32px); width: max-content; text-align: center;
+    background: rgba(25,28,43,.6); color: #fff; font-size: 12.5px; line-height: 1.4; padding: 10px 18px 8px;   /* 한글 글꼴이 위로 쏠려 보여서 위 여백을 2px 더 줌 */
+    display: flex; align-items: center; justify-content: center; border-radius: 999px;
+    opacity: 0; transform: translate(-50%, -8px); pointer-events: none;
+    transition: opacity .45s ease, transform .45s ease;
+  }
+  #topHint.show { opacity: 1; transform: translate(-50%, 0); }
   .gpane .phead { align-items: center; }
   .gpane .gnav { display: flex; align-items: center; gap: 2px; }
   .gpane .gnav button { border: 0; background: transparent; color: var(--sub); font-size: 22px; line-height: 1; padding: 0 7px 2px; cursor: pointer; font-family: inherit; }
@@ -583,8 +594,17 @@
   #list > .gx:first-child { margin-top: 10px; }   /* 달력(#calWrap 위 여백 12px)과 맞춤 */
   .gxhid { text-align: right; margin: 0 0 6px; }
   .gxhid button { border: 0; background: none; color: var(--mute); font: inherit; font-size: 12px; padding: 2px 4px; cursor: pointer; text-decoration: underline; }
-  .gbtns { display: flex; gap: 6px; }
-  .gbtns button { border: 1px solid var(--line2); background: var(--paper); border-radius: 999px; font-size: 12.5px; padding: 4px 12px; color: var(--ink); cursor: pointer; font-family: inherit; }
+  .gbtns, .recall .actions { display: flex; gap: 6px; }
+  /* 독서 목표 카드: 버튼은 카드 안에 띄워서(absolute) 마지막 문구 줄 오른쪽 끝에 둠 → 버튼 때문에 카드 높이가 늘지 않음 */
+  .gxbox { position: relative; }
+  .gxbox > .gbtns { position: absolute; right: 16px; bottom: 14px; margin: 0; }
+  .recall .actions { margin-top: 9px; }
+  .gbtns button, .recall .actions button {
+    display: inline-flex; align-items: center; justify-content: center; height: 26px; padding: 0 12px;
+    border: 1px solid var(--line2); background: var(--paper); border-radius: 999px;
+    font-size: 12.5px; font-weight: 400; line-height: 1; color: var(--ink); cursor: pointer; font-family: inherit;
+  }
+  .gbtns .rhide, .recall .actions .rhide { margin-left: auto; }
   /* 목표 탭: 월별 목표 목록 + 비교 그래프 */
   .mrow { display: grid; grid-template-columns: 30px 1fr 70px 50px; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
   .mrow .ml { font-size: 14px; font-weight: 600; }
@@ -706,6 +726,14 @@
   #rtabs button.tgl.on::before { background: var(--ink); box-shadow: none; }
   #rtabs button.tgl::after { display: none; }
   #rtabs .fsel.act span { box-shadow: inset 0 -2px 0 var(--ink); }
+  /* PDF 저장: 생각 포함 오른쪽, 모서리가 작게 둥근 사각형 */
+  #rtabs button.pdfb {
+    flex: none; margin: 0 0 0 -4px; height: var(--ctl); padding: 0 10px; border: 1px solid var(--line2);
+    border-radius: 6px; background: var(--paper); color: var(--ink); font-size: 13px; font-weight: 500;
+    white-space: nowrap; display: inline-flex; align-items: center; cursor: pointer;
+  }
+  #rtabs button.pdfb[hidden] { display: none; }
+  #rtabs button.pdfb.on { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 700; }
 
   /* ===== 타임라인(생각) ===== */
   #tlWrap { padding: 12px 16px 4px; }
@@ -1203,6 +1231,54 @@
     padding: 0 14px 6px 20px; background: var(--paper);
     border-bottom: 1px solid var(--line2);
   }
+
+  /* ---------- PDF 내보내기 ---------- */
+  #exbar { padding: 0 16px; }
+  #exbar.selmode {
+    position: sticky; top: var(--toolh, 0px); z-index: 4; background: var(--bg);
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 6px 16px 8px; border-bottom: 1px solid var(--line);
+  }
+  #exbar .ghost { border-radius: 6px; height: var(--ctl); padding: 0 10px; }
+  #exbar .ghost:disabled { opacity: .4; cursor: default; }
+  #exbar .excnt { margin-right: auto; padding: 0 4px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+  #exbar .ghost.exgo { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 700; }
+  .card.sel { padding-left: 52px; }
+  .card.sel .ck {
+    position: absolute; left: 19px; top: 50%; width: 22px; height: 22px; margin-top: -11px;
+    border: 2px solid #9296ab; border-radius: 6px; background: #fff;
+  }
+  .card.sel.picked { background: #f1f2fa; }
+  .card.sel.picked .ck { background: var(--ink); border-color: var(--ink); }
+  .card.sel.picked .ck::after {
+    content: ""; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px;
+    border: solid #fff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg);
+  }
+  .card[role="checkbox"]:focus-visible { outline-offset: -3px; }
+
+  #printArea { display: none; }
+  @media print {
+    @page { margin: 16mm 15mm; }
+    html, body { background: #fff !important; }
+    body { margin: 0 !important; padding: 0 !important; color: #000; }
+    body > *:not(#printArea) { display: none !important; }
+    #printArea { display: block !important; color: #000; font-size: 10.5pt; line-height: 1.7; }
+    #printArea .pr-blk { padding: 13pt 0 15pt; }
+    #printArea .pr-blk + .pr-blk { border-top: 0.75pt solid #000; }
+    #printArea .pr-blk:first-child { padding-top: 0; }
+    #printArea .pr-blk.keep { break-inside: avoid; page-break-inside: avoid; }
+    #printArea .pr-title { margin: 0; font: 700 13.5pt/1.4 var(--sans); break-after: avoid; page-break-after: avoid; }
+    #printArea .pr-meta { margin: 2pt 0 0; font: 9.5pt/1.5 var(--sans); color: #222; break-after: avoid; page-break-after: avoid; }
+    #printArea .pr-tags { margin: 1pt 0 0; font: 9pt/1.5 var(--sans); color: #222; break-after: avoid; page-break-after: avoid; }
+    #printArea .pr-f { display: flex; gap: 8pt; margin-top: 2pt; font: 9.5pt/1.5 var(--sans); color: #222; break-inside: avoid; page-break-inside: avoid; }
+    #printArea .pr-f:first-of-type { margin-top: 5pt; }
+    #printArea .pr-fl { flex: none; width: 3.2em; font-weight: 700; }
+    #printArea .pr-fv { flex: 1; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+    #printArea .pr-body { margin-top: 9pt; font-family: var(--serif); white-space: pre-wrap; overflow-wrap: anywhere; orphans: 3; widows: 3; }
+    #printArea .pr-lh { margin: 13pt 0 3pt; text-align: center; font: 9pt/1.5 var(--sans); letter-spacing: .06em; color: #222; break-after: avoid; page-break-after: avoid; }
+    #printArea .pr-th { break-inside: avoid; page-break-inside: avoid; margin-top: 7pt; }
+    #printArea .pr-ld { font: 700 8.5pt/1.5 var(--sans); color: #222; break-after: avoid; page-break-after: avoid; }
+    #printArea .pr-lt { font-family: var(--serif); font-size: 10pt; white-space: pre-wrap; overflow-wrap: anywhere; }
+  }
 </style>
 </head>
 <body>
@@ -1277,11 +1353,13 @@
         <select id="ssel" aria-label="별점 필터"></select>
       </label>
       <button type="button" class="tgl" id="tgBtn" aria-pressed="false">생각 포함</button>
+      <button type="button" class="pdfb" id="pdfBtn" hidden>PDF 저장</button>
     </div>
     <div id="qbox" hidden>
       <input type="search" id="q" placeholder="제목, 저자, 후기 내용 검색">
     </div>
   </div>
+  <div id="exbar" hidden></div>
   <div id="calWrap" hidden>
     <div id="calGoal"></div>
     <div class="calcard">
@@ -1317,7 +1395,9 @@
   <div id="list"></div>
 </div>
 
+<div id="printArea" aria-hidden="true"></div>
 <div id="toast" role="status" aria-live="polite"></div>
+<div id="topHint" role="status" aria-live="polite"></div>
 <div id="welcome" hidden>
   <div class="wbox" role="dialog" aria-modal="true" aria-label="시작 전 안내">
     <div class="whd"><span class="wbadge">중요</span><b>시작하기 전에 꼭 읽어주세요</b></div>
@@ -1538,6 +1618,7 @@
   var rfilter = "all";
   var sfilter = "all";
   var showTh = false;
+  var selMode = false, selIds = {};   /* PDF 내보내기 선택 모드 */
   var tlLimit = 60, tlOnly = false;
   var tEditId = null;
   var editingId = null;
@@ -2000,7 +2081,8 @@
   }
 
   function buildCard(r, inDay) {
-    var isOpen = !!openIds[r.id];
+    var selOn = selMode && view === "list" && !inDay;
+    var isOpen = !selOn && !!openIds[r.id];
     var card = el("div", "card" + (isOpen ? " open" : ""));
     card.dataset.type = r.type;
     card.dataset.id = r.id;
@@ -2048,6 +2130,19 @@
       appendDetailExtra(det, r);
       card.appendChild(det);
     }
+    if (selOn) {   /* 선택 모드: 카드를 누르면 열리는 대신 체크됨 */
+      card.classList.add("sel");
+      if (selIds[r.id]) card.classList.add("picked");
+      card.appendChild(el("span", "ck"));
+      card.setAttribute("role", "checkbox");
+      card.setAttribute("aria-checked", selIds[r.id] ? "true" : "false");
+      card.removeAttribute("aria-expanded");
+      card.onclick = function () { toggleSel(r.id, card); };
+      card.onkeydown = function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        e.preventDefault(); toggleSel(r.id, card);
+      };
+    }
     return card;
   }
 
@@ -2059,6 +2154,7 @@
   function render() {
     var reading = data.filter(function (r) { return r.status === "reading"; }).length;
     $("count").textContent = "지금까지 " + data.length + "편의 기록" + (reading ? ", 읽는 중 " + reading + "권" : "");
+    if (view !== "list") { selMode = false; selIds = {}; }
     $("list").hidden = view !== "list";
     $("calWrap").hidden = view !== "cal";
     $("statWrap").hidden = view !== "stat";
@@ -2069,7 +2165,7 @@
     $("sbtn").setAttribute("aria-expanded", searchOpen ? "true" : "false");
     $("tabs").hidden = view === "stat" || view === "tl";
     $("rtabs").hidden = view === "stat" || view === "tl";
-    $("tgBtn").hidden = view !== "list";
+    $("tgBtn").hidden = view !== "list" || selMode;
     var inKind = data.filter(function (r) { return filter === "all" || r.type === filter; });
     var rPool = inKind.filter(function (r) { return starOk(r, sfilter); });
     var nYes = rPool.filter(hasReview).length;
@@ -2089,6 +2185,7 @@
     else if (view === "cal") renderCal();
     else if (view === "tl") renderTL();
     else renderStats();
+    renderExport();
     updateToolH();
     syncToggles();
     $("closeAll").disabled = !document.querySelector(".card.open");
@@ -2458,9 +2555,24 @@
     if (recallSeed === 0 && near.length) return { r: near[base % near.length], near: true, n: pool.length };
     return { r: pool[(base + recallSeed) % pool.length], near: false, n: pool.length };
   }
+  /* 되돌아보기 숨기기: 숨기면 작은 「되돌아보기 보기」 글자만 남아요(독서 목표 숨기기와 같은 방식) */
+  var RHKEY = "reviews-recallhide-v1";
+  function recallHidden() {
+    try { return localStorage.getItem(RHKEY) === "1"; } catch (e) { return false; }
+  }
+  function setRecallHidden(v) {
+    try { if (v) localStorage.setItem(RHKEY, "1"); else localStorage.removeItem(RHKEY); } catch (e) {}
+  }
   function buildRecall() {
     var pk = pickRecall();
     if (!pk) return null;
+    if (recallHidden()) {
+      var sw = el("div", "gx gxhid");
+      var sbn = el("button", "", "되돌아보기 보기"); sbn.type = "button";
+      sbn.onclick = function () { setRecallHidden(false); render(); };
+      sw.appendChild(sbn);
+      return sw;
+    }
     var r = pk.r;
     var pane = el("div", "pane recall"); pane.dataset.type = r.type;
     var rh = el("div", "rh");
@@ -2488,6 +2600,8 @@
       var b3 = el("button", "", "다른 기록"); b3.onclick = function () { recallSeed++; render(); };
       act.appendChild(b3);
     }
+    var b4 = el("button", "rhide", "숨기기"); b4.type = "button"; b4.onclick = function () { setRecallHidden(true); render(); };
+    act.appendChild(b4);
     pane.appendChild(act);
     return pane;
   }
@@ -2500,14 +2614,14 @@
     var list = $("list");
     list.textContent = "";
     var qv = $("q").value.trim().toLowerCase();
-    var rc = (!anyFilter() && !qv) ? buildRecall() : null;
+    var rc = (!anyFilter() && !qv && !selMode) ? buildRecall() : null;
     if (rc) list.appendChild(rc);
-    var gm = (filter === "book" || filter === "all") ? buildListGoal() : null;   /* 달력처럼 목표 설정 여부·검색과 상관없이 항상 표시 */
+    var gm = (!selMode && (filter === "book" || filter === "all")) ? buildListGoal() : null;   /* 달력처럼 목표 설정 여부·검색과 상관없이 항상 표시 */
     if (gm) list.appendChild(gm);
 
     /* 생각 포함: 타임라인에서 직접 쓴 생각만(필터가 없을 때) */
     var extra = [];
-    if (showTh) {
+    if (showTh && !selMode) {
       var plain = !anyFilter();
       tlEntries(items).forEach(function (e) {
         if (e.k !== "t" || !plain) return;   /* 덧붙임은 후기를 열면 보이므로 제외, 직접 쓴 생각만 */
@@ -2545,6 +2659,107 @@
       });
       all.forEach(function (x) { rows.appendChild(x.kind === 0 ? buildCard(x.r, false) : buildTEntry(x.e, true)); });
     });
+  }
+
+  /* ---------- PDF 내보내기 ---------- */
+  function selCount() { return data.filter(function (r) { return selIds[r.id]; }).length; }
+  function enterSel() {
+    selMode = true; selIds = {};
+    openIds = {}; infoOpen = {}; addingId = null;
+    render();
+  }
+  function exitSel() { selMode = false; selIds = {}; render(); }
+  function toggleSel(id, card) {
+    if (selIds[id]) delete selIds[id]; else selIds[id] = 1;
+    card.classList.toggle("picked", !!selIds[id]);
+    card.setAttribute("aria-checked", selIds[id] ? "true" : "false");
+    renderExport();
+  }
+  function renderExport() {
+    var bar = $("exbar");
+    bar.textContent = "";
+    var show = view === "list" && data.length;
+    var pb = $("pdfBtn");
+    pb.hidden = !show || selMode;
+    bar.hidden = !show || !selMode;
+    bar.classList.toggle("selmode", selMode);
+    if (bar.hidden) return;
+    function btn(cls, text, fn) { var b = el("button", cls, text); b.type = "button"; b.onclick = fn; return b; }
+    var vis = getItems(true);
+    var allOn = vis.length > 0 && vis.every(function (r) { return selIds[r.id]; });
+    var all = btn("ghost", allOn ? "전체 해제" : "전체 선택", function () {
+      vis.forEach(function (r) { if (allOn) delete selIds[r.id]; else selIds[r.id] = 1; });
+      render();
+    });
+    all.disabled = !vis.length;
+    bar.appendChild(all);
+    var n = selCount();
+    var c = el("span", "excnt", n + "개 선택됨");
+    c.setAttribute("aria-live", "polite");
+    bar.appendChild(c);
+    bar.appendChild(btn("ghost", "취소", exitSel));
+    var go = btn("ghost exgo", "PDF 만들기", exportPdf);
+    go.disabled = !n;
+    bar.appendChild(go);
+  }
+  function dots(ds) { return ds ? ds.replace(/-/g, ".") : ""; }
+  function starText(v) {
+    var f = Math.floor(v || 0), s = "";
+    for (var i = 0; i < f; i++) s += "\u2605";
+    if ((v || 0) - f >= 0.5) s += "\u00BD";
+    return s;
+  }
+  function buildPrint(items) {
+    var pa = $("printArea");
+    pa.textContent = "";
+    items.forEach(function (r) {
+      var blk = el("section", "pr-blk");
+      blk.appendChild(el("h2", "pr-title", "[" + KIND[r.type].name + "] " + (r.title || "(제목 없음)")));
+      var when = r.status === "reading" ? "읽는 중" : (dots(r.date) + (r.time ? (r.date ? " " : "") + r.time : ""));
+      var meta = [when, starText(r.rating), r.creator, r.genre].filter(function (x) { return x && String(x).trim(); });
+      if (meta.length) blk.appendChild(el("div", "pr-meta", meta.join(" \u00B7 ")));
+      if (r.tags && r.tags.length) blk.appendChild(el("div", "pr-tags", r.tags.map(function (t) { return "#" + t; }).join(" ")));
+      [["한줄평", r.take], ["캐스팅", r.cast], ["좌석", r.seat], ["비고", r.note]].forEach(function (f) {
+        var v = (f[1] || "").replace(/\s+$/, "").replace(/^\s+/, "");
+        if (!v) return;
+        var row = el("div", "pr-f");
+        row.appendChild(el("span", "pr-fl", f[0]));
+        row.appendChild(el("span", "pr-fv", v));
+        blk.appendChild(row);
+      });
+      var body = (r.text || "").replace(/^\s*\n/, "").replace(/\s+$/, "");
+      if (body) blk.appendChild(el("div", "pr-body", body));
+      var later = (r.later || []).slice().sort(function (a, b) { return (a.d + (a.tm || "")).localeCompare(b.d + (b.tm || "")); });
+      var len = body.length;
+      if (later.length) {
+        blk.appendChild(el("div", "pr-lh", "\u2500\u2500 덧붙인 생각 \u2500\u2500"));
+        later.forEach(function (x) {
+          var th = el("div", "pr-th");
+          th.appendChild(el("div", "pr-ld", dots(x.d) + (x.tm ? " " + x.tm : "")));
+          th.appendChild(el("div", "pr-lt", x.t.replace(/\s+$/, "")));
+          blk.appendChild(th);
+          len += x.t.length;
+        });
+      }
+      if (len < 1200) blk.classList.add("keep");   /* 짧은 기록은 페이지 중간에서 끊기지 않게 */
+      pa.appendChild(blk);
+    });
+  }
+  function exportPdf() {
+    var items = data.filter(function (r) { return selIds[r.id]; }).sort(function (a, b) {
+      var ra = a.status === "reading" ? 1 : 0, rb = b.status === "reading" ? 1 : 0;
+      return (rb - ra) || (b.date || "").localeCompare(a.date || "") || (b.time || "").localeCompare(a.time || "") || b.id - a.id;
+    });
+    if (!items.length) return;
+    buildPrint(items);
+    var oldTitle = document.title;
+    document.title = (($("count").previousElementSibling || {}).textContent || "나의 후기") + "_" + today();   /* PDF 저장 시 기본 파일 이름 */
+    function done() { window.removeEventListener("afterprint", done); document.title = oldTitle; }
+    window.addEventListener("afterprint", done);
+    setTimeout(function () {
+      try { window.print(); }
+      catch (e) { done(); showToast("이 브라우저에서는 인쇄 화면을 열 수 없어요"); }
+    }, 60);
   }
 
   /* ---------- 달력 ---------- */
@@ -3014,42 +3229,22 @@
     { t: "생각 남기기", items: [
       {"h": "생각 덧붙이기", "lines": ["기록 카드의 「생각 덧붙이기」를 눌러요.", "원래 후기는 그대로 두고 새 생각만 날짜와 함께 쌓여요.", "처음엔 별로였는데 며칠 뒤 어느 장면이 자꾸 떠오를 때, 마음이 어떻게 자랐는지 볼 수 있어요.", "덧붙인 생각은 각각 따로 지울 수 있어요."]},
       {"h": "독립 생각", "lines": ["작품과 상관없이 떠오른 생각은 타임라인 위쪽 입력칸에 적고 「올리기」를 눌러요.", "아직 정리되지 않은 생각을 가볍게 붙잡아두는 곳이에요.", "나중에 수정하거나 삭제할 수 있어요."]},
-      {"h": "되돌아보기", "lines": ["30일 이상 지난 기록 중 하나를 골라 다시 보여줘요.", "1년 넘은 기록이 있다면 이맘때 본 작품이 먼저 나와요.", "「열어보기」로 전체를 보거나 「생각 덧붙이기」로 지금의 생각을 보탤 수 있어요.", "마음에 안 들면 「다른 기록」으로 넘겨요."]}
+      {"h": "되돌아보기", "lines": ["30일 이상 지난 기록 중 하나를 골라 다시 보여줘요.", "1년 넘은 기록이 있다면 이맘때 본 작품이 먼저 나와요.", "「열어보기」로 전체를 보거나 「생각 덧붙이기」로 지금의 생각을 보탤 수 있어요.", "마음에 안 들면 「다른 기록」으로 넘겨요.", "보고 싶지 않을 땐 「숨기기」를 눌러요. 작은 「되돌아보기 보기」 글자를 누르면 다시 떠요."]}
     ] },
     { t: "백업·불러오기", items: [
       {"warn": true, "h": "내 기록은 이 기기에만 저장돼요", "lines": ["후기는 서버로 전송되거나 다른 사람과 공유되지 않아요. **지금 쓰는 기기의 브라우저에만** 저장되고, 나만 볼 수 있어요.", "**브라우저 캐시·사이트 데이터를 지우거나 기기를 바꾸면 기록이 모두 사라져요.** 한 번 사라진 기록은 되돌릴 방법이 없어요.", "그러니 **백업을 꼭, 틈틈이** 해두세요.", "기록이 어느 정도 쌓였을 때, 기기를 바꾸기 전, 브라우저를 정리하기 전에는 반드시 해야 해요."]},
       {"h": "백업하기", "lines": ["맨 위의 「백업」을 누르면 JSON 파일로 저장돼요.", "덧붙인 생각과 독립 생각도 함께 담겨요.", "기기를 바꾸기 전, 브라우저를 초기화하기 전, 기록이 쌓였을 때 한 번씩 해두세요."]},
+      {"h": "PDF로 저장하기", "lines": ["목록 화면 필터 줄 오른쪽의 「PDF 저장」을 누르면 원하는 후기를 선택하여 한번에 PDF 파일로 저장할 수 있어요.", "제목, 날짜, 별점, 한줄평, 후기, 덧붙인 생각이 함께 담겨요.", "탭, 필터, 검색으로 좁혀 두면 그 기록만 골라 담을 수 있어요.", "PDF는 읽거나 인쇄하려고 꺼내는 용도예요. 기록을 지키려면 「백업」도 따로 해두세요."]},
       {"h": "백업 알림", "lines": ["기록이 3개 이상인데 백업한 적이 없으면 위쪽에 알림이 떠요.", "마지막 백업 뒤 내용이 바뀌고 7일이 지나도 알림이 떠요.", "「지금 백업」을 누르면 바로 저장돼요. 「나중에」를 누르면 3일 뒤에 다시 알려줘요."]},
       {"h": "불러오기", "lines": ["「불러오기」에서 백업했던 JSON 파일을 골라요.", "이미 있는 기록은 중복 추가되지 않고, 비어 있던 정보만 채워져요."]},
       {"h": "기기를 바꿀 때", "lines": ["기존 기기에서 「백업」으로 파일을 저장해요.", "그 파일을 새 기기로 옮겨요.", "새 기기에서 「불러오기」로 파일을 골라요.", "기록이 제대로 들어왔는지 확인한 뒤, 기존 기기의 데이터를 정리해요."]},
       {"h": "공연 앱 「플앱」 CSV로 옮겨오기", "lines": ["공연 일정 관리 앱 「플앱」에서 내보낸 CSV 파일을 같은 「불러오기」 버튼으로 가져올 수 있어요.", "「제목」과 「일시」 칸이 꼭 있어야 해요.", "「캘린더」「출연」「장소」「좌석」「리뷰/메모」 칸이 있으면 종류, 캐스팅, 극장, 좌석으로 함께 들어와요. 짧은 메모는 비고로, 긴 메모는 후기로 들어가요.", "이미 있는 기록은 건너뛰어서 중복 걱정 없이 옮겨올 수 있어요."]}
     ] },
-    /* 업데이트 내역: 기능 위주로만 적고(UI 다듬기·문구·색 같은 사소한 건 제외), 하루를 오전·오후 카드 한 장씩으로 묶어 맨 위(최신순)에 둠.
-       카드 하나 안에 secs(제목 + 항목 여러 개)를 여러 개 넣을 수 있음 */
+    /* 업데이트 내역: 코드를 수정할 때마다 맨 위(최신순)에 한 줄씩 추가 */
     { t: "업데이트 내역", log: true, items: [
-      { d: "2026-10-02", h: "오후 업데이트", secs: [
-        { h: "후기 쓰기", items: [
-          "쓰는 중에 위쪽 「내리기」 버튼을 누르거나 위쪽 바를 아래로 쓸어내리면 작성 화면이 아래 「이어 쓰기」 막대로 내려가요. 다른 화면을 보다가 막대나 「+ 후기 추가」를 누르면 쓰던 내용 그대로 이어 쓸 수 있어요.",
-          "후기 창 위쪽, 글자 수 옆에 ↶ ↷ 버튼이 생겼어요. 지운 내용을 되돌리거나 다시 적용할 수 있고, 가이드 질문을 넣은 것도 한 번에 되돌려져요. 키보드에서는 Ctrl(⌘)+Z / Shift+Z로도 돼요."
-        ] },
-        { h: "삭제", items: [
-          "후기, 덧붙인 생각, 타임라인의 생각·활동 기록을 지울 때 「정말 삭제할까요?」 확인 창이 먼저 떠요. 지운 직후 몇 초 동안은 「되돌리기」로 취소할 수 있어요.",
-          "목록에서 기록을 지워도 타임라인의 「관람」「완독」 등 활동 기록이 남던 문제를 고쳤어요. 이제 같이 지워지고, 「되돌리기」를 누르면 같이 돌아와요. 이미 남아 있던 원본 없는 기록은 앱을 열 때 한 번 정리돼요."
-        ] },
-        { h: "달력 · 타임라인", items: [
-          "달력에서 날짜를 누르면 「그날의 생각」 줄 오른쪽에 「+ 적기」가 생겨요. 오늘까지의 날짜에 생각을 적을 수 있어요.",
-          "지난 날짜에 적은 생각은 타임라인의 그 날짜 칸에 「나중에 씀」으로 올라가고, 누르면 실제로 쓴 날짜와 시각이 보여요. 쓴 날에는 「생각 기록됨」 줄이 남고, 누르면 달력의 그 생각으로 이동해요.",
-          "날짜 칸의 생각을 지우면 생각 자체가 삭제되고, 「생각 기록됨」 줄을 지우면 타임라인 기록만 지워져요."
-        ] },
-        { h: "독서 목표", items: [
-          "통계 「목표」 탭 올해 카드에 「목록·달력 고정」 버튼이 생겼어요. 켜면 목록과 달력 맨 위에 독서 목표 바가 보이고, 끄면 바도 「독서 목표 보기」 글자도 안 보여요. 고정 중에 바 안의 「숨기기」는 잠깐 숨기는 용도라서, 「독서 목표 보기」 글자를 누르면 다시 떠요.",
-          "목록·달력의 독서 목표 한 줄을 누르면 그 자리에서 카드로 펼쳐지고, 다시 누르면 접혀요. 버튼은 「수정」과 「숨기기」예요."
-        ] },
-        { h: "보던 화면 유지", items: [
-          "새로고침해도 보던 탭, 필터, 검색어, 펼쳐둔 카드, 스크롤 위치가 그대로 유지돼요. 탭을 완전히 닫았다가 다시 열면 처음 화면으로 시작해요.",
-          "후기를 스크롤해 내린 상태에서 「펼치기」를 눌러도 보던 위치는 그대로 두고, 세부정보는 기록칸 안에서만 펼쳐져서 아래 기록을 덮지 않아요. 남은 자리가 거의 없을 때만 「펼치기」가 비활성화돼요."
-        ] }
-      ] }
+      {"d": "2026-10-02 22:23", "h": "되돌아보기", "p": "되돌아보기 카드의 「다른 기록」 옆에 「숨기기」 버튼이 생겼어요. 누르면 카드가 사라지고 작은 「되돌아보기 보기」 글자만 남아요. 이 글자를 누르면 다시 떠요."},
+      {"d": "2026-10-02 22:06", "h": "PDF 저장", "p": "목록 화면 필터 줄 오른쪽(「생각 포함」 옆)에 「PDF 저장」 버튼이 생겼어요. 누르면 필터 줄의 버튼은 사라지고 선택 바가 나타나요. 원하는 후기를 골라 「PDF 만들기」를 누르면 PDF로 저장할 수 있고, 「취소」를 누르면 원래대로 돌아와요."},
+      {"d": "2026-10-02 21:02", "h": "독서 목표", "p": "통계 「목표」 탭 올해 카드에 「목록·달력 고정」 버튼이 생겼어요. 켜면 목록과 달력 맨 위에 독서 목표 바가 보이고, 끄면 바도 「독서 목표 보기」 글자도 안 보여요. 고정 중에 바 안의 「숨기기」는 잠깐 숨기는 용도라서, 「독서 목표 보기」 글자를 누르면 다시 떠요. 목록·달력의 독서 목표 한 줄을 누르면 그 자리에서 카드로 펼쳐지고, 다시 누르면 접혀요. 버튼은 「수정」과 「숨기기」예요."}
     ] }
   ];
   var hTab = 0;
@@ -3567,6 +3762,12 @@
     else if (top === "clock") closeClock();
     else if (top === "form") closeForm();
   }
+  /* 상단에 3초간 떴다 사라지는 작은 안내 */
+  function showTopHint(msg) {
+    var t = $("topHint"); t.textContent = msg;
+    t.classList.remove("show"); void t.offsetWidth; t.classList.add("show");
+    clearTimeout(showTopHint.h); showTopHint.h = setTimeout(function () { t.classList.remove("show"); }, 3000);
+  }
   function showToast(msg) {
     var t = $("toast"); t.classList.remove("act"); t.textContent = msg; t.classList.add("show");
     clearTimeout(showToast.h); showToast.h = setTimeout(function () { t.classList.remove("show"); }, 1800);
@@ -3597,7 +3798,7 @@
     }
     if (g >= 1) return;
     /* 맨 첫 화면에서의 뒤로가기: 바로 나가지 않고 한 단계씩 정리 */
-    var busy = searchOpen || addingId || tEditId || view !== "list" || Object.keys(openIds).length;
+    var busy = selMode || searchOpen || addingId || tEditId || view !== "list" || Object.keys(openIds).length;
     if (busy) {
       history.pushState({ g: 1 }, "");
       if (retTo && view === "list") {
@@ -3606,7 +3807,8 @@
         view = rt.view; render(); window.scrollTo(0, rt.y);
         return;
       }
-      if (searchOpen) searchOpen = false;
+      if (selMode) { selMode = false; selIds = {}; }
+      else if (searchOpen) searchOpen = false;
       else if (addingId || tEditId) { addingId = null; tEditId = null; }
       else if (view !== "list") view = "list";
       else { openIds = {}; infoOpen = {}; }
@@ -4092,10 +4294,13 @@
       if (gxEdit || e.target.closest("button, input, .gedit")) return;
       gxOpen[where] = false; render();
     };
-    var hb = el("button", "", "숨기기"); hb.type = "button";
+    var hb = el("button", "rhide", "숨기기"); hb.type = "button";
     hb.setAttribute("aria-label", "독서 목표 숨기기");
-    hb.onclick = function () { setGoalHidden(where, true); gxOpen[where] = false; gxEdit = false; render(); };
-    bt.appendChild(eb); bt.appendChild(hb); h.appendChild(bt);
+    hb.onclick = function () {
+      setGoalHidden(where, true); gxOpen[where] = false; gxEdit = false; render();
+      showTopHint("독서 목표를 완전히 숨기려면 통계-목표 탭에서 목록·달력 고정을 해제하세요.");
+    };
+    bt.appendChild(eb); bt.appendChild(hb);
     pane.appendChild(h);
     if (gxEdit) {
       var ed = el("div", "gedit");
@@ -4124,6 +4329,7 @@
     pane.appendChild(nums);
     if (!goal) {
       if (!gxEdit) pane.appendChild(el("div", "gnote", P.past ? P.label + "에는 목표를 정하지 않았어요." : P.unit + " 읽을 책 권수를 정해보세요."));
+      pane.appendChild(bt);
       return pane;
     }
     var tr = el("span", "gtrack"), fi = el("i");
@@ -4154,6 +4360,7 @@
       var reading = data.filter(function (r) { return r.type === "book" && r.status === "reading"; }).length;
       if (reading) pane.appendChild(el("div", "gnote", "읽는 중 " + reading + "권"));
     }
+    pane.appendChild(bt);
     return pane;
   }
   /* where: "list" | "cal". allowEmpty: 목표가 없어도 줄을 보여줌(달력에서 바로 설정하도록) */
@@ -4470,6 +4677,7 @@
   $("rsel").onchange = function () { rfilter = this.value; render(); };
   $("ssel").onchange = function () { sfilter = this.value; render(); };
   $("tgBtn").onclick = function () { showTh = !showTh; render(); };
+  $("pdfBtn").onclick = enterSel;
   $("tlFilt").onclick = function (e) {
     if (!e.target.dataset.tf) return;
     tlOnly = e.target.dataset.tf === "mine"; tlLimit = 60; render();
