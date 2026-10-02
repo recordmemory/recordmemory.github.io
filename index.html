@@ -540,6 +540,68 @@
     opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 50; white-space: nowrap;
   }
   #toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .gpane .phead { align-items: center; }
+  .gpane .gnav { display: flex; align-items: center; gap: 2px; }
+  .gpane .gnav button { border: 0; background: transparent; color: var(--sub); font-size: 22px; line-height: 1; padding: 0 7px 2px; cursor: pointer; font-family: inherit; }
+  .gpane .gnav button:disabled { opacity: .25; cursor: default; }
+  .gpane .phead > button { border: 1px solid var(--line2); background: var(--paper); border-radius: 999px; font-size: 12.5px; padding: 4px 12px; color: var(--ink); cursor: pointer; font-family: inherit; }
+  .gnums { display: flex; align-items: baseline; gap: 6px; }
+  .gnums b { font-family: var(--serif); font-size: 30px; letter-spacing: -.02em; line-height: 1.2; }
+  .gnums span { color: var(--sub); font-size: 14px; }
+  .gnums em { margin-left: auto; font-style: normal; font-weight: 700; color: var(--ct); }
+  .gtrack { position: relative; display: block; height: 10px; border-radius: 5px; background: var(--line); margin: 8px 0 11px; }
+  .gtrack i { display: block; height: 100%; border-radius: 5px; background: var(--c); }
+  .gtrack u { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--ink); opacity: .5; border-radius: 1px; text-decoration: none; }
+  .gnote { font-size: 13.5px; color: var(--sub); margin-top: 3px; }
+  .gnote.hi { color: var(--ink); font-weight: 700; }
+  .gedit { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .gedit input { width: 84px; padding: 8px 10px; text-align: center; }
+  .gedit button { border: 1px solid var(--line2); background: var(--paper); border-radius: 999px; font-size: 13px; padding: 7px 14px; color: var(--ink); cursor: pointer; font-family: inherit; }
+  .gedit button.primary { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 700; }
+  .gedit button.dim { border-color: transparent; color: var(--sub); }
+  .gmini { display: flex; align-items: center; gap: 10px; width: 100%; margin: 0 0 8px; padding: 9px 14px; background: var(--paper); border: 0; border-radius: 12px; box-shadow: 0 0 0 1px var(--line); font: inherit; font-size: 13px; color: var(--sub); cursor: pointer; text-align: left; }
+  .gmini .gtrack { flex: 1; margin: 0; height: 7px; }
+  .gmini b { color: var(--ink); white-space: nowrap; }
+  .gmini.none b { color: var(--mute); font-weight: 400; }
+  .gx .gxbox { margin: 0 0 8px; }
+  .gbtns { display: flex; gap: 6px; }
+  .gbtns button { border: 1px solid var(--line2); background: var(--paper); border-radius: 999px; font-size: 12.5px; padding: 4px 12px; color: var(--ink); cursor: pointer; font-family: inherit; }
+  /* 목표 탭: 월별 목표 목록 + 비교 그래프 */
+  .mrow { display: grid; grid-template-columns: 30px 1fr 70px 50px; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
+  .mrow .ml { font-size: 14px; font-weight: 600; }
+  .mrow.now .ml { color: var(--ct); }
+  .mrow .gtrack { margin: 0; height: 8px; }
+  .mrow b { font-size: 13px; font-weight: 600; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .mrow b.ok { color: var(--ct); }
+  .mrow b.none { color: var(--mute); font-weight: 400; }
+  .mrow button { border: 1px solid var(--line2); background: var(--paper); border-radius: 999px; font-size: 12px; padding: 4px 0; color: var(--ink); cursor: pointer; font-family: inherit; }
+  .mpane .gedit { margin: 0 0 8px 40px; }
+  .gleg { display: flex; gap: 10px; align-items: center; font-size: 12px; color: var(--sub); }
+  .gleg i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; background: var(--line2); }
+  .gleg i.d { background: var(--c); }
+  .gchart { display: flex; gap: 3px; padding-top: 16px; }
+  .gchart.sc { overflow-x: auto; }
+  .gcol { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; }
+  .gchart.sc .gcol { min-width: 46px; }
+  .gbars { width: 100%; height: 120px; display: flex; align-items: flex-end; justify-content: center; gap: 2px; border-bottom: 1px solid var(--line2); }
+  .gbars i { position: relative; flex: 1; max-width: 16px; border-radius: 3px 3px 0 0; background: var(--line2); }
+  .gbars i.d { background: var(--c); }
+  .gbars i em { position: absolute; left: 50%; transform: translateX(-50%); bottom: 100%; font-style: normal; font-size: 9.5px; line-height: 1.3; color: var(--sub); white-space: nowrap; padding-bottom: 1px; }
+  .gbars i.d em { color: var(--ink); font-weight: 700; }
+  .gcol .gl { margin-top: 5px; font-size: 11px; color: var(--sub); white-space: nowrap; }
+  .gcol.now .gl { color: var(--ink); font-weight: 700; }
+  .bklast { margin-top: 3px; font-size: 12px; color: var(--mute); }
+  .bklast.warn { color: var(--sun); }
+  .bkbar { display: flex; align-items: center; gap: 4px; margin: 0 16px 6px; padding: 8px 8px 8px 12px; background: #fff7df; border: 1px solid #f0dfa8; border-radius: 12px; font-size: 13px; color: #6a5200; }
+  .bkbar span { flex: 1; min-width: 0; }
+  .bkbar button { border: 0; background: transparent; font: inherit; font-weight: 700; color: var(--ink); padding: 6px 8px; cursor: pointer; white-space: nowrap; }
+  .bkbar button.dim { font-weight: 500; color: var(--sub); }
+  #toast.act { pointer-events: auto; display: flex; align-items: center; gap: 14px; padding-right: 10px; }
+  #toast.act button { border: 0; background: transparent; color: #ffd45a; font-size: 13.5px; font-weight: 700; padding: 6px 8px; cursor: pointer; }
+  .card[role="button"]:focus-visible, .chead:focus-visible { outline-offset: -3px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+  .tagchip { border: 0; background: #eceef6; color: #5b6076; font-size: 12.5px; padding: 3px 10px; border-radius: 999px; cursor: pointer; font-family: inherit; }
+  .tagchip:active { background: #dcdfe9; }
 
   /* ===== 헤더 버튼 재정리: 위줄=수정·관리자(희미한 텍스트) / 아랫줄=불러오기·백업(작은 버튼) ===== */
   .hact { grid-template-columns: auto auto; justify-items: end; align-items: center; gap: 7px 14px; }
@@ -652,6 +714,35 @@
   .tent .tlink b { color: var(--ct, var(--c)); font-weight: 700; }
   .tent .tx { font-size: 15px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; margin-top: 3px; }
   .tent.lt .tx { color: #3c4157; }
+  .rows .tent.lg { display: flex; align-items: center; gap: 8px; padding: 8px 14px; }
+  .tent.lg::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--c, var(--line2)); }
+  .tent.lg .tm { flex: none; font-size: 12px; color: var(--mute); font-variant-numeric: tabular-nums; }
+  .tent.lg .lgt { flex: 1; min-width: 0; margin: 0; padding: 0; border: 0; background: none; text-align: left; font: inherit; font-size: 13.5px; line-height: 1.5; color: var(--sub); overflow-wrap: anywhere; }
+  .tent.lg button.lgt { cursor: pointer; }
+  .tent.lg .lgd { flex: none; border: 0; background: none; color: var(--mute); font-size: 12px; padding: 2px 3px; cursor: pointer; font-family: inherit; }
+  /* 타임라인: 시간 | 점(레일) | 내용 */
+  .rows.tlrows .tent.tl { display: grid; grid-template-columns: 9px 1fr; column-gap: 10px; align-items: start; padding: 10px 14px; }
+  .rows.tlrows .tent.tl + .tent.tl { border-top: 0; }
+  .tent.tl::before { content: ""; position: absolute; left: 18px; top: 0; bottom: 0; width: 1px; background: var(--line2); }
+  .tent.tl:first-child::before { top: 20px; }
+  .tent.tl:last-child::before { bottom: calc(100% - 20px); }
+  .tent.tl:only-child::before { display: none; }
+  .tent.tl .tm { flex: none; font-size: 12px; color: var(--mute); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tent.tl .dot { position: relative; z-index: 1; width: 9px; height: 9px; margin-top: 6px; border-radius: 50%; box-sizing: border-box; background: var(--cd); box-shadow: 0 0 0 3px var(--paper); }
+  .tent.tl[data-k="t"] { --cd: #5b6dd6; --cc: #5b6dd6; }
+  .tent.tl[data-k="l"] { --cd: var(--c, var(--sub)); --cc: var(--ct, var(--sub)); }
+  .tent.tl[data-k="a"] { --cd: var(--paper); --cc: var(--sub); }
+  .tent.tl[data-k="a"] .dot { border: 2px solid var(--c, var(--mute)); }
+  .tent.tl .bd { min-width: 0; }
+  .tent.tl .hd { display: flex; align-items: center; gap: 6px; min-height: 20px; }
+  .tent.tl .chip { flex: none; font-size: 11px; font-weight: 600; line-height: 17px; padding: 0 6px; border-radius: 5px; border: 1px solid var(--cc); color: var(--cc); background: var(--paper); }
+  .tent.tl[data-k="a"] .chip { border-color: var(--line2); color: var(--mute); font-weight: 500; }
+  .tent.tl .sp { flex: 1; }
+  .tent.tl .lgt { flex: 1; min-width: 0; margin: 0; padding: 0; border: 0; background: none; text-align: left; font: inherit; font-size: 13.5px; line-height: 1.5; color: var(--sub); overflow-wrap: anywhere; }
+  .tent.tl button.lgt { cursor: pointer; }
+  .tent.tl .act { flex: none; border: 0; background: none; color: var(--mute); font-size: 12px; padding: 2px 3px; cursor: pointer; font-family: inherit; }
+  .tent.tl .tlink { padding: 4px 0 0; font-size: 13px; font-family: inherit; }
+  .tent.tl .tx { margin-top: 4px; }
   .tent .edit textarea { min-height: 80px; font-size: 15px; padding: 9px 11px; margin-top: 4px; }
   .tent .edit .cb { display: flex; justify-content: flex-end; gap: 6px; margin-top: 6px; }
   .tent .edit .cb button { border: 1px solid var(--line2); background: var(--paper); border-radius: 999px; padding: 6px 14px; font-size: 13px; cursor: pointer; color: var(--ink); }
@@ -1010,6 +1101,7 @@
     <div>
       <h1>나의 후기</h1>
       <p id="count"></p>
+      <div class="bklast" id="bkLast" hidden></div>
     </div>
     <div class="hact">
       <div class="hline hl-a">
@@ -1037,6 +1129,13 @@
       </button>
       <input type="file" id="file" accept="application/json,.json,text/csv,.csv" hidden>
       </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="bkbar" id="bkBanner" hidden>
+      <span id="bkMsg"></span>
+      <button type="button" id="bkNow">지금 백업</button>
+      <button type="button" id="bkLater" class="dim">나중에</button>
     </div>
   </div>
 </header>
@@ -1073,6 +1172,7 @@
     </div>
   </div>
   <div id="calWrap" hidden>
+    <div id="calGoal"></div>
     <div class="calcard">
       <div class="calhead">
         <div class="caltitle"><span id="calTitle"></span><small id="calSum"></small></div>
@@ -1096,6 +1196,10 @@
     <div class="tlcompose">
       <textarea id="tlText" rows="2" placeholder="지금 무슨 생각해?" aria-label="생각 쓰기"></textarea>
       <div class="cb"><span id="tlCnt"></span><button type="button" id="tlPost" disabled>올리기</button></div>
+    </div>
+    <div class="sub" id="tlFilt" style="margin: 12px 0 0;">
+      <button type="button" data-tf="all">전체</button>
+      <button type="button" data-tf="mine">내가 쓴 글 · 덧붙임</button>
     </div>
     <div id="tlList"></div>
   </div>
@@ -1183,6 +1287,11 @@
         <div id="noteBox" class="fld">
           <label for="note">비고</label>
           <input type="text" id="note" maxlength="100" placeholder="예: 친구랑 같이 봄, 2층 앞줄, 재관람">
+        </div>
+
+        <div id="tagBox" class="fld">
+          <label for="tags">태그</label>
+          <input type="text" id="tags" maxlength="120" placeholder="예: #재관람 #가족" autocomplete="off">
         </div>
       </section>
 
@@ -1282,7 +1391,8 @@
 
 <script>
 (function () {
-  var KEY = "reviews-v1";
+  var KEY = "reviews-v1", SKEY = "reviews-schema-v1", DKEY = "reviews-draft-v1", SCHEMA = 2,
+      LBKEY = "reviews-lastbackup-v1", LCKEY = "reviews-lastchange-v1", SNKEY = "reviews-bksnooze-v1", GKEY = "reviews-goals-v1";
   var KIND = {
     book:  { name: "책",   who: "저자",     when: "완독한 날" },
     movie: { name: "영화", who: "감독",     when: "본 날" },
@@ -1291,15 +1401,16 @@
   };
 
   var TLKEY = "reviews-thoughts-v1", tseq = 0;
-  var migrated = false;
+  var migrated = false, corrupt = [];
   var data = load();
-  if (migrated) persist();
+  if (migrated) persist(true);   /* 자동 정리는 "내용이 바뀐 것"으로 치지 않음 */
   var thoughts = loadThoughts();
+  var ACTKEY = "reviews-activity-v1", acts = loadActs();
   var filter = "all";
   var rfilter = "all";
   var sfilter = "all";
   var showTh = false;
-  var tlLimit = 60;
+  var tlLimit = 60, tlOnly = false;
   var tEditId = null;
   var editingId = null;
   var openIds = {};
@@ -1329,20 +1440,53 @@
     return out;
   }
 
+  /* 저장 데이터를 읽지 못하면 원본을 따로 보관해서, 이후 저장으로 덮어써도 되살릴 수 있게 함 */
+  function backupCorrupt(key, raw) {
+    corrupt.push({ key: key, raw: raw });
+    try { var bk = key + "-corrupt"; if (localStorage.getItem(bk) !== raw) localStorage.setItem(bk, raw); } catch (e) {}
+  }
+  function normDate(s) {
+    s = String(s == null ? "" : s).trim();
+    var m = s.match(/^(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+    if (!m || +m[2] < 1 || +m[2] > 12 || +m[3] < 1 || +m[3] > 31) return "";
+    return m[1] + "-" + pad(+m[2]) + "-" + pad(+m[3]);
+  }
   function load() {
-    try {
-      var arr = JSON.parse(localStorage.getItem(KEY)) || [];
-      arr.forEach(function (r) { if (r.type === "show") r.type = "play"; if (r.cast == null) r.cast = ""; if (r.genre == null) r.genre = ""; if (r.note == null) r.note = ""; if (r.time == null) r.time = ""; if (!r.status) r.status = "done"; if (r.seat == null) r.seat = ""; if (r.take == null) r.take = ""; if (r.quote == null) r.quote = ""; r.tags = cleanTags(r.tags); r.later = cleanLater(r.later);
-        /* 없앤 "인상 깊은 문장·장면" 칸에 남아 있던 내용은 후기 맨 위로 옮김 */
-        if (r.quote && String(r.quote).trim()) {
-          r.text = (r.text && r.text.trim()) ? String(r.quote).trim() + "\n\n" + r.text : String(r.quote).trim();
-          r.quote = ""; migrated = true;
-        }
-        r.rating = Math.max(0, Math.min(5, Math.round((+r.rating || 0) * 2) / 2));
+    var raw = null, arr = null;
+    try { raw = localStorage.getItem(KEY); } catch (e) { return []; }
+    if (raw == null) return [];
+    try { arr = JSON.parse(raw); } catch (e) { arr = null; }
+    if (!Array.isArray(arr)) { backupCorrupt(KEY, raw); return []; }
+    var ver = 0;
+    try { ver = +localStorage.getItem(SKEY) || 0; } catch (e) {}
+    var out = [], dropped = 0, seen = {}, maxId = 0;
+    arr.forEach(function (r) { if (r && typeof r === "object" && isFinite(+r.id)) maxId = Math.max(maxId, +r.id); });
+    arr.forEach(function (r) {
+      if (!r || typeof r !== "object") { dropped++; return; }
+      /* 예전 버전 데이터 변환은 한 번만(스키마 버전 2 미만일 때) */
+      if (ver < 2 && r.type === "show") r.type = "play";
+      if (!KIND[r.type]) { dropped++; return; }
+      ["title", "creator", "genre", "cast", "seat", "note", "time", "take", "quote", "text"].forEach(function (k) {
+        if (typeof r[k] !== "string") r[k] = r[k] == null ? "" : String(r[k]);
       });
-      return arr;
-    }
-    catch (e) { return []; }
+      if (!r.status) r.status = "done";
+      r.tags = cleanTags(r.tags); r.later = cleanLater(r.later);
+      if (ver < 2 && r.quote.trim()) {
+        /* 없앤 "인상 깊은 문장·장면" 칸에 남아 있던 내용은 후기 맨 위로 옮김 */
+        r.text = r.text.trim() ? r.quote.trim() + "\n\n" + r.text : r.quote.trim();
+        r.quote = ""; migrated = true;
+      }
+      var nd = normDate(r.date);
+      if (nd !== String(r.date == null ? "" : r.date)) migrated = true;
+      r.date = nd;
+      r.rating = Math.max(0, Math.min(5, Math.round((+r.rating || 0) * 2) / 2));
+      if (r.id == null || !isFinite(+r.id) || seen[r.id]) { r.id = ++maxId; migrated = true; }
+      seen[r.id] = 1;
+      out.push(r);
+    });
+    if (dropped) { backupCorrupt(KEY, raw); migrated = true; }
+    if (ver < SCHEMA) migrated = true;
+    return out;
   }
   function nowHM() { var d = new Date(); return pad(d.getHours()) + ":" + pad(d.getMinutes()); }
   function cleanThought(x) {
@@ -1351,15 +1495,105 @@
              tm: /^\d{2}:\d{2}$/.test(x.tm) ? x.tm : "", t: String(x.t) };
   }
   function loadThoughts() {
-    try { return (JSON.parse(localStorage.getItem(TLKEY)) || []).map(cleanThought).filter(Boolean); }
+    var raw = null, arr = null;
+    try { raw = localStorage.getItem(TLKEY); } catch (e) { return []; }
+    if (raw == null) return [];
+    try { arr = JSON.parse(raw); } catch (e) { arr = null; }
+    if (!Array.isArray(arr)) { backupCorrupt(TLKEY, raw); return []; }
+    return arr.map(cleanThought).filter(Boolean);
+  }
+  /* 타임라인에 남는 활동 기록(후기 작성·관극·읽는 중 등록·목표 설정). 내용이 아니라 "~했다"는 한 줄 로그 */
+  function cleanAct(x) {
+    if (!x || !String(x.t || "").trim()) return null;
+    return { id: x.id || (Date.now() + (tseq++)), d: /^\d{4}-\d{2}-\d{2}$/.test(x.d) ? x.d : today(),
+             tm: /^\d{2}:\d{2}$/.test(x.tm) ? x.tm : "", t: String(x.t).slice(0, 200),
+             rid: +x.rid || 0, ty: (x.ty === "movie" || x.ty === "play" || x.ty === "musical" || x.ty === "sys") ? x.ty : "book",
+             w: !!x.w || (!!x.rid && x.ty !== "book" && /^\u300C.*\u300D (관극|관람)$/.test(String(x.t))) };
+  }
+  /* 관람 로그는 저장 시각이 아니라 그 기록의 관람 일시를 따라감(수정하면 같이 바뀜). 미래 일시는 아직 안 보임 */
+  function actWhen(a) {
+    var d = a.d, tm = a.tm || "";
+    if (a.w && a.rid) {
+      var r = data.filter(function (x) { return x.id === a.rid; })[0];
+      if (r && r.date) { d = r.date; tm = r.time || ""; }
+    }
+    return { d: d, tm: tm };
+  }
+  function actFuture(w) {
+    var n = new Date();
+    return (w.d + " " + (w.tm || "00:00")) > (today() + " " + pad(n.getHours()) + ":" + pad(n.getMinutes()));
+  }
+  function loadActs() {
+    try { var a = JSON.parse(localStorage.getItem(ACTKEY)); return Array.isArray(a) ? a.map(cleanAct).filter(Boolean) : []; }
     catch (e) { return []; }
   }
+  function persistActs() {
+    if (acts.length > 2000) acts = acts.slice(acts.length - 2000);
+    try { localStorage.setItem(ACTKEY, JSON.stringify(acts)); } catch (e) {}
+  }
+  function logAct(text, rec, watch, ty) {
+    var d = today(), tm = nowHM();
+    if (watch && rec && rec.date) { d = rec.date; tm = rec.time || ""; }
+    acts.push({ id: Date.now() + (tseq++), d: d, tm: tm, t: text, rid: rec ? rec.id : 0, ty: ty || (rec ? rec.type : "book"), w: !!watch });
+    persistActs();
+  }
+  function actVerb(r) {
+    if (r.type === "book") return r.status === "reading" ? "읽는 중 등록" : "완독";
+    return r.type === "movie" ? "관람" : "관극";
+  }
+  function goalLabel(k) { return k.slice(0, 4) + "년" + (k.length > 4 ? " " + (+k.slice(5, 7)) + "월" : "") + " 독서 목표"; }
+  function logGoalDiff(old, cur) {
+    var ks = {};
+    Object.keys(old).concat(Object.keys(cur)).forEach(function (k) { ks[k] = 1; });
+    Object.keys(ks).sort().forEach(function (k) {
+      var o = +old[k] || 0, n = +cur[k] || 0;
+      if (o === n) return;
+      logAct(goalLabel(k) + (!o ? " " + n + "권 설정" : !n ? " 해제" : " " + o + "권 \u2192 " + n + "권 변경"), null);
+    });
+  }
+  /* 이미 있는 기록(예전 백업·이전 버전에서 쌓인 것 포함)을 타임라인 로그로 채움. 한 번 처리한 기록은 다시 만들지 않아 삭제한 로그가 되살아나지 않음 */
+  var ASKEY = "reviews-actsynced-v1";
+  function loadSynced() {
+    try { var a = JSON.parse(localStorage.getItem(ASKEY)); return Array.isArray(a) ? a : []; } catch (e) { return []; }
+  }
+  function markSynced(id) {
+    var a = loadSynced();
+    if (a.indexOf(id) < 0) { a.push(id); try { localStorage.setItem(ASKEY, JSON.stringify(a)); } catch (e) {} }
+  }
+  function idTime(id) {
+    /* 앱에서 만든 기록의 id는 만든 시각(ms)이라 입력 시각으로 씀 */
+    if (!(id > 1.4e12 && id <= Date.now() + 60000)) return null;
+    var d = new Date(id);
+    return { d: ymd(d), tm: pad(d.getHours()) + ":" + pad(d.getMinutes()) };
+  }
+  function syncActs() {
+    var done = loadSynced(), have = {}, byRid = {}, added = 0, fresh = 0;
+    done.forEach(function (i) { have[i] = 1; });
+    acts.forEach(function (a) { if (a.rid) byRid[a.rid] = (byRid[a.rid] || "") + "\n" + a.t; });
+    data.forEach(function (r) {
+      if (have[r.id]) return;
+      have[r.id] = 1; done.push(r.id); fresh++;
+      var txt = byRid[r.id] || "", it = idTime(r.id);
+      function add(v, w) {
+        if (txt.indexOf("\u300D " + v) >= 0 || txt.indexOf(" \u00B7 " + v) >= 0) return;
+        var d = it ? it.d : (r.date || today()), tm = it ? it.tm : "";
+        if (w && r.date) { d = r.date; tm = r.time || ""; }
+        acts.push({ id: Date.now() + (tseq++), d: d, tm: tm, t: "\u300C" + r.title + "\u300D " + v, rid: r.id, ty: r.type, w: !!w });
+        added++;
+      }
+      add(actVerb(r), r.type !== "book");
+      if (hasReview(r)) add("후기 작성", false);
+    });
+    if (fresh) { try { localStorage.setItem(ASKEY, JSON.stringify(done)); } catch (e) {} }
+    if (added) persistActs();
+    return added;
+  }
   function persistThoughts() {
-    try { localStorage.setItem(TLKEY, JSON.stringify(thoughts)); }
+    try { localStorage.setItem(TLKEY, JSON.stringify(thoughts)); localStorage.setItem(LCKEY, String(Date.now())); }
     catch (e) { alert("저장에 실패했어요. 브라우저 저장 공간을 확인해 주세요."); }
   }
-  function persist() {
-    try { localStorage.setItem(KEY, JSON.stringify(data)); }
+  function persist(silent) {
+    try { localStorage.setItem(KEY, JSON.stringify(data)); localStorage.setItem(SKEY, String(SCHEMA)); if (!silent) localStorage.setItem(LCKEY, String(Date.now())); }
     catch (e) { alert("저장에 실패했어요. 브라우저 저장 공간을 확인해 주세요."); }
   }
   function today() {
@@ -1396,7 +1630,7 @@
       if (rfilter === "no" && hasReview(r)) return false;
       if (!starOk(r, sfilter)) return false;
       if (!q) return true;
-      return (r.title + " " + r.creator + " " + (r.genre || "") + " " + (r.cast || "") + " " + (r.seat || "") + " " + (r.note || "") + " " + r.text + " " + (r.take || "") + " " + (r.quote || "") + " " + (r.later || []).map(function (x) { return x.t; }).join(" ")).toLowerCase().indexOf(q) > -1;
+      return (r.title + " " + r.creator + " " + (r.genre || "") + " " + (r.cast || "") + " " + (r.seat || "") + " " + (r.note || "") + " " + r.text + " " + (r.take || "") + " " + (r.quote || "") + " " + (r.later || []).map(function (x) { return x.t; }).join(" ") + " " + (r.tags || []).map(function (t) { return "#" + t; }).join(" ")).toLowerCase().indexOf(q) > -1;
     });
   }
 
@@ -1448,6 +1682,12 @@
     if (w) hl.appendChild(el("span", "hd", w));
     head.appendChild(hl);
     head.onclick = function () { closeCard(r.id); render(); keepVisible(r.id); };
+    head.tabIndex = 0; head.setAttribute("role", "button"); head.setAttribute("aria-expanded", "true");
+    head.onkeydown = function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault(); head.onclick();
+      var c = document.querySelector('.card[data-id="' + r.id + '"]'); if (c) c.focus({ preventScroll: true });
+    };
     return head;
   }
 
@@ -1471,6 +1711,15 @@
     if (r.seat) line("좌석", r.seat);
     if (r.cast) line("캐스팅", r.cast.replace(/\n/g, ", "));
     if (r.note) info.appendChild(el("div", "note", r.note));
+    if (r.tags && r.tags.length) {
+      var tw = el("div", "tags");
+      r.tags.forEach(function (t) {
+        var tb = el("button", "tagchip", "#" + t); tb.type = "button";
+        tb.onclick = function (e) { e.stopPropagation(); filterByTag(t); };
+        tw.appendChild(tb);
+      });
+      info.appendChild(tw);
+    }
     if (r.quote) info.appendChild(el("div", "quote", r.quote));
     return info;
   }
@@ -1535,11 +1784,15 @@
     eb.onclick = function (e) { e.stopPropagation(); openForm(r.id); };
     db.onclick = function (e) {
       e.stopPropagation();
-      if (confirm("이 후기를 삭제할까요? 되돌릴 수 없어요.")) {
-        closeCard(r.id);
-        data = data.filter(function (x) { return x.id !== r.id; });
+      var pos = data.indexOf(r), gone = r;
+      closeCard(r.id);
+      data = data.filter(function (x) { return x.id !== r.id; });
+      persist(); render();
+      showUndoToast("후기를 삭제했어요", function () {
+        if (data.some(function (x) { return x.id === gone.id; })) return;
+        data.splice(Math.min(Math.max(pos, 0), data.length), 0, gone);
         persist(); render();
-      }
+      });
     };
     bar.appendChild(tg); bar.appendChild(eb);
     if (addingId !== r.id) bar.appendChild(ab);
@@ -1576,6 +1829,12 @@
       card.onclick = function () {
         openIds[r.id] = true; infoOpen[r.id] = true; addingId = null;
         render();
+      };
+      card.tabIndex = 0; card.setAttribute("role", "button"); card.setAttribute("aria-expanded", "false");
+      card.onkeydown = function (e) {
+        if (e.target !== card || (e.key !== "Enter" && e.key !== " ")) return;
+        e.preventDefault(); card.onclick();
+        var hd = document.querySelector('.card[data-id="' + r.id + '"] .chead'); if (hd) hd.focus({ preventScroll: true });
       };
     } else {
       var whenFull = r.date ? shortDate(r.date) + (r.time ? " " + fmtTime(r.time) : "") : (r.time ? fmtTime(r.time) : "");
@@ -1633,6 +1892,7 @@
     updateToolH();
     syncToggles();
     $("closeAll").disabled = !document.querySelector(".card.open");
+    updateBackupBanner();
   }
 
   function fillSelect(sel, opts, cur) {
@@ -1662,7 +1922,15 @@
       var del = el("button", "", "삭제"); del.type = "button";
       del.onclick = function (e) {
         e.stopPropagation();
-        if (confirm("이 생각을 삭제할까요?")) { r.later.splice(idx, 1); persist(); render(); }
+        var item = r.later.splice(idx, 1)[0], rid = r.id;
+        persist(); render();
+        showUndoToast("생각을 삭제했어요", function () {
+          var cur = data.filter(function (x) { return x.id === rid; })[0];
+          if (!cur) return;
+          cur.later = cur.later || [];
+          cur.later.splice(Math.min(idx, cur.later.length), 0, item);
+          persist(); render();
+        });
       };
       ld.appendChild(del);
       it.appendChild(ld); it.appendChild(el("div", "lx", x.t));
@@ -1707,8 +1975,11 @@
     });
     return out;
   }
-  function cmpEntry(a, b) { return b.d.localeCompare(a.d) || b.tm.localeCompare(a.tm) || (b.th ? b.th.id : 0) - (a.th ? a.th.id : 0); }
+  function cmpEntry(a, b) { return b.d.localeCompare(a.d) || b.tm.localeCompare(a.tm) || ((b.th || b.lg || {}).id || 0) - ((a.th || a.lg || {}).id || 0); }
+  /* 타임라인·달력에서 후기로 넘어왔다면, 뒤로가기로 원래 화면(스크롤 위치 포함)에 돌아옴 */
+  var retTo = null;
   function gotoReview(id) {
+    retTo = (view !== "list") ? { view: view, y: window.pageYOffset, id: id } : null;
     view = "list"; filter = "all"; rfilter = "all"; sfilter = "all";
     Array.prototype.forEach.call($("tabs").children, function (b) { b.classList.toggle("on", b.dataset.f === "all"); });
     $("q").value = ""; searchOpen = false;
@@ -1717,7 +1988,103 @@
     var c = document.querySelector('.rows .card[data-id="' + id + '"]');
     if (c) c.scrollIntoView({ block: "start" });
   }
+  function deleteTEntry(e) {
+    if (e.k === "t") {
+      var tpos = thoughts.indexOf(e.th), tgone = e.th;
+      thoughts = thoughts.filter(function (x) { return x !== tgone; }); persistThoughts(); render();
+      showUndoToast("생각을 삭제했어요", function () {
+        if (thoughts.indexOf(tgone) > -1) return;
+        thoughts.splice(Math.min(Math.max(tpos, 0), thoughts.length), 0, tgone); persistThoughts(); render();
+      });
+    } else {
+      var rid = e.r.id, lidx = e.idx, litem = e.r.later.splice(e.idx, 1)[0];
+      persist(); render();
+      showUndoToast("생각을 삭제했어요", function () {
+        var cur = data.filter(function (x) { return x.id === rid; })[0];
+        if (!cur) return;
+        cur.later = cur.later || [];
+        cur.later.splice(Math.min(lidx, cur.later.length), 0, litem);
+        persist(); render();
+      });
+    }
+
+  }
+  /* 타임라인 전용: 시간 · 점(레일) · 내용 세 칸으로 모든 종류를 같은 줄에 맞춤 */
+  var TL_CHIP = { t: "생각", l: "덧붙임", a: "기록" };
+  function buildTLEntry(e) {
+    var rec = e.k === "l" ? e.r : (e.k === "a" && e.lg.rid ? data.filter(function (x) { return x.id === e.lg.rid; })[0] : null);
+    var box = el("div", "tent tl"); box.dataset.k = e.k;
+    if (e.k === "l") box.dataset.t = e.r.type;
+    else if (e.k === "a") box.dataset.t = e.lg.ty;
+    box.appendChild(el("span", "dot"));
+    var bd = el("div", "bd"), hd = el("div", "hd");
+    hd.appendChild(el("span", "chip", TL_CHIP[e.k]));
+    var editing = e.k === "t" && tEditId === e.th.id;
+    if (e.k === "a") {
+      if (rec) { var lb = el("button", "lgt", e.t); lb.type = "button"; lb.onclick = function () { gotoReview(rec.id); }; hd.appendChild(lb); }
+      else hd.appendChild(el("span", "lgt", e.t));
+    } else hd.appendChild(el("span", "sp"));
+    if (e.tm) hd.appendChild(el("span", "tm", e.tm));
+    if (!editing) {
+      if (e.k === "t") {
+        var eb = el("button", "act", "수정"); eb.type = "button";
+        eb.onclick = function () { tEditId = e.th.id; render(); };
+        hd.appendChild(eb);
+      }
+      var db = el("button", "act", "삭제"); db.type = "button";
+      db.onclick = function () { e.k === "a" ? deleteActEntry(e) : deleteTEntry(e); };
+      hd.appendChild(db);
+    }
+    bd.appendChild(hd);
+    if (e.k === "l") {
+      var lk = el("button", "tlink"); lk.type = "button";
+      lk.appendChild(document.createTextNode("\u21B3 "));
+      lk.appendChild(el("b", "", e.r.title));
+      lk.onclick = function () { gotoReview(e.r.id); };
+      bd.appendChild(lk);
+    }
+    if (editing) {
+      var ed = el("div", "edit"), ta = el("textarea"), cb = el("div", "cb");
+      ta.value = e.t;
+      var cn = el("button", "", "취소"); cn.type = "button"; cn.onclick = function () { tEditId = null; render(); };
+      var sv = el("button", "primary", "저장"); sv.type = "button";
+      sv.onclick = function () {
+        var v = ta.value.trim();
+        if (!v) { ta.focus(); return; }
+        e.th.t = v; tEditId = null; persistThoughts(); render();
+      };
+      cb.appendChild(cn); cb.appendChild(sv); ed.appendChild(ta); ed.appendChild(cb);
+      bd.appendChild(ed);
+      setTimeout(function () { ta.focus(); }, 0);
+    } else if (e.k !== "a") bd.appendChild(el("div", "tx", e.t));
+    box.appendChild(bd);
+    return box;
+  }
+  function deleteActEntry(e) {
+    var pos = acts.indexOf(e.lg), gone = e.lg;
+    if (pos < 0) return;
+    acts.splice(pos, 1); persistActs(); render();
+    showUndoToast("기록을 삭제했어요", function () {
+      if (acts.indexOf(gone) > -1) return;
+      acts.splice(Math.min(pos, acts.length), 0, gone); persistActs(); render();
+    });
+  }
+  function buildActEntry(e) {
+    var row = el("div", "tent lg"); row.dataset.t = e.lg.ty;
+    row.appendChild(el("span", "tm", e.tm));
+    var rec = e.lg.rid ? data.filter(function (x) { return x.id === e.lg.rid; })[0] : null;
+    if (rec) {
+      var b = el("button", "lgt", e.t); b.type = "button";
+      b.onclick = function () { gotoReview(rec.id); };
+      row.appendChild(b);
+    } else row.appendChild(el("span", "lgt", e.t));
+    var db = el("button", "lgd", "삭제"); db.type = "button";
+    db.onclick = function () { deleteActEntry(e); };
+    row.appendChild(db);
+    return row;
+  }
   function buildTEntry(e, withDate) {
+    if (e.k === "a") return buildActEntry(e);
     var box = el("div", "tent" + (e.k === "l" ? " lt" : ""));
     var th = el("div", "th");
     var when = (withDate ? fmtDay(e.d) + (e.tm ? " " : "") : "") + (e.tm || "");
@@ -1731,12 +2098,7 @@
         th.appendChild(eb);
       }
       var db = el("button", "", "삭제"); db.type = "button";
-      db.onclick = function () {
-        if (!confirm("이 생각을 삭제할까요?")) return;
-        if (e.k === "t") { thoughts = thoughts.filter(function (x) { return x !== e.th; }); persistThoughts(); }
-        else { e.r.later.splice(e.idx, 1); persist(); }
-        render();
-      };
+      db.onclick = function () { deleteTEntry(e); };
       th.appendChild(db);
     }
     box.appendChild(th);
@@ -1772,7 +2134,17 @@
   function renderTL() {
     var list = $("tlList");
     list.textContent = "";
-    var ents = tlEntries().sort(cmpEntry);
+    var ents = tlEntries();
+    if (!tlOnly) acts.forEach(function (a) {
+      var w = actWhen(a);
+      if (actFuture(w)) return;
+      ents.push({ k: "a", d: w.d, tm: w.tm, t: a.t, lg: a });
+    });
+    Array.prototype.forEach.call($("tlFilt").children, function (b) {
+      var on = (b.dataset.tf === "mine") === tlOnly;
+      b.classList.toggle("on", on); b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    ents.sort(cmpEntry);
     if (!ents.length) {
       list.appendChild(el("div", "empty", "아직 적은 생각이 없어요. 떠오를 때마다 위에 편하게 적어 보세요."));
       return;
@@ -1786,10 +2158,10 @@
         gh.appendChild(el("span", "", fmtDay(e.d)));
         gh.appendChild(el("span", "n", String(counts[e.d])));
         list.appendChild(gh);
-        rows = el("div", "rows");
+        rows = el("div", "rows tlrows");
         list.appendChild(rows);
       }
-      rows.appendChild(buildTEntry(e, false));
+      rows.appendChild(buildTLEntry(e));
     });
     if (ents.length > shown.length) {
       var mb = el("button", "moreTl", "더 보기 (" + (ents.length - shown.length) + "개 남음)"); mb.type = "button";
@@ -1865,13 +2237,15 @@
     var qv = $("q").value.trim().toLowerCase();
     var rc = (!anyFilter() && !qv) ? buildRecall() : null;
     if (rc) list.appendChild(rc);
+    var gm = (filter === "book" && !qv) ? buildListGoal() : null;
+    if (gm) list.appendChild(gm);
 
-    /* 생각 포함: 독립 생각(필터가 없을 때만) + 덧붙인 생각(보이는 후기 것만) */
+    /* 생각 포함: 타임라인에서 직접 쓴 생각만(필터가 없을 때) */
     var extra = [];
     if (showTh) {
       var plain = !anyFilter();
       tlEntries(items).forEach(function (e) {
-        if (e.k === "t" && !plain) return;
+        if (e.k !== "t" || !plain) return;   /* 덧붙임은 후기를 열면 보이므로 제외, 직접 쓴 생각만 */
         if (qv && e.t.toLowerCase().indexOf(qv) < 0) return;
         extra.push(e);
       });
@@ -1920,6 +2294,10 @@
       if (e.k === "t" && anyFilter()) return;
       (tdBy[e.d] = tdBy[e.d] || []).push(e);
     });
+
+    var cg = $("calGoal");
+    cg.textContent = "";
+    if (filter === "book" || filter === "all") cg.appendChild(buildGoalMini("cal", calY + "-" + pad(calM + 1), (calM + 1) + "월 독서 목표", true));
 
     var prefix = calY + "-" + pad(calM + 1) + "-";
     var cnt = items.filter(function (r) { return r.date.indexOf(prefix) === 0; }).length;
@@ -2131,12 +2509,14 @@
     var dated = data.filter(function (r) { return r.date; });
 
     var modes = el("div", "sub");
-    [["range", "기간별"], ["month", "월별"], ["year", "연도별"]].forEach(function (m) {
+    [["range", "기간별"], ["month", "월별"], ["year", "연도별"], ["goal", "목표"]].forEach(function (m) {
       var b = el("button", stat.mode === m[0] ? "on" : "", m[1]); b.type = "button";
-      b.onclick = function () { stat.mode = m[0]; renderStats(); };
+      b.onclick = function () { stat.mode = m[0]; goalEdit = false; mEdit = null; renderStats(); };
       modes.appendChild(b);
     });
     w.appendChild(modes);
+
+    if (stat.mode === "goal") { renderGoalTab(w); return; }
 
     if (!data.length) {
       w.appendChild(el("div", "empty", "아직 기록이 없어서 통계를 낼 수 없어요."));
@@ -2318,10 +2698,10 @@
     { t: "둘러보기", items: [
       { h: "목록", p: "저장한 기록을 최근 순으로 훑어볼 수 있어요. 위쪽 탭(전체, 책, 영화, 연극, 뮤지컬)으로 종류별로 모아 보고, 카드를 펼치면 자세한 내용이 나와요. 한줄평만 쭉 읽어도 그동안의 감상이 한눈에 지나가요." },
       { h: "검색·필터", p: "돋보기를 누르면 제목, 저자, 후기 내용으로 검색할 수 있어요. 후기 있음/없음, 별점(5점, 4.5↑, 4↑, 3↑, 3 미만, 별점 없음)으로 좁혀 볼 수도 있어요. 예를 들어 \"후기 쓴 연극 중 4점 이상\"만 모아 보면 나의 최애 목록이 돼요." },
-      { h: "생각 포함", p: "이 버튼을 켜면 목록에 덧붙인 생각도 함께 보여요. 작품만 볼 때와 생각까지 볼 때, 두 가지 모드로 둘러볼 수 있어요." },
+      { h: "생각 포함", p: "이 버튼을 켜면 타임라인에서 직접 쓴 생각이 목록에 함께 보여요. 후기에 덧붙인 생각은 후기를 열면 볼 수 있어서 여기엔 나오지 않아요. 작품만 볼 때와 생각까지 볼 때, 두 가지 모드로 둘러볼 수 있어요." },
       { h: "달력", p: "날짜를 기준으로 언제 어떤 작품을 만났는지 한눈에 보여줘요. 날짜를 누르고 「이 날 기록하기」를 누르면 그날 바로 새 기록을 추가할 수 있어요. 그날 남긴 생각도 함께 볼 수 있어요." },
       { h: "타임라인", p: "독립 생각과 덧붙인 생각이 날짜순으로 이어져요. 덧붙인 생각을 누르면 해당 작품으로 바로 이동해요. 내 생각이 시간 위에 어떻게 흘러왔는지 돌아보는 일기장 같은 공간이에요." },
-      { h: "통계", p: "이번 달, 최근 3개월, 올해, 전체 기간별로 얼마나 기록했는지 볼 수 있어요. 달별·연도별 카테고리 편수와 책 장르까지 살펴보면 나의 취향이 숫자로 보여요. 날짜가 없는 기록(읽는 중인 책 등)은 통계에서 빠져요." }
+      { h: "통계", p: "이번 달, 최근 3개월, 올해, 전체 기간별로 얼마나 기록했는지 볼 수 있어요. 달별·연도별 카테고리 편수와 책 장르까지 살펴보면 나의 취향이 숫자로 보여요. 날짜가 없는 기록(읽는 중인 책 등)은 통계에서 빠져요. 「목표」 탭에서는 연도별·월별 독서 목표 권수를 정하고, 그래프로 목표와 완독 권수를 비교할 수 있어요." }
     ] },
     { t: "백업·불러오기", items: [
       { h: "저장 방식", p: "이 앱은 회원가입이 없고, 기록은 **지금 쓰는 브라우저에만** 저장돼요. 그래서 다른 사람과 기록이 섞이지 않고 온전히 나만의 공간이에요. 대신 브라우저 데이터를 지우거나 기기를 바꾸면 기록이 사라질 수 있으니, 아래 백업을 꼭 해두세요." },
@@ -2605,6 +2985,7 @@
     $("cast").value = r ? (r.cast || "") : "";
     $("seat").value = r ? (r.seat || "") : "";
     $("note").value = r ? (r.note || "") : "";
+    $("tags").value = r ? (r.tags || []).map(function (t) { return "#" + t; }).join(" ") : "";
     $("take").value = r ? (r.take || "") : "";
     form.time = r ? (r.time || "") : "";
     updateTimeBtn();
@@ -2617,6 +2998,7 @@
     $("sheet").querySelector(".panel").scrollTop = 0;
     growText();
     formSnap = snapForm();
+    restoreDraft(id);
     pushLayer("form");
     if (!r) $("title").focus();
   }
@@ -2669,7 +3051,7 @@
   var skipPop = 0, skipConfirm = false, exitArmedAt = 0, formSnap = "";
   function snapForm() {
     return JSON.stringify([form.type, form.status, form.rating, form.time, $("title").value, $("creator").value, $("genre").value, $("date").value,
-      $("seat").value, $("cast").value, $("note").value, $("take").value, $("text").value]);
+      $("seat").value, $("cast").value, $("note").value, $("tags").value, $("take").value, $("text").value]);
   }
   function formDirty() { return !!formSnap && snapForm() !== formSnap; }
   function pushLayer(name) { armGuard(); layers.push(name); history.pushState({ g: 1 + layers.length }, ""); }
@@ -2678,7 +3060,7 @@
     else if (name === "writer") hideWriter();
     else if (name === "guide") hideGuide();
     else if (name === "howto") hideHowto();
-    else if (name === "form") { hideForm(); formSnap = ""; }
+    else if (name === "form") { hideForm(); formSnap = ""; clearDraft(); }
   }
   /* 닫기/취소 버튼: 기록(history)도 한 칸 되돌려서 뒤로가기와 똑같이 동작 */
   function popLayer(name) {
@@ -2712,8 +3094,19 @@
     else if (top === "form") closeForm();
   }
   function showToast(msg) {
-    var t = $("toast"); t.textContent = msg; t.classList.add("show");
+    var t = $("toast"); t.classList.remove("act"); t.textContent = msg; t.classList.add("show");
     clearTimeout(showToast.h); showToast.h = setTimeout(function () { t.classList.remove("show"); }, 1800);
+  }
+  /* 삭제 직후 "실행취소"를 눌러 되돌릴 수 있는 알림 */
+  function showUndoToast(msg, undo) {
+    var t = $("toast"); t.textContent = "";
+    t.appendChild(el("span", "", msg));
+    var b = el("button", "", "실행취소"); b.type = "button";
+    b.onclick = function () { clearTimeout(showToast.h); t.classList.remove("show", "act"); undo(); };
+    t.appendChild(b);
+    t.classList.add("show", "act");
+    clearTimeout(showToast.h);
+    showToast.h = setTimeout(function () { t.classList.remove("show", "act"); }, 6000);
   }
   window.addEventListener("popstate", function (e) {
     if (skipPop > 0) { skipPop--; return; }
@@ -2733,6 +3126,12 @@
     var busy = searchOpen || addingId || tEditId || view !== "list" || Object.keys(openIds).length;
     if (busy) {
       history.pushState({ g: 1 }, "");
+      if (retTo && view === "list") {
+        var rt = retTo; retTo = null;
+        delete openIds[rt.id]; delete infoOpen[rt.id]; addingId = null;
+        view = rt.view; render(); window.scrollTo(0, rt.y);
+        return;
+      }
       if (searchOpen) searchOpen = false;
       else if (addingId || tEditId) { addingId = null; tEditId = null; }
       else if (view !== "list") view = "list";
@@ -2774,17 +3173,24 @@
     var prev = editingId ? data.filter(function (x) { return x.id === editingId; })[0] : null;
     rec.quote = prev ? (prev.quote || "") : "";
     rec.later = prev ? (prev.later || []) : [];
-    rec.tags = prev ? (prev.tags || []) : [];
+    rec.tags = parseTags($("tags").value);
+    var evs = [];
     if (editingId) {
+      rec.id = editingId;
+      if (prev && prev.status === "reading" && rec.status !== "reading") evs.push({ v: actVerb(rec), w: false });
+      if (prev && !hasReview(prev) && hasReview(rec)) evs.push({ v: "후기 작성", w: false });
       data = data.map(function (x) { return x.id === editingId ? Object.assign({ id: x.id }, rec) : x; });
       openIds[editingId] = true; if (infoOpen[editingId] == null) infoOpen[editingId] = true;
     } else {
       rec.id = Date.now();
-      data.push(rec);
+      data.push(rec); markSynced(rec.id);
       openIds[rec.id] = true; infoOpen[rec.id] = true;
+      evs.push({ v: actVerb(rec), w: rec.type !== "book" });
+      if (hasReview(rec)) evs.push({ v: "후기 작성", w: false });
     }
+    evs.forEach(function (ev) { logAct("\u300C" + rec.title + "\u300D " + ev.v, rec, ev.w); });
     if (rec.date) { calY = +rec.date.slice(0, 4); calM = +rec.date.slice(5, 7) - 1; selDate = rec.date; }
-    persist(); closeAllLayers(); render();
+    persist(); clearDraft(); closeAllLayers(); render();
   }
 
   /* ---------- 시계 ---------- */
@@ -2909,16 +3315,412 @@
   };
   $("clock").onclick = function (e) { if (e.target === this) closeClock(); };
 
+  /* ---------- 태그 ---------- */
+  function parseTags(s) { return cleanTags(String(s || "").split(/[\s,]+/)); }
+  function filterByTag(t) {
+    view = "list"; searchOpen = true;
+    $("q").value = "#" + t;
+    render(); window.scrollTo(0, 0);
+  }
+
+  /* ---------- 작성 중 임시저장 ---------- */
+  var draftTimer = 0;
+  function draftObj() {
+    return { at: Date.now(), editingId: editingId, f: {
+      type: form.type, status: form.status, rating: form.rating, time: form.time,
+      title: $("title").value, creator: $("creator").value, genre: $("genre").value, date: $("date").value,
+      seat: $("seat").value, cast: $("cast").value, note: $("note").value, tags: $("tags").value,
+      take: $("take").value, text: $("text").value } };
+  }
+  function clearDraft() { clearTimeout(draftTimer); try { localStorage.removeItem(DKEY); } catch (e) {} }
+  function saveDraft() {
+    if (!$("sheet").classList.contains("show")) return;
+    if (!formDirty()) { try { localStorage.removeItem(DKEY); } catch (e) {} return; }
+    try { localStorage.setItem(DKEY, JSON.stringify(draftObj())); } catch (e) {}
+  }
+  function scheduleDraft() { clearTimeout(draftTimer); draftTimer = setTimeout(saveDraft, 1200); }
+  function restoreDraft(id) {
+    var d = null;
+    try { d = JSON.parse(localStorage.getItem(DKEY)); } catch (e) {}
+    if (!d || !d.f || (d.editingId || null) !== (id || null)) return;
+    if (id && !data.some(function (x) { return x.id === id; })) { clearDraft(); return; }
+    if (!confirm("저장하지 않고 닫힌 작성 내용이 있어요. 이어서 쓸까요?\n(취소하면 지워져요)")) { clearDraft(); return; }
+    var f = d.f;
+    setKind(KIND[f.type] ? f.type : form.type);
+    setStatus(f.status === "reading" ? "reading" : "done");
+    $("title").value = f.title || ""; $("creator").value = f.creator || ""; $("genre").value = f.genre || "";
+    $("seat").value = f.seat || ""; $("cast").value = f.cast || ""; $("note").value = f.note || "";
+    $("tags").value = f.tags || ""; $("take").value = f.take || ""; $("text").value = f.text || "";
+    form.rating = +f.rating || 0; buildRate();
+    form.time = /^\d{2}:\d{2}$/.test(f.time) ? f.time : "";
+    $("date").value = f.date || ""; updateTimeBtn();
+    growText();
+  }
+
+  /* ---------- 올해 독서 목표 ---------- */
+  var gy = new Date().getFullYear(), goalEdit = false, mEdit = null;
+  function getGoals() {
+    try { var g = JSON.parse(localStorage.getItem(GKEY)); return (g && typeof g === "object" && !Array.isArray(g)) ? g : {}; }
+    catch (e) { return {}; }
+  }
+  function saveGoals(g, silent) {
+    var old = silent ? null : getGoals();
+    try { localStorage.setItem(GKEY, JSON.stringify(g)); localStorage.setItem(LCKEY, String(Date.now())); }
+    catch (e) { alert("저장에 실패했어요. 브라우저 저장 공간을 확인해 주세요."); return; }
+    if (old) logGoalDiff(old, g);
+  }
+  /* 완독한 책만 센다: 읽는 중인 책은 제외, 완독한 날짜 기준. y는 "2026"(연도) 또는 "2026-01"(월) */
+  function readCount(y) {
+    return data.filter(function (r) { return r.type === "book" && r.status !== "reading" && r.date && r.date.slice(0, String(y).length) === String(y); }).length;
+  }
+  function goalPane(y) {
+    var goals = getGoals(), goal = +goals[y] || 0, done = readCount(y), nowY = new Date().getFullYear();
+    var reading = data.filter(function (r) { return r.type === "book" && r.status === "reading"; }).length;
+    var pane = el("div", "pane gpane"); pane.dataset.t = "book";
+    var h = el("div", "phead"), nav = el("div", "gnav");
+    var pv = el("button", "", "\u2039"); pv.type = "button"; pv.setAttribute("aria-label", "이전 해"); pv.disabled = y <= 2000;
+    pv.onclick = function () { gy = y - 1; goalEdit = false; mEdit = null; renderStats(); };
+    var nx = el("button", "", "\u203A"); nx.type = "button"; nx.setAttribute("aria-label", "다음 해"); nx.disabled = y >= nowY + 1;
+    nx.onclick = function () { gy = y + 1; goalEdit = false; mEdit = null; renderStats(); };
+    nav.appendChild(pv); nav.appendChild(el("b", "", y + "년 독서 목표")); nav.appendChild(nx);
+    h.appendChild(nav);
+    var eb = el("button", "", goalEdit ? "닫기" : (goal ? "수정" : "목표 설정")); eb.type = "button";
+    eb.onclick = function () { goalEdit = !goalEdit; mEdit = null; renderStats(); };
+    h.appendChild(eb);
+    pane.appendChild(h);
+
+    if (goalEdit) {
+      var ed = el("div", "gedit");
+      var inp = el("input"); inp.type = "text"; inp.inputMode = "numeric"; inp.maxLength = 3;
+      inp.value = goal ? String(goal) : ""; inp.placeholder = "권수"; inp.setAttribute("aria-label", y + "년 목표 권수");
+      ed.appendChild(inp); ed.appendChild(el("span", "", "권"));
+      var commit = function () {
+        var n = parseInt(inp.value, 10);
+        if (!(n >= 1 && n <= 999)) { showToast("1~999 사이 숫자로 입력해 주세요"); inp.focus(); return; }
+        goals[y] = n; saveGoals(goals); goalEdit = false; renderStats();
+      };
+      var sv = el("button", "primary", "저장"); sv.type = "button"; sv.onclick = commit;
+      ed.appendChild(sv);
+      if (goal) {
+        var rm = el("button", "dim", "목표 해제"); rm.type = "button";
+        rm.onclick = function () { delete goals[y]; saveGoals(goals); goalEdit = false; renderStats(); };
+        ed.appendChild(rm);
+      }
+      inp.onkeydown = function (e) { if (e.key === "Enter") { e.preventDefault(); commit(); } else if (e.key === "Escape") { e.stopPropagation(); goalEdit = false; renderStats(); } };
+      pane.appendChild(ed);
+      setTimeout(function () { inp.focus(); }, 0);
+    }
+
+    var nums = el("div", "gnums");
+    nums.appendChild(el("b", "", goal ? done + " / " + goal : String(done)));
+    nums.appendChild(el("span", "", "권 완독"));
+    if (goal) nums.appendChild(el("em", "", Math.round(done * 100 / goal) + "%"));
+    pane.appendChild(nums);
+
+    if (!goal) {
+      if (!goalEdit) pane.appendChild(el("div", "gnote", y >= nowY ? "올해 읽을 책 권수를 정해보세요." : y + "년에는 목표를 정하지 않았어요."));
+      if (y === nowY && reading) pane.appendChild(el("div", "gnote", "읽는 중 " + reading + "권"));
+      return pane;
+    }
+
+    var tr = el("span", "gtrack"), fi = el("i");
+    fi.style.width = Math.min(100, done * 100 / goal) + "%";
+    tr.appendChild(fi);
+    var expected = 0, elapsed = 0, total = 0;
+    if (y === nowY) {
+      var t0 = new Date(y, 0, 1), t1 = new Date(y + 1, 0, 1);
+      total = Math.round((t1 - t0) / DAY);
+      elapsed = Math.min(total, Math.floor((new Date() - t0) / DAY) + 1);
+      expected = goal * elapsed / total;
+      var tick = el("u"); tick.style.left = Math.min(100, expected * 100 / goal) + "%";
+      tick.setAttribute("title", "오늘까지의 예정 진도");
+      tr.appendChild(tick);
+    }
+    pane.appendChild(tr);
+
+    var left = goal - done;
+    if (left <= 0) {
+      pane.appendChild(el("div", "gnote hi", "목표를 달성했어요!" + (done > goal ? " (+" + (done - goal) + "권)" : "")));
+    } else if (y === nowY) {
+      var diff = Math.round(done - expected);
+      pane.appendChild(el("div", "gnote hi", diff > 0 ? "예정보다 " + diff + "권 앞서가고 있어요" : diff < 0 ? "예정보다 " + (-diff) + "권 뒤처져 있어요" : "예정대로 가고 있어요"));
+      var daysLeft = total - elapsed;
+      pane.appendChild(el("div", "gnote", "남은 " + left + "권" + (daysLeft > 0 ? " · 약 " + Math.max(1, Math.round(daysLeft / left)) + "일에 1권씩" : "")));
+    } else if (y < nowY) {
+      pane.appendChild(el("div", "gnote", left + "권 부족했어요"));
+    } else {
+      pane.appendChild(el("div", "gnote", "남은 " + left + "권"));
+    }
+    if (y === nowY && reading) pane.appendChild(el("div", "gnote", "읽는 중 " + reading + "권"));
+    return pane;
+  }
+
+  /* ---------- 목표 탭: 월별 목표 · 비교 그래프 ---------- */
+  function monthPane(y) {
+    var goals = getGoals(), nowD = new Date(), nowY = nowD.getFullYear(), nowM = nowD.getMonth() + 1, sum = 0;
+    for (var i = 1; i <= 12; i++) sum += +goals[y + "-" + pad(i)] || 0;
+    var pane = el("div", "pane gpane mpane"); pane.dataset.t = "book";
+    var h = el("div", "phead");
+    h.appendChild(el("b", "", y + "년 월별 목표"));
+    h.appendChild(el("span", "tot", sum ? "목표 합계 " + sum + "권" : ""));
+    pane.appendChild(h);
+    for (var m = 1; m <= 12; m++) (function (m) {
+      var key = y + "-" + pad(m), goal = +goals[key] || 0, done = readCount(key);
+      var row = el("div", "mrow" + (y === nowY && m === nowM ? " now" : ""));
+      row.appendChild(el("span", "ml", m + "월"));
+      var tr = el("span", "gtrack"), fi = el("i");
+      fi.style.width = goal ? Math.min(100, done * 100 / goal) + "%" : "0%";
+      tr.appendChild(fi); row.appendChild(tr);
+      var txt = goal ? (done >= goal ? "\u2713 " : "") + done + " / " + goal + "권" : (done ? done + "권" : "-");
+      row.appendChild(el("b", goal ? (done >= goal ? "ok" : "") : "none", txt));
+      var btn = el("button", "", mEdit === key ? "닫기" : (goal ? "수정" : "설정")); btn.type = "button";
+      btn.setAttribute("aria-label", m + "월 목표 " + (goal ? "수정" : "설정"));
+      btn.onclick = function () { mEdit = (mEdit === key) ? null : key; goalEdit = false; renderStats(); };
+      row.appendChild(btn);
+      pane.appendChild(row);
+      if (mEdit === key) {
+        var ed = el("div", "gedit");
+        var inp = el("input"); inp.type = "text"; inp.inputMode = "numeric"; inp.maxLength = 3;
+        inp.value = goal ? String(goal) : ""; inp.placeholder = "권수"; inp.setAttribute("aria-label", y + "년 " + m + "월 목표 권수");
+        ed.appendChild(inp); ed.appendChild(el("span", "", "권"));
+        var commit = function () {
+          var n = parseInt(inp.value, 10);
+          if (!(n >= 1 && n <= 999)) { showToast("1~999 사이 숫자로 입력해 주세요"); inp.focus(); return; }
+          goals[key] = n; saveGoals(goals); mEdit = null; renderStats();
+        };
+        var sv = el("button", "primary", "저장"); sv.type = "button"; sv.onclick = commit;
+        ed.appendChild(sv);
+        if (goal) {
+          var rm = el("button", "dim", "목표 해제"); rm.type = "button";
+          rm.onclick = function () { delete goals[key]; saveGoals(goals); mEdit = null; renderStats(); };
+          ed.appendChild(rm);
+        }
+        inp.onkeydown = function (e) { if (e.key === "Enter") { e.preventDefault(); commit(); } else if (e.key === "Escape") { e.stopPropagation(); mEdit = null; renderStats(); } };
+        pane.appendChild(ed);
+        setTimeout(function () { inp.focus(); }, 0);
+      }
+    })(m);
+    return pane;
+  }
+  /* 목표(회색) vs 달성(색) 세로 막대 그래프. cols: [{ l: 라벨, g: 목표, d: 달성, now: 현재 }] */
+  function goalChart(title, cols, scroll) {
+    var pane = el("div", "pane"); pane.dataset.t = "book";
+    var h = el("div", "phead"); h.appendChild(el("b", "", title));
+    var lg = el("span", "gleg");
+    var a = el("span", ""); a.appendChild(el("i", "g")); a.appendChild(document.createTextNode("목표"));
+    var b = el("span", ""); b.appendChild(el("i", "d")); b.appendChild(document.createTextNode("달성"));
+    lg.appendChild(a); lg.appendChild(b); h.appendChild(lg);
+    pane.appendChild(h);
+    var max = 1, any = false, withGoal = 0, met = 0;
+    cols.forEach(function (c) {
+      max = Math.max(max, c.g, c.d);
+      if (c.g || c.d) any = true;
+      if (c.g) { withGoal++; if (c.d >= c.g) met++; }
+    });
+    if (!any) { pane.appendChild(el("div", "empty small", "아직 목표나 완독 기록이 없어요.")); return pane; }
+    var chart = el("div", "gchart" + (scroll ? " sc" : ""));
+    cols.forEach(function (c) {
+      var col = el("div", "gcol" + (c.now ? " now" : "")), bars = el("div", "gbars");
+      [["g", c.g, "목표"], ["d", c.d, "달성"]].forEach(function (x) {
+        var bar = el("i", x[0]);
+        bar.style.height = (x[1] / max * 100) + "%";
+        bar.setAttribute("title", c.l + " " + x[2] + " " + x[1] + "권");
+        if (x[1] > 0 || c.g > 0) bar.appendChild(el("em", "", String(x[1])));
+        bars.appendChild(bar);
+      });
+      col.appendChild(bars); col.appendChild(el("div", "gl", c.l));
+      chart.appendChild(col);
+    });
+    pane.appendChild(chart);
+    if (withGoal) pane.appendChild(el("div", "gnote", "목표를 정한 " + withGoal + "곳 중 " + met + "곳 달성"));
+    return pane;
+  }
+  function renderGoalTab(w) {
+    var y = gy, nowD = new Date(), nowY = nowD.getFullYear(), nowM = nowD.getMonth() + 1, goals = getGoals();
+    w.appendChild(goalPane(y));
+    w.appendChild(monthPane(y));
+    var mc = [];
+    for (var m = 1; m <= 12; m++) {
+      var k = y + "-" + pad(m);
+      mc.push({ l: m + "월", g: +goals[k] || 0, d: readCount(k), now: y === nowY && m === nowM });
+    }
+    w.appendChild(goalChart(y + "년 월별 목표 · 달성", mc, false));
+    var ys = {}; ys[nowY] = 1;
+    Object.keys(goals).forEach(function (k) { if (/^\d{4}$/.test(k)) ys[k] = 1; });
+    data.forEach(function (r) { if (r.type === "book" && r.status !== "reading" && r.date) ys[r.date.slice(0, 4)] = 1; });
+    var yc = Object.keys(ys).sort().map(function (yy) {
+      return { l: yy, g: +goals[yy] || 0, d: readCount(yy), now: +yy === nowY };
+    });
+    w.appendChild(goalChart("연도별 목표 · 달성", yc, true));
+    w.appendChild(el("div", "hint2", "완독한 책만 집계돼요. 읽는 중인 책과 날짜 없는 기록은 빠져요."));
+  }
+  /* 목록(책 탭)·달력 맨 위의 한 줄 진행바. 누르면 그 자리에서 목표 상자가 펼쳐지고, 상자 안 「통계」로 통계 목표 탭에 갈 수 있음 */
+  var gxOpen = { list: false, cal: false }, gxEdit = false;
+  function goalPeriod(key) {
+    var y = +key.slice(0, 4), m = key.length > 4 ? +key.slice(5, 7) : 0, now = new Date();
+    var s0 = m ? new Date(y, m - 1, 1) : new Date(y, 0, 1), e0 = m ? new Date(y, m, 1) : new Date(y + 1, 0, 1);
+    return { y: y, m: m, s: s0, e: e0, now: now, cur: now >= s0 && now < e0, past: now >= e0,
+      label: m ? y + "년 " + m + "월" : y + "년", unit: m ? "이번 달" : "올해" };
+  }
+  function goalBox(key, where) {
+    var goals = getGoals(), goal = +goals[key] || 0, done = readCount(key), P = goalPeriod(key);
+    var pane = el("div", "pane gpane gxbox"); pane.dataset.t = "book";
+    var h = el("div", "phead"); h.appendChild(el("b", "", P.label + " 독서 목표"));
+    var bt = el("div", "gbtns");
+    var eb = el("button", "", gxEdit ? "닫기" : (goal ? "수정" : "목표 설정")); eb.type = "button";
+    eb.onclick = function () { gxEdit = !gxEdit; render(); };
+    var sb = el("button", "", "통계"); sb.type = "button";
+    sb.setAttribute("aria-label", "통계의 목표 탭으로 이동");
+    sb.onclick = function () {
+      view = "stat"; stat.mode = "goal"; gy = P.y; goalEdit = false; mEdit = null; gxEdit = false;
+      render(); window.scrollTo(0, 0);
+    };
+    bt.appendChild(eb); bt.appendChild(sb); h.appendChild(bt);
+    pane.appendChild(h);
+    if (gxEdit) {
+      var ed = el("div", "gedit");
+      var inp = el("input"); inp.type = "text"; inp.inputMode = "numeric"; inp.maxLength = 3;
+      inp.value = goal ? String(goal) : ""; inp.placeholder = "권수"; inp.setAttribute("aria-label", P.label + " 목표 권수");
+      ed.appendChild(inp); ed.appendChild(el("span", "", "권"));
+      var commit = function () {
+        var n = parseInt(inp.value, 10);
+        if (!(n >= 1 && n <= 999)) { showToast("1~999 사이 숫자로 입력해 주세요"); inp.focus(); return; }
+        goals[key] = n; saveGoals(goals); gxEdit = false; render();
+      };
+      var sv = el("button", "primary", "저장"); sv.type = "button"; sv.onclick = commit; ed.appendChild(sv);
+      if (goal) {
+        var rm = el("button", "dim", "목표 해제"); rm.type = "button";
+        rm.onclick = function () { delete goals[key]; saveGoals(goals); gxEdit = false; render(); };
+        ed.appendChild(rm);
+      }
+      inp.onkeydown = function (e) { if (e.key === "Enter") { e.preventDefault(); commit(); } else if (e.key === "Escape") { e.stopPropagation(); gxEdit = false; render(); } };
+      pane.appendChild(ed);
+      setTimeout(function () { inp.focus(); }, 0);
+    }
+    var nums = el("div", "gnums");
+    nums.appendChild(el("b", "", goal ? done + " / " + goal : String(done)));
+    nums.appendChild(el("span", "", "권 완독"));
+    if (goal) nums.appendChild(el("em", "", Math.round(done * 100 / goal) + "%"));
+    pane.appendChild(nums);
+    if (!goal) {
+      if (!gxEdit) pane.appendChild(el("div", "gnote", P.past ? P.label + "에는 목표를 정하지 않았어요." : P.unit + " 읽을 책 권수를 정해보세요."));
+      return pane;
+    }
+    var tr = el("span", "gtrack"), fi = el("i");
+    fi.style.width = Math.min(100, done * 100 / goal) + "%";
+    tr.appendChild(fi);
+    var expected = 0, elapsed = 0, total = Math.round((P.e - P.s) / DAY);
+    if (P.cur) {
+      elapsed = Math.min(total, Math.floor((P.now - P.s) / DAY) + 1);
+      expected = goal * elapsed / total;
+      var tick = el("u"); tick.style.left = Math.min(100, expected * 100 / goal) + "%";
+      tick.setAttribute("title", "오늘까지의 예정 진도"); tr.appendChild(tick);
+    }
+    pane.appendChild(tr);
+    var left = goal - done;
+    if (left <= 0) {
+      pane.appendChild(el("div", "gnote hi", "목표를 달성했어요!" + (done > goal ? " (+" + (done - goal) + "권)" : "")));
+    } else if (P.cur) {
+      var diff = Math.round(done - expected);
+      pane.appendChild(el("div", "gnote hi", diff > 0 ? "예정보다 " + diff + "권 앞서가고 있어요" : diff < 0 ? "예정보다 " + (-diff) + "권 뒤처져 있어요" : "예정대로 가고 있어요"));
+      var daysLeft = total - elapsed;
+      pane.appendChild(el("div", "gnote", "남은 " + left + "권" + (daysLeft > 0 ? " \u00B7 약 " + Math.max(1, Math.round(daysLeft / left)) + "일에 1권씩" : "")));
+    } else if (P.past) {
+      pane.appendChild(el("div", "gnote", left + "권 부족했어요"));
+    } else {
+      pane.appendChild(el("div", "gnote", "남은 " + left + "권"));
+    }
+    if (P.cur) {
+      var reading = data.filter(function (r) { return r.type === "book" && r.status === "reading"; }).length;
+      if (reading) pane.appendChild(el("div", "gnote", "읽는 중 " + reading + "권"));
+    }
+    return pane;
+  }
+  /* where: "list" | "cal". allowEmpty: 목표가 없어도 줄을 보여줌(달력에서 바로 설정하도록) */
+  function buildGoalMini(where, key, label, allowEmpty) {
+    var goal = +getGoals()[key] || 0;
+    if (!goal && !allowEmpty) return null;
+    var open = gxOpen[where], done = readCount(key);
+    var wrap = el("div", "gx");
+    var box = el("button", "gmini" + (goal ? "" : " none")); box.type = "button"; box.dataset.t = "book";
+    box.setAttribute("aria-expanded", open ? "true" : "false");
+    box.appendChild(el("span", "", label));
+    var tr = el("span", "gtrack"), fi = el("i");
+    fi.style.width = goal ? Math.min(100, done * 100 / goal) + "%" : "0%";
+    tr.appendChild(fi); box.appendChild(tr);
+    box.appendChild(el("b", "", goal ? done + "/" + goal + "권" : "목표 없음"));
+    box.onclick = function () { gxOpen[where] = !open; gxEdit = false; render(); };
+    wrap.appendChild(box);
+    if (open) wrap.appendChild(goalBox(key, where));
+    return wrap;
+  }
+  function buildListGoal() {
+    var nd = new Date(), y = nd.getFullYear(), gl = getGoals(), key = String(y), label = y + " 독서 목표";
+    if (!(+gl[key])) { key = y + "-" + pad(nd.getMonth() + 1); label = (nd.getMonth() + 1) + "월 독서 목표"; }
+    return buildGoalMini("list", key, label, false);
+  }
+
+  /* ---------- 백업 알림 ---------- */
+  var DAY = 864e5;
+  function markBackup() {
+    logAct("백업 파일 저장", null, false, "sys");
+    try { localStorage.setItem(LBKEY, String(Date.now())); localStorage.removeItem(SNKEY); } catch (e) {}
+    updateBackupBanner();
+    showToast("백업을 저장했어요");
+  }
+  function ago(ts) {
+    var d = Math.floor((Date.now() - ts) / DAY);
+    return d <= 0 ? "오늘" : d + "일 전";
+  }
+  function updateBackupBanner() {
+    var n = data.length + thoughts.length, lb = 0, lc = 0, sn = 0;
+    try { lb = +localStorage.getItem(LBKEY) || 0; lc = +localStorage.getItem(LCKEY) || 0; sn = +localStorage.getItem(SNKEY) || 0; } catch (e) {}
+    var now = Date.now(), show = false, msg = "";
+    /* 백업 후 바뀐 내용이 있고 7일이 지났거나, 한 번도 백업 안 했는데 기록이 3개 이상이면 알림 */
+    if (n && now > sn) {
+      if (!lb) { if (n >= 3) { show = true; msg = "아직 백업한 적이 없어요."; } }
+      else if (lc > lb && now - lb >= 7 * DAY) { show = true; msg = "백업한 지 " + ago(lb).replace(" 전", "") + "이 지났어요."; }
+    }
+    var b = $("bkBanner"); b.hidden = !show;
+    if (show) $("bkMsg").textContent = msg;
+    var bl = $("bkLast");
+    bl.hidden = !n;
+    if (n) {
+      bl.textContent = lb ? "마지막 백업 · " + ago(lb) : "마지막 백업 · 없음";
+      bl.classList.toggle("warn", !lb || (lc > lb && now - lb >= 7 * DAY));
+    }
+  }
+
   /* ---------- 백업 ---------- */
-  function exportData() {
-    if (!data.length && !thoughts.length) { alert("저장할 기록이 없어요."); return; }
-    var out = data.concat(thoughts.map(function (t) { return { type: "thought", id: t.id, d: t.d, tm: t.tm, t: t.t }; }));
-    var blob = new Blob([JSON.stringify(out, null, 2)], { type: "application/json" });
+  function saveFile(text, name) {
     var a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "후기백업_" + today() + ".json";
+    a.href = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+    a.download = name;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  }
+  function exportData() {
+    if (!data.length && !thoughts.length) { alert("저장할 기록이 없어요."); return; }
+    var t0 = ""; try { t0 = localStorage.getItem(TKEY) || ""; } catch (e) {}
+    var out = [{ type: "meta", v: SCHEMA, title: t0, goals: getGoals(), at: today() }]
+      .concat(data, thoughts.map(function (t) { return { type: "thought", id: t.id, d: t.d, tm: t.tm, t: t.t }; }),
+              acts.map(function (a) { return { type: "log", id: a.id, d: a.d, tm: a.tm, t: a.t, rid: a.rid, ty: a.ty, w: a.w }; }));
+    var text = JSON.stringify(out, null, 2), name = "후기백업_" + today() + ".json", file = null;
+    /* 폰(터치 기기)에서는 공유 시트로 드라이브·iCloud·카톡 등에 바로 저장. 안 되면 일반 다운로드 */
+    try {
+      if (window.matchMedia && matchMedia("(pointer: coarse)").matches && navigator.share && navigator.canShare) {
+        file = new File([text], name, { type: "application/json" });
+        if (!navigator.canShare({ files: [file] })) file = null;
+      }
+    } catch (e) { file = null; }
+    if (file) {
+      navigator.share({ files: [file], title: name }).then(markBackup, function (err) {
+        if (err && err.name === "AbortError") return;   /* 사용자가 공유창을 닫음: 백업한 것으로 치지 않음 */
+        saveFile(text, name); markBackup();
+      });
+      return;
+    }
+    saveFile(text, name); markBackup();
   }
   /* ---------- 플앱 CSV 불러오기 ---------- */
   function parseCsv(t) {
@@ -3007,7 +3809,9 @@
           });
           n[type]++; added++;
         });
-        persist(); render();
+        syncActs(); persist(); render();
+        if (added) logAct("플앱 CSV 가져오기 \u00B7 " + added + "개", null, false, "sys");
+        render();
         var parts = [];
         if (n.musical) parts.push("뮤지컬 " + n.musical);
         if (n.play) parts.push("연극·공연 " + n.play);
@@ -3028,9 +3832,31 @@
         var have = {};
         data.forEach(function (x) { have[x.id] = x; });
         var added = 0, updated = 0, filled = 0, addedT = 0;
-        var haveT = {};
+        var haveT = {}, haveA = {};
+        acts.forEach(function (a) { haveA[a.id] = true; });
         thoughts.forEach(function (t) { haveT[t.id] = true; });
         arr.forEach(function (x) {
+          if (x && x.type === "meta") {
+            /* 백업에 들어 있는 앱 제목: 이 기기에서 제목을 따로 바꾸지 않았을 때만 가져옴 */
+            var mt = String(x.title || "").trim().slice(0, 30), cur = null;
+            try { cur = localStorage.getItem(TKEY); } catch (e) {}
+            if (mt && !cur) { try { localStorage.setItem(TKEY, mt); } catch (e) {} applyTitle(); }
+            /* 독서 목표(연도·월별): 이 기기에 없는 항목만 채움 */
+            if (x.goals && typeof x.goals === "object") {
+              var gl = getGoals(), gch = false;
+              Object.keys(x.goals).forEach(function (yr) {
+                var n = Math.round(+x.goals[yr]);
+                if (/^\d{4}(-(0[1-9]|1[0-2]))?$/.test(yr) && n >= 1 && n <= 999 && gl[yr] == null) { gl[yr] = n; gch = true; }
+              });
+              if (gch) saveGoals(gl, true);
+            }
+            return;
+          }
+          if (x && x.type === "log") {
+            var ca = cleanAct(x);
+            if (ca && !haveA[ca.id]) { acts.push(ca); haveA[ca.id] = true; }
+            return;
+          }
           if (x && x.type === "thought") {
             var ct = cleanThought(x);
             if (ct && !haveT[ct.id]) { thoughts.push(ct); haveT[ct.id] = true; addedT++; }
@@ -3053,20 +3879,31 @@
             return;
           }
           if (x && x.title && KIND[x.type] && !have[x.id]) {
-            data.push({
-              id: x.id || Date.now() + added, type: x.type, title: String(x.title),
+            var newId = x.id || (Date.now() + added);
+            while (have[newId] && !x.id) newId++;
+            var rec = {
+              id: newId, type: x.type, title: String(x.title),
               creator: String(x.creator || ""), genre: x.type === "book" ? String(x.genre || "").slice(0, 30) : "", cast: String(x.cast || ""), seat: String(x.seat || ""), note: String(x.note || ""),
               time: /^\d{2}:\d{2}$/.test(x.time) ? x.time : "",
               status: (x.type === "book" && x.status === "reading") ? "reading" : "done",
-              date: (x.type === "book" && x.status === "reading") ? "" : String(x.date || ""),
+              date: (x.type === "book" && x.status === "reading") ? "" : normDate(x.date),
               rating: Math.max(0, Math.min(5, Math.round((+x.rating || 0) * 2) / 2)),
               text: (String(x.quote || "").trim() ? String(x.quote).trim() + (String(x.text || "").trim() ? "\n\n" : "") : "") + String(x.text || ""),
               take: String(x.take || ""), quote: "", tags: cleanTags(x.tags), later: cleanLater(x.later)
-            });
+            };
+            data.push(rec); have[newId] = rec;
             added++;
           }
         });
-        persist(); persistThoughts(); render();
+        syncActs(); persist(); persistThoughts(); persistActs();
+        if (added || addedT || filled || updated) {
+          var ip = [];
+          if (added) ip.push("기록 " + added + "개");
+          if (addedT) ip.push("생각 " + addedT + "개");
+          if (!added && !addedT) ip.push("기존 기록 " + (filled + updated) + "개 보완");
+          logAct("백업 파일 가져오기 \u00B7 " + ip.join(", "), null, false, "sys");
+        }
+        render();
         alert(added + "개를 불러왔어요." + (addedT ? " 생각 " + addedT + "개도 가져왔어요." : "") + (filled ? " 이미 있던 " + filled + "개는 후기를 채우거나 정리했어요." : "") + (updated ? " 이미 있던 " + updated + "개는 좌석 정보를 갱신했어요." : ""));
       } catch (e) { alert("올바른 백업 파일이 아니에요."); }
     };
@@ -3097,6 +3934,10 @@
   $("rsel").onchange = function () { rfilter = this.value; render(); };
   $("ssel").onchange = function () { sfilter = this.value; render(); };
   $("tgBtn").onclick = function () { showTh = !showTh; render(); };
+  $("tlFilt").onclick = function (e) {
+    if (!e.target.dataset.tf) return;
+    tlOnly = e.target.dataset.tf === "mine"; tlLimit = 60; render();
+  };
   function tlSync() {
     var t = $("tlText");
     t.style.height = "auto";
@@ -3114,18 +3955,20 @@
   $("tlText").addEventListener("input", tlSync);
   $("tlText").addEventListener("keydown", function (e) { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") { e.preventDefault(); tlPost(); } });
   $("tlPost").onclick = tlPost;
-  $("q").oninput = render;
+  var qTimer = 0;
+  $("q").oninput = function () { clearTimeout(qTimer); qTimer = setTimeout(render, 200); };
   $("text").addEventListener("click", openWriter);
   $("wtext").addEventListener("input", function () {
     $("text").value = this.value;
     $("wcnt").textContent = this.value.length + "자";
+    scheduleDraft();
   });
   $("wdone").onclick = closeWriter;
   if (window.visualViewport) {
     window.visualViewport.addEventListener("resize", fitWriter);
     window.visualViewport.addEventListener("scroll", fitWriter);
   }
-  $("views").onclick = function (e) { if (e.target.dataset.v) { view = e.target.dataset.v; render(); } };
+  $("views").onclick = function (e) { if (e.target.dataset.v) { retTo = null; view = e.target.dataset.v; render(); } };
   $("stKinds").onclick = function (e) { if (e.target.dataset.s) setStatus(e.target.dataset.s); };
   $("prevM").onclick = function () { moveMonth(-1); };
   $("nextM").onclick = function () { moveMonth(1); };
@@ -3198,7 +4041,24 @@
   $("gIns").onclick = insertGuideSel;
   $("gClear").onclick = function () { gSel = {}; renderGuide(); };
   $("gRand").onclick = randomGuide;
+  ["input", "change", "click"].forEach(function (ev) { $("sheet").addEventListener(ev, scheduleDraft); });
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "hidden") saveDraft(); });
+  window.addEventListener("pagehide", saveDraft);
+  $("bkNow").onclick = exportData;
+  $("bkLater").onclick = function () {
+    try { localStorage.setItem(SNKEY, String(Date.now() + 3 * DAY)); } catch (e) {}
+    updateBackupBanner();
+  };
+  syncActs();
   render();
+  /* 저장된 데이터를 읽지 못했다면 원본을 파일로 내려받을 기회를 줌 */
+  if (corrupt.length) setTimeout(function () {
+    corrupt.forEach(function (c) {
+      var what = c.key === TLKEY ? "생각(타임라인)" : "후기";
+      if (confirm(what + " 저장 데이터 일부를 읽지 못했어요.\n원본은 브라우저에 따로 보관해 뒀어요.\n\n지금 원본을 파일로 저장해 둘까요?"))
+        saveFile(c.raw, "복구용_" + (c.key === TLKEY ? "생각" : "후기") + "_" + today() + ".json");
+    });
+  }, 400);
 })();
 </script>
 </body>
