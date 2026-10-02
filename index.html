@@ -396,7 +396,11 @@
     flex: 1; min-width: 0; text-align: center; font-size: 15px; white-space: nowrap;
     overflow: hidden; text-overflow: ellipsis;
   }
-  .wbar .wc { color: var(--sub); font-size: 13px; min-width: 64px; }
+  .wbar .wc { color: var(--sub); font-size: 13px; min-width: 52px; }
+  .wbar .wundo { flex: none; width: 30px; height: 30px; margin-left: -6px; border: 0; border-radius: 8px; background: transparent; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .wbar .wundo + .wundo { margin-left: -8px; }
+  .wbar .wundo:disabled { opacity: .28; cursor: default; }
+  .wbar .wundo:not(:disabled):active { background: rgba(25,28,43,.08); }
   #wtext {
     flex: 1; min-height: 0; width: 100%; border: 0; border-radius: 0; background: transparent;
     padding: 18px 18px calc(24px + env(safe-area-inset-bottom)); font-size: 18px; line-height: 1.9;
@@ -676,16 +680,6 @@
   }
   #rtabs .fsel.act { color: var(--ink); font-weight: 700; }
   #rtabs .fsel.act span { box-shadow: inset 0 -2px 0 var(--ink); }
-  #rtabs button.tgl {
-    margin: 0 0 0 auto; flex: none; height: 26px; padding: 0; border: 0; border-radius: 0; background: transparent;
-    color: var(--mute); font-size: 13.5px; font-weight: 500; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;
-  }
-  #rtabs button.tgl::before {
-    content: ""; width: 8px; height: 8px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px currentColor;
-  }
-  #rtabs button.tgl.on { color: var(--ink); font-weight: 700; }
-  #rtabs button.tgl.on::before { background: var(--ink); box-shadow: none; }
-  #rtabs button.tgl::after { display: none; }
 
   /* ===== 타임라인(생각) ===== */
   #tlWrap { padding: 12px 16px 4px; }
@@ -840,6 +834,8 @@
   }
   #guide[hidden] { display: none; }
   .gcol { width: 100%; max-width: 680px; height: 100%; display: flex; flex-direction: column; }
+  /* 통계 그래프용 .gcol 규칙(flex:1; align-items:center)이 창 레이아웃을 깨뜨리지 않게 되돌림 */
+  #guide .gcol, #howto .gcol { flex: none; align-items: stretch; min-width: 0; }
   .gbar {
     flex: none; display: flex; align-items: center; gap: 10px; padding: 8px 12px; padding-top: max(8px, env(safe-area-inset-top));
     border-bottom: 1px solid var(--line); background: var(--bg);
@@ -973,7 +969,6 @@
   #rtabs button { height: var(--ctl); font-size: 13px; }
   #rtabs .sbtn { width: var(--ctl); height: var(--ctl); }
   #rtabs .fsel { height: var(--ctl); font-size: 13px; }
-  #rtabs button.tgl { height: var(--ctl); font-size: 13px; }
   #qbox input[type=search] { height: var(--ctl); padding: 0 12px; border-radius: 999px; }
 
   /* 목록 · 펼친 카드 */
@@ -1092,6 +1087,80 @@
   .hq.open { box-shadow: 0 0 0 1.5px var(--ink); }
   .hp { padding: 0 16px 15px; font-size: 14.5px; line-height: 1.75; color: var(--ink); letter-spacing: -0.01em; }
   .hp b { font-weight: 700; }
+  /* 후기 쓰다가 잠깐 내려두기 */
+  #sheet.mini, #writer.mini { display: none !important; }
+  .barbtn.mbtn { min-width: 0; display: inline-flex; align-items: center; gap: 3px; padding: 8px 8px; font-size: 13.5px; }
+  .barbtn.mbtn svg { flex: none; }
+  .rgrp { display: flex; align-items: center; gap: 2px; }
+  #miniBar { position: fixed; left: 12px; right: 12px; bottom: calc(46px + env(safe-area-inset-bottom)); z-index: 7; max-width: 608px; margin: 0 auto; }
+  #miniBar[hidden] { display: none; }
+  #miniBar button {
+    width: 100%; height: 42px; border: 0; border-radius: 999px; background: var(--ink); color: #fff;
+    display: flex; align-items: center; gap: 8px; padding: 0 16px; font-family: inherit; font-size: 14px; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(25,28,43,.22);
+  }
+  #miniBar .mtxt { flex: 1; min-width: 0; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #miniBar .mgo { flex: none; font-weight: 700; color: #ffd45a; }
+  /* 처음 들어온 사람에게만 보이는 시작 전 안내 */
+  #welcome { position: fixed; inset: 0; z-index: 40; background: rgba(25,28,43,.55); display: flex; align-items: center; justify-content: center; padding: 20px; overscroll-behavior: contain; }
+  #welcome[hidden] { display: none; }
+  #welcome .wbox { width: 100%; max-width: 420px; max-height: 100%; overflow-y: auto; background: #fff9e6; border-radius: 20px; box-shadow: 0 0 0 1.5px #e9bb3a, 0 12px 32px rgba(25,28,43,.25); padding: 20px 18px 16px; }
+  #welcome .whd { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  #welcome .whd b { font-size: 16.5px; letter-spacing: -0.02em; }
+  #welcome .wbd { font-size: 14.5px; line-height: 1.75; letter-spacing: -0.01em; color: var(--ink); }
+  #welcome .wbd b { font-weight: 700; background: linear-gradient(transparent 58%, #ffe08a 58%); }
+  #welcome .wbd .wline { display: flex; align-items: flex-start; gap: 10px; }
+  #welcome .wbd .wline + .wline { margin-top: 10px; }
+  #welcome .wnum { flex: none; width: 22px; height: 22px; margin-top: 1.5px; border-radius: 50%; background: var(--ink); color: #ffd45a; font-size: 12px; font-weight: 700; line-height: 22px; text-align: center; }
+  #welcome .wtx { flex: 1; min-width: 0; }
+  #welcome .wbtns { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
+  #welcome .wguide { height: 44px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+  #welcome .wnever { height: 38px; border: 0; background: transparent; color: var(--sub); font-family: inherit; font-size: 13.5px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .noreview { margin-top: 12px; font-size: 13.5px; color: var(--mute); opacity: .6; }
+  /* 업데이트 내역 탭: 다른 탭보다 연한 색 */
+  .gtabs button.logtab { opacity: .55; }
+  .gtabs button.logtab.on { opacity: .8; }
+  .hq.log .hp { padding-top: 0; }
+  .hq.warn { background: #fff9e6; box-shadow: 0 0 0 1.5px #e9bb3a; }
+  .hq.warn .gqt { font-size: 16px; }
+  .wbadge { flex: none; align-self: center; font-size: 11px; font-weight: 700; letter-spacing: .04em; padding: 3px 8px; border-radius: 999px; background: var(--ink); color: #ffd45a; }
+  .hq.warn .hp b { background: linear-gradient(transparent 58%, #ffe08a 58%); }
+  .hq.warn .wline + .wline { margin-top: 8px; }
+  .hq.log .gqt { word-break: keep-all; }
+  /* 사용가이드: 번호 줄 + 연보라 포인트 카드 */
+  .hwrow { display: flex; align-items: flex-start; gap: 10px; }
+  .hwrow + .hwrow { margin-top: 9px; }
+  .hwrow .hwnum { flex: none; width: 22px; height: 22px; margin-top: 1.5px; border-radius: 50%; background: #ece6f8; color: #5a3fa0; font-size: 12px; font-weight: 700; line-height: 22px; text-align: center; }
+  .hwrow .hwtx { flex: 1; min-width: 0; }
+  .hq.warn .hwrow .hwnum { background: var(--ink); color: #ffd45a; }
+  .hq.hwpurple { background: #f3eefc; box-shadow: 0 0 0 1.5px #b9a6e6; }
+  .hq.hwpurple .gqt { color: #4b3590; }
+  .hq.hwpurple .hwrow .hwnum { background: #7c5cc4; color: #fff; }
+  .hq.warn .hwrow + .hwrow { margin-top: 10px; }
+  .fbwrap { margin: 2px 2px 12px; }
+  .fbhd { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--mute); margin: 4px 2px 8px; }
+  .fbhd2 { margin-top: 18px; margin-bottom: 0; }
+  .fbrow {
+    display: flex; align-items: center; gap: 8px; padding: 11px 11px; margin-bottom: 8px; border-radius: 14px;
+    border: 1px solid var(--line2); background: transparent; color: var(--ink); text-decoration: none;
+    -webkit-tap-highlight-color: transparent; transition: background .15s;
+  }
+  .fbrow:active { background: var(--paper); }
+  .fbico { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; }
+  .fbtx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+  .fbl { font-size: 11.5px; color: var(--sub); letter-spacing: -0.01em; }
+  .fbv { font-size: 14.5px; font-weight: 600; letter-spacing: -0.01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fbnt { flex: none; display: flex; flex-direction: column; align-items: flex-end; font-size: 10.5px; line-height: 1.4; color: var(--sub); white-space: nowrap; letter-spacing: -0.03em; }
+  .fbgo { flex: none; color: var(--mute); }
+  .hq.log .logdt { flex: none; margin-left: auto; padding-left: 8px; font-size: 12px; color: var(--sub); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  /* 스크롤 중 세부정보 펼치기: 후기 위치는 그대로 두고 버튼 줄 아래에 덮어서 보여줌 */
+  .cfloat {
+    position: absolute; left: 0; right: 0; top: 100%; z-index: 2;
+    max-height: min(55vh, 420px); overflow-y: auto; overscroll-behavior: contain;
+    padding: 0 14px 6px 20px; background: var(--paper);
+    border-bottom: 1px solid var(--line2); box-shadow: 0 3px 6px rgba(25,28,43,.04);
+  }
 </style>
 </head>
 <body>
@@ -1165,7 +1234,9 @@
       <label class="fsel" id="sfsel"><span id="slab">별점 전체</span>
         <select id="ssel" aria-label="별점 필터"></select>
       </label>
-      <button type="button" class="tgl" id="tgBtn" aria-pressed="false">생각 포함</button>
+      <label class="fsel" id="tfsel"><span id="tlab">생각 제외</span>
+        <select id="tsel" aria-label="타임라인 생각 포함 여부"></select>
+      </label>
     </div>
     <div id="qbox" hidden>
       <input type="search" id="q" placeholder="제목, 저자, 후기 내용 검색">
@@ -1207,6 +1278,17 @@
 </div>
 
 <div id="toast" role="status" aria-live="polite"></div>
+<div id="welcome" hidden>
+  <div class="wbox" role="dialog" aria-modal="true" aria-label="시작 전 안내">
+    <div class="whd"><span class="wbadge">중요</span><b>시작하기 전에 꼭 읽어주세요</b></div>
+    <div class="wbd" id="welBody"></div>
+    <div class="wbtns">
+      <button type="button" class="wguide" id="welGuide">사용가이드 보기</button>
+      <button type="button" class="wnever" id="welNever">더 이상 보지 않기</button>
+    </div>
+  </div>
+</div>
+<div id="miniBar" hidden><button type="button" id="miniOpen" aria-label="내려둔 후기 이어 쓰기"><span class="mtxt" id="miniTxt">작성 중</span><span class="mgo">이어 쓰기 ▲</span></button></div>
 
 <div id="dock">
   <div class="in">
@@ -1223,7 +1305,10 @@
     <div class="editbar">
       <button type="button" class="barbtn" id="cancel">닫기</button>
       <b id="sheetTitle">새 후기</b>
-      <button type="button" class="barbtn save" id="save">저장</button>
+      <div class="rgrp">
+        <button type="button" class="barbtn mbtn" id="minBtn" aria-label="작성 화면 잠깐 내리기"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>내리기</button>
+        <button type="button" class="barbtn save" id="save">저장</button>
+      </div>
     </div>
 
     <div class="editbody">
@@ -1327,7 +1412,10 @@
   <div class="wcol">
     <div class="wbar" id="wbar">
       <span class="wc" id="wcnt">0자</span>
+      <button type="button" class="wundo" id="wUndo" aria-label="실행 취소" disabled><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+      <button type="button" class="wundo" id="wRedo" aria-label="다시 실행" disabled><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14l5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
       <b id="wtitle">후기</b>
+      <button type="button" class="barbtn mbtn" id="wMin" aria-label="작성 화면 잠깐 내리기"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>내리기</button>
       <button type="button" class="barbtn save" id="wdone">완료</button>
     </div>
     <textarea id="wtext" placeholder="이 작품은 어땠나요? 자유롭게 적어보세요." aria-label="후기 쓰기"></textarea>
@@ -1506,7 +1594,7 @@
   function cleanAct(x) {
     if (!x || !String(x.t || "").trim()) return null;
     return { id: x.id || (Date.now() + (tseq++)), d: /^\d{4}-\d{2}-\d{2}$/.test(x.d) ? x.d : today(),
-             tm: /^\d{2}:\d{2}$/.test(x.tm) ? x.tm : "", t: String(x.t).slice(0, 200),
+             tm: /^\d{2}:\d{2}$/.test(x.tm) ? x.tm : "", t: String(x.t).slice(0, 200).replace(/ 관극$/, " 관람"),
              rid: +x.rid || 0, ty: (x.ty === "movie" || x.ty === "play" || x.ty === "musical" || x.ty === "sys") ? x.ty : "book",
              w: !!x.w || (!!x.rid && x.ty !== "book" && /^\u300C.*\u300D (관극|관람)$/.test(String(x.t))) };
   }
@@ -1539,7 +1627,7 @@
   }
   function actVerb(r) {
     if (r.type === "book") return r.status === "reading" ? "읽는 중 등록" : "완독";
-    return r.type === "movie" ? "관람" : "관극";
+    return "관람";
   }
   function goalLabel(k) { return k.slice(0, 4) + "년" + (k.length > 4 ? " " + (+k.slice(5, 7)) + "월" : "") + " 독서 목표"; }
   function logGoalDiff(old, cur) {
@@ -1735,7 +1823,9 @@
     Array.prototype.forEach.call(document.querySelectorAll(".card.open"), function (card) {
       var tg = card.querySelector(".abar .tog");
       if (!tg) return;
-      var on = !!infoOpen[card.dataset.id] && !infoCovered(card);
+      var fl = card.querySelector(".cfloat");
+      if (fl && !infoCovered(card)) { fl.remove(); fl = null; }  /* 제자리가 보이면 덮개는 치움 */
+      var on = fl ? true : (!!infoOpen[card.dataset.id] && !infoCovered(card));
       tg.textContent = on ? "접기" : "펼치기";
       tg.setAttribute("aria-expanded", on ? "true" : "false");
     });
@@ -1754,27 +1844,50 @@
     var tg = el("button", "tog", open ? "접기" : "펼치기");
     tg.type = "button";
     tg.setAttribute("aria-expanded", open ? "true" : "false");
+    /* 스크롤로 가려진 세부정보를 버튼 줄 아래에 덮어서 보여줌 (후기는 안 움직임) */
+    function showFloat(isNew) {
+      var fl = el("div", "cfloat");
+      fl.dataset.isnew = isNew ? "1" : "0";
+      var inf = buildInfo(r); inf.hidden = false;
+      fl.appendChild(inf);
+      fl.onclick = function (ev) { ev.stopPropagation(); };
+      bar.appendChild(fl);
+    }
+    function keepReview(fn) {
+      var d0 = card.querySelector(".detail");
+      var before = d0 ? d0.getBoundingClientRect().top : 0;
+      fn();
+      if (d0) window.scrollBy(0, d0.getBoundingClientRect().top - before);
+    }
     tg.onclick = function (e) {
       e.stopPropagation();
       var tl = toolH();
-      /* 펼쳐진 상태지만 스크롤로 가려진 경우: 접지 않고 다시 위로 올려 보여줌 */
+      var fl = bar.querySelector(".cfloat");
+      /* 덮개가 떠 있으면 접기 */
+      if (fl) {
+        var wasNew = fl.dataset.isnew === "1";
+        fl.remove();
+        if (wasNew) keepReview(function () { infoOpen[r.id] = false; info.hidden = true; });
+        syncToggles();
+        return;
+      }
+      /* 이미 펼쳐져 있지만 위로 가려진 경우: 스크롤 이동 없이 아래에 보여줌 */
       if (infoOpen[r.id] && infoCovered(card)) {
-        window.scrollBy(0, card.getBoundingClientRect().top - tl);
+        showFloat(false);
         syncToggles();
         return;
       }
       var o = !infoOpen[r.id];
       var stuck = card.getBoundingClientRect().top < tl - 1;
-      var det = card.querySelector(".detail");
-      var before = det ? det.getBoundingClientRect().top : 0;
-      infoOpen[r.id] = o;
-      info.hidden = !o;
+      if (stuck) {
+        keepReview(function () { infoOpen[r.id] = o; info.hidden = !o; });
+        if (o) showFloat(true);
+      } else {
+        infoOpen[r.id] = o;
+        info.hidden = !o;
+      }
       tg.textContent = o ? "접기" : "펼치기";
       tg.setAttribute("aria-expanded", o ? "true" : "false");
-      if (stuck) {
-        if (o) window.scrollBy(0, card.getBoundingClientRect().top - tl);
-        else if (det) window.scrollBy(0, det.getBoundingClientRect().top - before);
-      }
       syncToggles();
     };
     var eb = el("button", "", "수정"); eb.type = "button";
@@ -1784,6 +1897,7 @@
     eb.onclick = function (e) { e.stopPropagation(); openForm(r.id); };
     db.onclick = function (e) {
       e.stopPropagation();
+      if (!confirm("「" + (r.title || "제목 없음") + "」 기록을 정말 삭제할까요?\n삭제 직후 몇 초 동안은 되돌릴 수 있어요.")) return;
       var pos = data.indexOf(r), gone = r;
       closeCard(r.id);
       data = data.filter(function (x) { return x.id !== r.id; });
@@ -1845,6 +1959,7 @@
 
       var det = el("div", "detail");
       if (r.text) det.appendChild(el("div", "text", r.text));
+      else det.appendChild(el("div", "noreview", "후기 없음"));
       appendDetailExtra(det, r);
       card.appendChild(det);
     }
@@ -1869,9 +1984,7 @@
     $("sbtn").setAttribute("aria-expanded", searchOpen ? "true" : "false");
     $("tabs").hidden = view === "stat" || view === "tl";
     $("rtabs").hidden = view === "stat" || view === "tl";
-    $("tgBtn").hidden = view !== "list";
-    $("tgBtn").classList.toggle("on", showTh);
-    $("tgBtn").setAttribute("aria-pressed", showTh ? "true" : "false");
+    $("tfsel").hidden = view !== "list";
     var inKind = data.filter(function (r) { return filter === "all" || r.type === filter; });
     var rPool = inKind.filter(function (r) { return starOk(r, sfilter); });
     var nYes = rPool.filter(hasReview).length;
@@ -1880,6 +1993,9 @@
     fillSelect($("rsel"), rOpt, rfilter); $("rlab").textContent = labelOf(rOpt, rfilter);
     var sOpt = SOPT.map(function (o) { return [o[0], o[1] + " (" + sPool.filter(function (r) { return starOk(r, o[0]); }).length + ")", o[2]]; });
     fillSelect($("ssel"), sOpt, sfilter); $("slab").textContent = labelOf(sOpt, sfilter);
+    var tOpt = [["off", "생각 제외", "생각 제외"], ["on", "생각 포함", "생각 포함"]];
+    fillSelect($("tsel"), tOpt, showTh ? "on" : "off"); $("tlab").textContent = labelOf(tOpt, showTh ? "on" : "off");
+    $("tfsel").classList.toggle("act", showTh);
     $("rfsel").classList.toggle("act", rfilter !== "all");
     $("sfsel").classList.toggle("act", sfilter !== "all");
     Array.prototype.forEach.call($("views").children, function (b) {
@@ -1922,6 +2038,7 @@
       var del = el("button", "", "삭제"); del.type = "button";
       del.onclick = function (e) {
         e.stopPropagation();
+        if (!confirm("이 생각을 정말 삭제할까요?\n삭제 직후 몇 초 동안은 되돌릴 수 있어요.")) return;
         var item = r.later.splice(idx, 1)[0], rid = r.id;
         persist(); render();
         showUndoToast("생각을 삭제했어요", function () {
@@ -1989,6 +2106,10 @@
     if (c) c.scrollIntoView({ block: "start" });
   }
   function deleteTEntry(e) {
+    var warn = e.k === "t"
+      ? "\n\n⚠ 주의: 타임라인 기록만 지우는 게 아니라, 내가 쓴 생각 자체가 완전히 삭제돼요."
+      : "\n\n⚠ 주의: 타임라인 기록만 지우는 게 아니라, 「" + e.r.title + "」 후기에 덧붙였던 내용도 함께 완전히 삭제돼요.";
+    if (!confirm("이 생각을 정말 삭제할까요?" + warn + "\n\n삭제 직후 몇 초 동안은 되돌릴 수 있어요.")) return;
     if (e.k === "t") {
       var tpos = thoughts.indexOf(e.th), tgone = e.th;
       thoughts = thoughts.filter(function (x) { return x !== tgone; }); persistThoughts(); render();
@@ -2011,6 +2132,14 @@
   }
   /* 타임라인 전용: 시간 · 점(레일) · 내용 세 칸으로 모든 종류를 같은 줄에 맞춤 */
   var TL_CHIP = { t: "생각", l: "덧붙임", a: "기록" };
+  /* 활동 기록의 앞 태그: 관람·후기·완독, 나머지(읽는 중·백업·불러오기·목표 설정)는 기록 */
+  function actChip(t) {
+    t = String(t || "");
+    if (/ 관람$/.test(t)) return "관람";
+    if (/ 완독$/.test(t)) return "완독";
+    if (/ 후기 작성$/.test(t)) return "후기";
+    return "기록";
+  }
   function buildTLEntry(e) {
     var rec = e.k === "l" ? e.r : (e.k === "a" && e.lg.rid ? data.filter(function (x) { return x.id === e.lg.rid; })[0] : null);
     var box = el("div", "tent tl"); box.dataset.k = e.k;
@@ -2018,7 +2147,7 @@
     else if (e.k === "a") box.dataset.t = e.lg.ty;
     box.appendChild(el("span", "dot"));
     var bd = el("div", "bd"), hd = el("div", "hd");
-    hd.appendChild(el("span", "chip", TL_CHIP[e.k]));
+    hd.appendChild(el("span", "chip", e.k === "a" ? actChip(e.lg.t) : TL_CHIP[e.k]));
     var editing = e.k === "t" && tEditId === e.th.id;
     if (e.k === "a") {
       if (rec) { var lb = el("button", "lgt", e.t); lb.type = "button"; lb.onclick = function () { gotoReview(rec.id); }; hd.appendChild(lb); }
@@ -2063,10 +2192,33 @@
   function deleteActEntry(e) {
     var pos = acts.indexOf(e.lg), gone = e.lg;
     if (pos < 0) return;
-    acts.splice(pos, 1); persistActs(); render();
+    var kind = actChip(gone.t);
+    var rec = gone.ty !== "sys" && gone.rid ? data.filter(function (x) { return x.id === gone.rid; })[0] : null;
+    if (!rec || (kind !== "관람" && kind !== "완독")) {
+      /* 후기·읽는 중·백업·가져오기·목표 기록: 타임라인 기록만 지움 */
+      var note = gone.ty === "sys" ? "\n타임라인의 기록만 지워지고, 저장한 백업 파일과 가져온 기록은 그대로 남아요."
+        : (kind === "후기" && rec) ? "\n후기 원본은 지워지지 않고, 타임라인의 기록만 삭제돼요." : "";
+      if (!confirm("이 활동 기록을 정말 삭제할까요?" + note + "\n\n삭제 직후 몇 초 동안은 되돌릴 수 있어요.")) return;
+      acts.splice(pos, 1); persistActs(); render();
+      showUndoToast("기록을 삭제했어요", function () {
+        if (acts.indexOf(gone) > -1) return;
+        acts.splice(Math.min(pos, acts.length), 0, gone); persistActs(); render();
+      });
+      return;
+    }
+    /* 관람·완독 기록: 후기 기록 자체와 그 후기의 다른 활동 기록도 함께 삭제 */
+    if (!confirm("이 기록을 정말 삭제할까요?\n\n⚠ 주의: 타임라인 기록만 지우는 게 아니라, 「" + rec.title + "」 후기 기록 자체(후기와 덧붙인 생각 포함)가 완전히 삭제돼요.\n\n삭제 직후 몇 초 동안은 되돌릴 수 있어요.")) return;
+    var rpos = data.indexOf(rec), removed = [];
+    acts.forEach(function (a, i) { if (a.ty !== "sys" && a.rid === rec.id) removed.push({ a: a, i: i }); });
+    closeCard(rec.id);
+    data = data.filter(function (x) { return x.id !== rec.id; });
+    acts = acts.filter(function (a) { return !(a.ty !== "sys" && a.rid === rec.id); });
+    persist(); persistActs(); render();
     showUndoToast("기록을 삭제했어요", function () {
-      if (acts.indexOf(gone) > -1) return;
-      acts.splice(Math.min(pos, acts.length), 0, gone); persistActs(); render();
+      if (data.some(function (x) { return x.id === rec.id; })) return;
+      data.splice(Math.min(Math.max(rpos, 0), data.length), 0, rec);
+      removed.forEach(function (o) { acts.splice(Math.min(o.i, acts.length), 0, o.a); });
+      persist(); persistActs(); render();
     });
   }
   function buildActEntry(e) {
@@ -2670,44 +2822,57 @@
   /* ---------- 사용가이드 ---------- */
   var HOWTO = [
     { t: "시작하기", items: [
-      { h: "이런 앱이에요", p: "책, 영화, 연극, 뮤지컬을 보고 난 뒤의 마음을 차곡차곡 모아두는 나만의 기록장이에요. 별점 하나, 한 줄만 남겨도 충분하고, 마음이 동하는 날엔 길게 써도 돼요. 정답도 의무도 없으니 편하게 쓰세요." },
-      { h: "이렇게 시작하세요", p: "하단의 「+ 후기 추가」를 눌러 방금 본 작품 하나를 기록해보세요. 별점과 한줄평만 남겨도 첫 기록이 완성돼요. 더 하고 싶은 말이 생기면 후기를 쓰고, 며칠 뒤 새로운 생각이 떠오르면 「생각 덧붙이기」로 이어가면 돼요." },
-      { h: "앱 제목 바꾸기", p: "맨 위의 「수정」을 누르면 \"나의 후기\"를 내가 원하는 이름으로 바꿀 수 있어요. 「○○의 기록장」처럼 나만의 이름을 붙이면 더 내 공간처럼 느껴져요. 「확인」을 누르면 저장돼요." },
-      { h: "알아두면 편해요", p: "쓰다가 실수로 닫아도 걱정 마세요. 작성 중인 내용이 있으면 먼저 물어봐요. 뒤로가기는 한 번 더 눌러야 나가지니 실수로 앱이 꺼지지 않아요. 기록이 많아졌을 땐 하단 「모두 닫기」로 펼친 카드를 한 번에 접고, 「↑」로 맨 위로 돌아갈 수 있어요." }
+      {"hl": true, "h": "이런 앱이에요", "lines": ["책, 영화, 연극, 뮤지컬을 보고 난 뒤의 마음을 차곡차곡 모아두는 나만의 기록장이에요.", "별점 하나, 한 줄만 남겨도 충분하고, 마음이 동하는 날엔 길게 써도 돼요.", "정답도 의무도 없으니 편하게 쓰세요."]},
+      {"warn": true, "h": "내 기록은 이 기기에만 저장돼요", "lines": ["후기는 서버로 전송되거나 다른 사람과 공유되지 않아요. **지금 쓰는 기기의 브라우저에만** 저장되고, 나만 볼 수 있어요.", "**브라우저 캐시·사이트 데이터를 지우거나 기기를 바꾸면 기록이 모두 사라져요.** 한 번 사라진 기록은 되돌릴 방법이 없어요.", "그러니 **백업을 꼭, 틈틈이** 해두세요.", "기록이 어느 정도 쌓였을 때, 기기를 바꾸기 전, 브라우저를 정리하기 전에는 반드시 해야 해요."]},
+      {"h": "이렇게 시작하세요", "lines": ["하단의 「+ 후기 추가」를 눌러 방금 본 작품 하나를 기록해보세요.", "별점과 한줄평만 남겨도 첫 기록이 완성돼요.", "더 하고 싶은 말이 생기면 후기를 써요.", "며칠 뒤 새로운 생각이 떠오르면 「생각 덧붙이기」로 이어가면 돼요."]},
+      {"h": "앱 제목 바꾸기", "lines": ["맨 위의 「수정」을 눌러요.", "\"나의 후기\" 대신 원하는 이름을 적어요. 「○○의 기록장」처럼 붙이면 더 내 공간처럼 느껴져요.", "「확인」을 누르면 저장돼요."]},
+      {"h": "알아두면 편해요", "lines": ["쓰다가 실수로 닫아도 걱정 마세요. 작성 중인 내용이 있으면 먼저 물어봐요.", "뒤로가기는 한 번 더 눌러야 나가져서, 실수로 앱이 꺼지지 않아요.", "기록이 많아졌을 땐 하단 「모두 닫기」로 펼친 카드를 한 번에 접어요.", "「↑」를 누르면 맨 위로 돌아가요."]}
     ] },
     { t: "기록하기", items: [
-      { h: "작품 정보", p: "먼저 책, 영화, 연극, 뮤지컬 중 무엇인지 고르고 제목과 저자(극장)를 적어요. 장르는 목록에서 고르거나 직접 입력할 수 있어요. 나중에 \"그때 본 그 연극이 뭐였지?\" 싶을 때 찾아볼 수 있는 가장 기본적인 단서가 돼요." },
-      { h: "날짜와 상태", p: "책은 다 읽은 날, 연극·뮤지컬은 관람 일시를 골라요. 시간은 5분 단위로 맞출 수 있어요. 아직 읽고 있는 책이라면 「읽는 중」으로 표시해두세요. 다 읽은 뒤 완독으로 바꾸면 그날이 기록으로 남아요. 언제 어떤 작품을 만났는지가 쌓이면, 그 자체가 나의 한 해가 돼요." },
-      { h: "연극·뮤지컬 전용 칸", p: "좌석과 캐스팅을 적어둘 수 있어요. \"그날 그 배우가 나왔었지\" 하는 기억은 같은 작품도 회차마다 다르게 만들어요. 좌석을 적어두면 다음 관람 때 시야와 거리를 비교하기도 좋아요. 캐스팅은 쉼표나 줄바꿈으로 구분하면 돼요." },
-      { h: "별점·한줄평", p: "별점은 0.5점 단위로, 한줄평은 120자까지 남길 수 있어요. 한줄평은 목록에 바로 보여서, 나중에 훑어볼 때 그때의 첫인상이 한눈에 떠올라요. 길게 쓸 기운이 없는 날엔 이 두 가지만 남겨도 충분해요." },
-      { h: "후기", p: "후기 칸을 누르면 방해 없이 전체 화면에서 쓸 수 있어요. 글자 수도 함께 보여서 얼마나 썼는지 알 수 있어요. 잘 쓰려고 하지 않아도 돼요. 지금 드는 느낌을 있는 그대로 적어두면, 시간이 지난 뒤 가장 값진 기록이 돼요." },
-      { h: "비고", p: "같이 본 사람, 앉았던 자리, 재관람 여부 같은 짧은 메모를 100자까지 남겨요. 작품 자체보다 그날의 분위기를 기억하게 해주는 작은 단서예요." },
-      { h: "수정·삭제", p: "카드를 펼치면 「수정」「삭제」 버튼이 있어요. 관람 직후엔 쓰지 못한 내용을 나중에 채우거나, 마음이 바뀌어 고칠 수 있어요. 삭제는 되돌릴 수 없으니 신중하게 눌러주세요." }
-    ] },
-    { t: "감상 가이드", items: [
-      { h: "가이드 질문 열기", p: "별점 아래와 후기 위에 있는 「가이드 질문」 버튼을 눌러요. 후기를 쓰려는데 첫 문장이 막막할 때, 질문이 먼저 말을 걸어줘요. 책은 장르(에세이, 시, 희곡, 철학 등)에 따라 질문이 달라져서, 작품에 맞는 이야기를 꺼낼 수 있어요." },
-      { h: "질문 고르기", p: "위쪽 탭에서 주제를 고르고, 마음이 가는 질문을 눌러 선택해요. 질문마다 딸림 질문이 달려 있어서 한 걸음 더 깊이 생각해볼 수 있어요. 「딸림 질문 모두 선택」으로 한 번에 고를 수도 있어요. 이 질문들은 정답을 알려주는 게 아니라, 내 안의 생각을 꺼내도록 돕는 도구예요." },
-      { h: "후기에 넣기", p: "「N개 넣기」를 누르면 고른 질문이 후기 칸에 들어가요. 그 아래에 내 생각을 이어서 쓰면 돼요. 잘못 골랐다면 「비우기」로 선택을 초기화할 수 있어요." },
-      { h: "랜덤 선택", p: "「랜덤 선택」을 누르면 주제마다 질문을 하나씩 무작위로 뽑아줘요. 뭘 쓸지 전혀 감이 안 올 때, 우연히 만난 질문이 예상 못 한 생각의 문을 열어주기도 해요." }
-    ] },
-    { t: "생각 남기기", items: [
-      { h: "생각 덧붙이기", p: "과거의 후기를 보고 새로운 생각을 덧붙일 수 있어요. 처음엔 별로라고 생각했는데 며칠 뒤 어느 장면이 자꾸 떠오를 때, 기록 카드의 「생각 덧붙이기」를 눌러보세요. 원래 후기는 그대로 두고 새 생각만 날짜와 함께 쌓이니까, 한 작품에 대한 내 마음이 어떻게 자라났는지 볼 수 있어요. 덧붙인 생각은 각각 따로 지울 수도 있어요." },
-      { h: "독립 생각", p: "작품과 상관없이 문득 떠오른 생각은 타임라인 위쪽 입력칸에 적고 「올리기」를 눌러요. 아직 정리되지 않은 생각, 일단 붙잡아두고 싶은 한마디를 가볍게 남기는 곳이에요. 나중에 수정하거나 삭제할 수 있어요." },
-      { h: "되돌아보기", p: "30일 이상 지난 기록 중 하나를 골라 다시 보여줘요. 1년 넘은 기록이 있다면 이맘때 본 작품이 먼저 나와요. 그때의 나는 이 작품을 어떻게 느꼈는지 다시 만나고, 「열어보기」로 전체를 보거나 「생각 덧붙이기」로 지금의 생각을 보탤 수 있어요. 마음에 안 들면 「다른 기록」으로 넘겨보세요." }
+      {"h": "종류부터 골라요", "lines": ["책, 영화, 연극, 뮤지컬 중 무엇인지 먼저 골라요.", "종류에 따라 입력칸이 조금씩 달라져요.", "책은 저자, 장르, 읽기 상태, 완독한 날을 적어요.", "영화는 감독과 본 날을 적어요.", "연극·뮤지컬은 극장, 관람 일시, 좌석, 캐스팅을 적어요."]},
+      {"h": "작품 정보와 날짜", "lines": ["제목과 저자(감독·극장)를 적어요. 나중에 \"그때 본 그 작품이 뭐였지?\" 싶을 때 찾는 기본 단서가 돼요.", "책의 장르는 목록에서 고르거나 직접 입력해요.", "아직 읽고 있다면 「읽는 중」으로 두고, 다 읽은 뒤 완독으로 바꾸면 그날이 기록으로 남아요.", "연극·뮤지컬은 관람 일시를 5분 단위로 맞출 수 있어요."]},
+      {"h": "연극·뮤지컬 전용 칸", "lines": ["좌석을 적어두면 다음 관람 때 시야와 거리를 비교하기 좋아요.", "캐스팅은 쉼표나 줄바꿈으로 구분해요.", "같은 작품도 회차마다 다른 배우가 나오니, 그날의 기억을 남겨두면 좋아요."]},
+      {"h": "별점·한줄평", "lines": ["별점은 0.5점 단위로 남겨요.", "한줄평은 120자까지 쓸 수 있어요.", "한줄평은 목록에 바로 보여서, 나중에 훑을 때 첫인상이 한눈에 떠올라요.", "길게 쓸 기운이 없는 날엔 이 두 가지만 남겨도 충분해요."]},
+      {"h": "후기 쓰기", "lines": ["후기 칸을 누르면 방해 없이 전체 화면에서 쓸 수 있어요.", "글자 수가 함께 보여요.", "실수로 지웠거나 잘못 썼다면 위쪽의 ↶(실행 취소)와 ↷(다시 실행) 버튼으로 되돌릴 수 있어요.", "잘 쓰려고 하지 않아도 돼요. 지금 드는 느낌을 그대로 적어두면 시간이 지난 뒤 가장 값진 기록이 돼요."]},
+      {"h": "막막할 땐 「가이드 질문」", "lines": ["별점 아래, 후기 위의 「가이드 질문」을 눌러요. 책은 장르에 따라 질문이 달라져요.", "위쪽 탭에서 주제를 고르고, 마음이 가는 질문을 눌러 선택해요.", "질문마다 딸림 질문이 있어요. 「딸림 질문 모두 선택」으로 한 번에 고를 수도 있어요.", "뭘 쓸지 감이 안 오면 「랜덤 선택」으로 주제마다 질문을 하나씩 뽑아봐요.", "「N개 넣기」를 누르면 고른 질문이 후기 칸에 들어가요. 그 아래에 내 생각을 이어서 쓰면 돼요.", "잘못 골랐다면 「비우기」로 선택을 초기화해요."]},
+      {"h": "비고와 태그", "lines": ["비고는 같이 본 사람, 앉았던 자리, 재관람 여부 같은 짧은 메모예요. 100자까지 쓸 수 있어요.", "태그는 #재관람 #가족처럼 적어요.", "비고와 태그는 검색에도 잡혀요."]},
+      {"h": "쓰다가 잠깐 내려두기", "lines": ["작성 화면 위쪽의 「내리기」 버튼을 누르거나, 위쪽 바를 아래로 쓸어내려요.", "작성 화면이 아래 「이어 쓰기」 막대로 내려가요.", "그동안 목록·달력 등 다른 화면을 볼 수 있어요.", "막대나 「+ 후기 추가」를 누르면 쓰던 내용 그대로 이어서 쓸 수 있어요."]},
+      {"h": "작성 중 갑자기 꺼져도 괜찮아요", "lines": ["작성 중인 내용(제목, 별점, 한줄평, 후기 등)은 입력하는 동안 자동으로 임시저장돼요.", "앱이 갑자기 꺼지거나 새로고침, 브라우저 종료로 창이 닫혀도 내용이 남아 있어요.", "다시 「+ 후기 추가」를 누르면 「이어서 쓸까요?」라고 물어봐요. 기존 기록을 수정하던 중이었다면 그 기록의 「수정」을 다시 눌렀을 때 물어봐요.", "「확인」을 누르면 쓰던 내용이 그대로 채워져요. 「취소」를 누르면 임시저장이 지워져요.", "직접 「닫기」로 닫거나 「저장」으로 마친 경우에는 임시저장이 남지 않아요."]},
+      {"h": "수정·삭제", "lines": ["카드를 펼치면 「수정」「삭제」 버튼이 있어요.", "관람 직후 못 쓴 내용을 나중에 채우거나, 마음이 바뀌면 고칠 수 있어요.", "「삭제」를 누르면 정말 삭제할지 한 번 더 물어봐요.", "삭제한 직후 몇 초 동안은 아래에 뜨는 「되돌리기」로 취소할 수 있어요.", "그 시간이 지나면 되돌릴 수 없으니, 백업을 해두면 안심이에요."]}
     ] },
     { t: "둘러보기", items: [
-      { h: "목록", p: "저장한 기록을 최근 순으로 훑어볼 수 있어요. 위쪽 탭(전체, 책, 영화, 연극, 뮤지컬)으로 종류별로 모아 보고, 카드를 펼치면 자세한 내용이 나와요. 한줄평만 쭉 읽어도 그동안의 감상이 한눈에 지나가요." },
-      { h: "검색·필터", p: "돋보기를 누르면 제목, 저자, 후기 내용으로 검색할 수 있어요. 후기 있음/없음, 별점(5점, 4.5↑, 4↑, 3↑, 3 미만, 별점 없음)으로 좁혀 볼 수도 있어요. 예를 들어 \"후기 쓴 연극 중 4점 이상\"만 모아 보면 나의 최애 목록이 돼요." },
-      { h: "생각 포함", p: "이 버튼을 켜면 타임라인에서 직접 쓴 생각이 목록에 함께 보여요. 후기에 덧붙인 생각은 후기를 열면 볼 수 있어서 여기엔 나오지 않아요. 작품만 볼 때와 생각까지 볼 때, 두 가지 모드로 둘러볼 수 있어요." },
-      { h: "달력", p: "날짜를 기준으로 언제 어떤 작품을 만났는지 한눈에 보여줘요. 날짜를 누르고 「이 날 기록하기」를 누르면 그날 바로 새 기록을 추가할 수 있어요. 그날 남긴 생각도 함께 볼 수 있어요." },
-      { h: "타임라인", p: "독립 생각과 덧붙인 생각이 날짜순으로 이어져요. 덧붙인 생각을 누르면 해당 작품으로 바로 이동해요. 내 생각이 시간 위에 어떻게 흘러왔는지 돌아보는 일기장 같은 공간이에요." },
-      { h: "통계", p: "이번 달, 최근 3개월, 올해, 전체 기간별로 얼마나 기록했는지 볼 수 있어요. 달별·연도별 카테고리 편수와 책 장르까지 살펴보면 나의 취향이 숫자로 보여요. 날짜가 없는 기록(읽는 중인 책 등)은 통계에서 빠져요. 「목표」 탭에서는 연도별·월별 독서 목표 권수를 정하고, 그래프로 목표와 완독 권수를 비교할 수 있어요." }
+      {"h": "목록", "lines": ["저장한 기록이 최근 순으로 보여요.", "위쪽 탭(전체, 책, 영화, 연극, 뮤지컬)으로 종류별로 모아 볼 수 있어요.", "카드를 펼치면 자세한 내용이 나와요.", "후기를 쓰지 않은 기록은 펼쳤을 때 연하게 「후기 없음」이 보여요."]},
+      {"h": "검색·필터", "lines": ["돋보기를 누르면 제목, 저자, 후기, 태그 등으로 검색할 수 있어요.", "후기 있음/없음, 별점(5점, 4.5↑, 4↑, 3↑, 3 미만, 별점 없음)으로 좁혀 볼 수 있어요.", "예를 들어 \"후기 쓴 연극 중 4점 이상\"만 모으면 나의 최애 목록이 돼요.", "필터 줄의 「생각 제외」를 눌러 「생각 포함」으로 바꾸면, 타임라인에서 직접 쓴 생각이 목록에 함께 보여요.", "후기에 덧붙인 생각은 후기를 열면 볼 수 있어서 여기엔 나오지 않아요."]},
+      {"h": "달력", "lines": ["날짜 기준으로 언제 어떤 작품을 만났는지 한눈에 보여요.", "날짜를 누르고 「+ 이 날 기록하기」를 누르면 그날 바로 새 기록을 추가해요.", "그날 남긴 생각도 함께 볼 수 있어요.", "위쪽 목표 카드에서 목표 진행 상황을 볼 수 있어요."]},
+      {"h": "타임라인", "lines": ["독립 생각과 덧붙인 생각이 날짜순으로 이어져요.", "「전체」에는 관람 기록과 백업·가져오기 같은 활동도 함께 보여요.", "「내가 쓴 글 · 덧붙임」은 내가 직접 쓴 것만 모아 보여요.", "덧붙인 생각을 누르면 해당 작품으로 바로 이동해요.", "타임라인에서 생각, 덧붙임, 관람·완독 기록을 삭제하면 기록만이 아니라 원본(내가 쓴 생각, 덧붙인 내용, 그 후기 기록)도 함께 삭제돼요. 삭제 전 확인 창에서 한 번 더 알려줘요.", "「후기」·「기록」 태그가 붙은 줄(후기 작성, 읽는 중, 백업, 불러오기, 목표 설정)은 예외예요. 타임라인의 기록만 지워지고, 후기 원본과 백업 파일, 가져온 기록은 그대로 남아요."]},
+      {"h": "통계", "lines": ["이번 달, 최근 3개월, 올해, 전체 기간별로 얼마나 기록했는지 볼 수 있어요.", "달별·연도별 카테고리 편수와 책 장르까지 살펴보면 취향이 숫자로 보여요.", "날짜가 없는 기록(읽는 중인 책 등)은 통계에서 빠져요.", "「목표」 탭에서 연도별·월별 독서 목표 권수를 정하고, 그래프로 완독 권수와 비교해요."]},
+      {"h": "새로고침해도 그대로", "lines": ["새로고침해도 보던 탭, 필터, 검색어, 펼쳐둔 카드, 스크롤 위치가 유지돼요.", "탭을 완전히 닫았다가 다시 열면 처음 화면으로 시작해요."]}
+    ] },
+    { t: "생각 남기기", items: [
+      {"h": "생각 덧붙이기", "lines": ["기록 카드의 「생각 덧붙이기」를 눌러요.", "원래 후기는 그대로 두고 새 생각만 날짜와 함께 쌓여요.", "처음엔 별로였는데 며칠 뒤 어느 장면이 자꾸 떠오를 때, 마음이 어떻게 자랐는지 볼 수 있어요.", "덧붙인 생각은 각각 따로 지울 수 있어요."]},
+      {"h": "독립 생각", "lines": ["작품과 상관없이 떠오른 생각은 타임라인 위쪽 입력칸에 적고 「올리기」를 눌러요.", "아직 정리되지 않은 생각을 가볍게 붙잡아두는 곳이에요.", "나중에 수정하거나 삭제할 수 있어요."]},
+      {"h": "되돌아보기", "lines": ["30일 이상 지난 기록 중 하나를 골라 다시 보여줘요.", "1년 넘은 기록이 있다면 이맘때 본 작품이 먼저 나와요.", "「열어보기」로 전체를 보거나 「생각 덧붙이기」로 지금의 생각을 보탤 수 있어요.", "마음에 안 들면 「다른 기록」으로 넘겨요."]}
     ] },
     { t: "백업·불러오기", items: [
-      { h: "저장 방식", p: "이 앱은 회원가입이 없고, 기록은 **지금 쓰는 브라우저에만** 저장돼요. 그래서 다른 사람과 기록이 섞이지 않고 온전히 나만의 공간이에요. 대신 브라우저 데이터를 지우거나 기기를 바꾸면 기록이 사라질 수 있으니, 아래 백업을 꼭 해두세요." },
-      { h: "백업", p: "맨 위의 「백업」을 누르면 JSON 파일로 저장돼요. 덧붙인 생각과 독립 생각도 함께 담겨요. 기기를 바꾸기 전, 브라우저를 초기화하기 전, 그리고 기록이 어느 정도 쌓였을 때 한 번씩 해두면 소중한 기록을 지킬 수 있어요." },
-      { h: "불러오기", p: "「불러오기」에서 백업했던 JSON 파일을 고르면 기록이 복구돼요. 이미 있는 기록은 중복으로 추가되지 않고, 비어 있던 정보만 채워져요. 새 기기에서도 그대로 이어서 쓸 수 있어요." },
-      { h: "CSV 가져오기", p: "다른 곳에 정리해둔 기록이 있다면 같은 「불러오기」 버튼으로 CSV 파일도 가져올 수 있어요. 「제목」과 「일시」 칸이 꼭 있어야 해요. 이미 있는 기록은 건너뛰어서 중복 걱정 없이 옮겨올 수 있어요." }
+      {"warn": true, "h": "내 기록은 이 기기에만 저장돼요", "lines": ["후기는 서버로 전송되거나 다른 사람과 공유되지 않아요. **지금 쓰는 기기의 브라우저에만** 저장되고, 나만 볼 수 있어요.", "**브라우저 캐시·사이트 데이터를 지우거나 기기를 바꾸면 기록이 모두 사라져요.** 한 번 사라진 기록은 되돌릴 방법이 없어요.", "그러니 **백업을 꼭, 틈틈이** 해두세요.", "기록이 어느 정도 쌓였을 때, 기기를 바꾸기 전, 브라우저를 정리하기 전에는 반드시 해야 해요."]},
+      {"h": "백업하기", "lines": ["맨 위의 「백업」을 누르면 JSON 파일로 저장돼요.", "덧붙인 생각과 독립 생각도 함께 담겨요.", "기기를 바꾸기 전, 브라우저를 초기화하기 전, 기록이 쌓였을 때 한 번씩 해두세요."]},
+      {"h": "백업 알림", "lines": ["기록이 3개 이상인데 백업한 적이 없으면 위쪽에 알림이 떠요.", "마지막 백업 뒤 내용이 바뀌고 7일이 지나도 알림이 떠요.", "「지금 백업」을 누르면 바로 저장돼요. 「나중에」를 누르면 3일 뒤에 다시 알려줘요."]},
+      {"h": "불러오기", "lines": ["「불러오기」에서 백업했던 JSON 파일을 골라요.", "이미 있는 기록은 중복 추가되지 않고, 비어 있던 정보만 채워져요."]},
+      {"h": "기기를 바꿀 때", "lines": ["기존 기기에서 「백업」으로 파일을 저장해요.", "그 파일을 새 기기로 옮겨요.", "새 기기에서 「불러오기」로 파일을 골라요.", "기록이 제대로 들어왔는지 확인한 뒤, 기존 기기의 데이터를 정리해요."]},
+      {"h": "공연 앱 「플앱」 CSV로 옮겨오기", "lines": ["공연 일정 관리 앱 「플앱」에서 내보낸 CSV 파일을 같은 「불러오기」 버튼으로 가져올 수 있어요.", "「제목」과 「일시」 칸이 꼭 있어야 해요.", "「캘린더」「출연」「장소」「좌석」「리뷰/메모」 칸이 있으면 종류, 캐스팅, 극장, 좌석으로 함께 들어와요. 짧은 메모는 비고로, 긴 메모는 후기로 들어가요.", "이미 있는 기록은 건너뛰어서 중복 걱정 없이 옮겨올 수 있어요."]}
+    ] },
+    /* 업데이트 내역: 코드를 수정할 때마다 맨 위(최신순)에 한 줄씩 추가 */
+    { t: "업데이트 내역", log: true, items: [
+      {"d": "2026-10-02 15:50", "h": "자동저장 안내 추가", "p": "후기를 쓰다가 앱이 꺼지거나 새로고침돼도 내용이 임시저장돼 있고, 다시 열면 이어서 쓸지 물어본다는 안내를 사용가이드 「기록하기」에 넣었어요."},
+      {"d": "2026-10-02 15:31", "h": "후기 쓰기 창에 실행 취소·다시 실행", "p": "전체 화면 후기 창 위쪽, 글자 수 옆에 작은 ↶ ↷ 버튼을 넣었어요. 쓰다가 지운 내용을 되돌리거나 다시 적용할 수 있고, 가이드 질문을 넣은 것도 한 번에 되돌려져요. 키보드에서는 Ctrl(⌘)+Z / Shift+Z로도 돼요."},
+      {"d": "2026-10-02 15:10", "h": "삭제 전 확인 창 추가", "p": "후기, 덧붙인 생각, 타임라인의 생각·활동 기록을 삭제할 때 「정말 삭제할까요?」 확인 창이 먼저 떠요. 확인을 누르면 삭제되고, 그 직후 몇 초 동안은 지금처럼 「되돌리기」로 취소할 수 있어요."},
+      { d: "2026-10-02 14:15", h: "후기 쓰다가 잠깐 내려두기", p: "후기를 쓰는 중에 위쪽 「내리기」 버튼을 누르거나 위쪽 바를 아래로 쓸어내리면, 작성 화면이 아래 「이어 쓰기」 막대로 내려가요. 그동안 목록·달력 등 다른 화면을 볼 수 있고, 막대를 누르거나 「+ 후기 추가」를 누르면 쓰던 내용 그대로 이어서 쓸 수 있어요." },
+      { d: "2026-10-02 13:55", h: "새로고침해도 보던 화면 유지", p: "새로고침하면 목록으로 돌아가던 문제를 고쳤어요. 보던 탭(목록·달력·통계·타임라인), 필터, 검색어, 펼쳐둔 카드, 스크롤 위치가 그대로 유지돼요. 이 탭을 완전히 닫았다가 다시 열면 처음 화면으로 시작해요." },
+      { d: "2026-10-02 13:40", h: "후기 없음 표시", p: "후기를 쓰지 않은 기록은 펼쳤을 때 연하게 「후기 없음」이 보여요." },
+      { d: "2026-10-02 13:25", h: "세부정보 펼침 그림자 연하게", p: "스크롤 중 세부정보를 펼칠 때 생기는 그림자를 있는 듯 없는 듯 아주 연하게 줄였어요." },
+      { d: "2026-10-02 13:10", h: "사용가이드 창 화면 오류 수정", p: "닫기 버튼 위치가 어긋나고, 탭이 스크롤되지 않고, 화면이 잘리던 문제를 고쳤어요. 통계 그래프용 스타일이 사용가이드·가이드 질문 창에 섞여 들어가던 것이 원인이었어요." },
+      { d: "2026-10-02 12:59", h: "세부정보 펼치기 위치 고정", p: "후기를 스크롤해 내린 상태에서 「펼치기」를 눌러도 후기가 위로 올라가지 않아요. 보던 후기 위치는 그대로 두고 세부정보만 아래로 펼쳐져 보이고, 「접기」를 누르면 다시 접혀요. 위로 올려 세부정보 자리까지 오면 원래대로 보여요." },
+      { d: "2026-10-02 12:59", h: "업데이트 내역 탭 추가", p: "사용가이드 맨 뒤에 연한 색 「업데이트 내역」 탭을 만들었어요. 앞으로 수정할 때마다 날짜·시간과 간단한 설명이 최신순으로 쌓여요." }
     ] }
   ];
   var hTab = 0;
@@ -2723,7 +2888,7 @@
     var tabs = $("hTabs"), body = $("hBody");
     tabs.textContent = "";
     HOWTO.forEach(function (sec, ti) {
-      var b = el("button", ti === hTab ? "on" : "", sec.t);
+      var b = el("button", (ti === hTab ? "on" : "") + (sec.log ? " logtab" : ""), sec.t);
       b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-selected", ti === hTab ? "true" : "false");
       b.onclick = function () { hTab = ti; renderHowto(); $("hBody").scrollTop = 0; };
       tabs.appendChild(b);
@@ -2731,12 +2896,59 @@
     var cur = tabs.querySelector("button.on");
     if (cur && cur.scrollIntoView) { try { cur.scrollIntoView({ block: "nearest", inline: "nearest" }); } catch (e) {} }
     body.textContent = "";
+    if (HOWTO[hTab].log) {
+      var SV = "http://www.w3.org/2000/svg";
+      function ico(paths) {
+        var sv = document.createElementNS(SV, "svg");
+        sv.setAttribute("viewBox", "0 0 24 24"); sv.setAttribute("width", "16"); sv.setAttribute("height", "16");
+        sv.setAttribute("fill", "none"); sv.setAttribute("stroke", "currentColor"); sv.setAttribute("stroke-width", "1.9");
+        sv.setAttribute("stroke-linecap", "round"); sv.setAttribute("stroke-linejoin", "round"); sv.setAttribute("aria-hidden", "true");
+        paths.forEach(function (d) { var p = document.createElementNS(SV, "path"); p.setAttribute("d", d); sv.appendChild(p); });
+        return sv;
+      }
+      function contact(href, ic, label, value, ext, notes) {
+        var a = el("a", "fbrow");
+        a.href = href;
+        if (ext) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+        var ib = el("span", "fbico"); ib.appendChild(ico(ic)); a.appendChild(ib);
+        var tx = el("span", "fbtx");
+        tx.appendChild(el("span", "fbl", label));
+        tx.appendChild(el("span", "fbv", value));
+        a.appendChild(tx);
+        if (notes) {
+          var nt = el("span", "fbnt");
+          notes.forEach(function (n) { nt.appendChild(el("span", "", n)); });
+          a.appendChild(nt);
+        }
+        a.appendChild(ico(ext ? ["M7 17L17 7", "M8 7h9v9"] : ["M9 6l6 6-6 6"]));
+        a.lastChild.setAttribute("class", "fbgo");
+        return a;
+      }
+      var fw = el("div", "fbwrap");
+      fw.appendChild(el("div", "fbhd", "CONTACT"));
+      fw.appendChild(contact("https://twitter.com/jjkkkosos",
+        ["M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"], "배포자", "@jjkkkosos", true, ["피드백은 DM 부탁드립니다", "AI 도움으로 제작되었습니다"]));
+      fw.appendChild(el("div", "fbhd fbhd2", "UPDATES"));
+      body.appendChild(fw);
+    }
     HOWTO[hTab].items.forEach(function (it) {
-      var card = el("div", "gq hq");
+      var card = el("div", "gq hq" + (it.d ? " log" : "") + (it.warn ? " warn" : "") + (it.hl ? " hwpurple" : ""));
       var head = el("div", "gqh hh");
+      if (it.warn) head.appendChild(el("span", "wbadge", "중요"));
       head.appendChild(el("span", "gqt", it.h));
+      if (it.d) head.appendChild(el("span", "logdt", it.d));
       card.appendChild(head);
-      var p = el("div", "hp"); hRichText(p, it.p); card.appendChild(p);
+      var p = el("div", "hp");
+      if (it.lines) {
+        it.lines.forEach(function (ln, i) {
+          var d = el("div", "hwrow"), tx = el("span", "hwtx");
+          d.appendChild(el("span", "hwnum", String(i + 1)));
+          hRichText(tx, ln); d.appendChild(tx); p.appendChild(d);
+        });
+      }
+      else if (it.warn) { String(it.p).split("\n").forEach(function (ln) { var d = el("div", "wline"); hRichText(d, ln); p.appendChild(d); }); }
+      else hRichText(p, it.p);
+      card.appendChild(p);
       body.appendChild(card);
     });
   }
@@ -2838,10 +3050,12 @@
     var txt = guideText();
     if (!txt) return;
     var t = $("wtext"), base = t.value;
+    wSnap();
     var sep = !base ? "" : (/\n\n$/.test(base) ? "" : (/\n$/.test(base) ? "\n" : "\n\n"));
     t.value = base + sep + txt;
     $("text").value = t.value;
     $("wcnt").textContent = t.value.length + "자";
+    wSnap();
     gInserted = true;
     closeGuide();
   }
@@ -2971,6 +3185,11 @@
     $("dateBox").hidden = (form.type === "book" && form.status === "reading");
   }
   function openForm(id) {
+    if (miniState) {
+      if ((id || null) === (miniState.eid || null)) { restoreWriting(); return; }
+      if (!confirm("내려둔 후기가 있어요. 버리고 새로 열까요?")) return;
+      discardMinimized();
+    }
     editingId = id || null;
     var r = id ? data.filter(function (x) { return x.id === id; })[0] : null;
     $("sheetTitle").textContent = r ? "후기 수정" : "새 후기";
@@ -3014,9 +3233,35 @@
     w.style.height = vv.height + "px";
     w.style.top = vv.offsetTop + "px";
   }
+  /* 후기 쓰기 창: 실행 취소 / 다시 실행 */
+  var wHist = [], wPos = -1, wHistTimer = 0;
+  function wSyncBtns() { $("wUndo").disabled = wPos <= 0; $("wRedo").disabled = wPos >= wHist.length - 1; }
+  function wSnap() {
+    clearTimeout(wHistTimer);
+    var t = $("wtext"), v = t.value;
+    if (wPos >= 0 && wHist[wPos].v === v) { wSyncBtns(); return; }
+    wHist.splice(wPos + 1);
+    wHist.push({ v: v, e: t.selectionEnd });
+    if (wHist.length > 200) wHist.shift();
+    wPos = wHist.length - 1;
+    wSyncBtns();
+  }
+  function wReset() { clearTimeout(wHistTimer); wHist = []; wPos = -1; wSnap(); }
+  function wGo(d) {
+    wSnap();
+    var np = wPos + d;
+    if (np < 0 || np >= wHist.length) return;
+    wPos = np;
+    var h = wHist[np], t = $("wtext");
+    t.value = h.v; $("text").value = h.v;
+    $("wcnt").textContent = h.v.length + "자";
+    try { t.focus({ preventScroll: true }); t.setSelectionRange(h.e, h.e); } catch (e) {}
+    scheduleDraft(); wSyncBtns();
+  }
   function openWriter() {
     var t = $("wtext");
     t.value = $("text").value;
+    wReset();
     $("wtitle").textContent = $("title").value.trim() || "후기";
     $("wcnt").textContent = t.value.length + "자";
     $("wbar").after($("rateBox"));
@@ -3085,6 +3330,52 @@
     hideForm(); formSnap = "";
     if (n) { skipPop++; history.go(-n); }
   }
+  /* ---------- 후기 쓰다가 아래로 잠깐 내려두기 ---------- */
+  var miniState = null;
+  function minimizeWriting() {
+    var top = layers[layers.length - 1];
+    if ((top !== "form" && top !== "writer") || !$("sheet").classList.contains("show")) return;
+    if (layers.indexOf("writer") > -1) { $("text").value = $("wtext").value; growText(); }
+    miniState = { layers: layers.slice(), eid: editingId };
+    try { document.activeElement && document.activeElement.blur(); } catch (e) {}
+    saveDraft();
+    $("sheet").classList.add("mini"); $("writer").classList.add("mini");
+    document.body.style.overflow = "";
+    var n = layers.length; layers.length = 0;
+    if (n) { skipPop++; history.go(-n); }
+    $("miniTxt").textContent = "\u270E " + ($("title").value.trim() || (editingId ? "후기 수정 중" : "새 후기 작성 중"));
+    $("miniBar").hidden = false;
+  }
+  function restoreWriting() {
+    if (!miniState) return;
+    var m = miniState; miniState = null;
+    $("miniBar").hidden = true;
+    $("sheet").classList.remove("mini"); $("writer").classList.remove("mini");
+    document.body.style.overflow = "hidden";
+    m.layers.forEach(pushLayer);
+    fitWriter();
+    if (m.layers.indexOf("writer") > -1) { try { $("wtext").focus(); } catch (e) {} }
+  }
+  function discardMinimized() {
+    miniState = null;
+    $("miniBar").hidden = true;
+    $("sheet").classList.remove("mini"); $("writer").classList.remove("mini");
+    if (!$("writer").hidden) { $("writer").hidden = true; restoreExtra(); }
+    clearDraft();
+  }
+  $("minBtn").onclick = minimizeWriting;
+  $("wMin").onclick = minimizeWriting;
+  $("miniOpen").onclick = restoreWriting;
+  /* 상단 바를 아래로 쓸어내려도 내려감 */
+  [$("wbar"), document.querySelector("#sheet .editbar")].forEach(function (bar) {
+    var sx = 0, sy = 0, on = false;
+    bar.addEventListener("touchstart", function (e) { var t = e.touches[0]; sx = t.clientX; sy = t.clientY; on = e.touches.length === 1; }, { passive: true });
+    bar.addEventListener("touchend", function (e) {
+      if (!on) return; on = false;
+      var t = e.changedTouches[0];
+      if (t.clientY - sy > 70 && Math.abs(t.clientX - sx) < 60) minimizeWriting();
+    }, { passive: true });
+  });
   function requestClose() {
     var top = layers[layers.length - 1];
     if (top === "guide") closeGuide();
@@ -3656,8 +3947,12 @@
   }
   function buildListGoal() {
     var nd = new Date(), y = nd.getFullYear(), gl = getGoals(), key = String(y), label = y + " 독서 목표";
-    if (!(+gl[key])) { key = y + "-" + pad(nd.getMonth() + 1); label = (nd.getMonth() + 1) + "월 독서 목표"; }
-    return buildGoalMini("list", key, label, false);
+    if (!(+gl[key])) {
+      var mk = y + "-" + pad(nd.getMonth() + 1);
+      /* 올해 목표가 없고 이번 달 목표만 있으면 월 목표, 둘 다 없으면 올해 목표 칸(목표 없음)을 보여줌 */
+      if (+gl[mk]) { key = mk; label = (nd.getMonth() + 1) + "월 독서 목표"; }
+    }
+    return buildGoalMini("list", key, label, true);
   }
 
   /* ---------- 백업 알림 ---------- */
@@ -3933,7 +4228,7 @@
   };
   $("rsel").onchange = function () { rfilter = this.value; render(); };
   $("ssel").onchange = function () { sfilter = this.value; render(); };
-  $("tgBtn").onclick = function () { showTh = !showTh; render(); };
+  $("tsel").onchange = function () { showTh = this.value === "on"; render(); };
   $("tlFilt").onclick = function (e) {
     if (!e.target.dataset.tf) return;
     tlOnly = e.target.dataset.tf === "mine"; tlLimit = 60; render();
@@ -3962,6 +4257,21 @@
     $("text").value = this.value;
     $("wcnt").textContent = this.value.length + "자";
     scheduleDraft();
+    clearTimeout(wHistTimer); wHistTimer = setTimeout(wSnap, 500);
+    wSyncBtns();
+  });
+  /* 버튼을 눌러도 키보드가 내려가지 않게 */
+  ["wUndo", "wRedo"].forEach(function (id) {
+    $(id).addEventListener("mousedown", function (e) { e.preventDefault(); });
+    $(id).addEventListener("touchstart", function (e) { e.preventDefault(); this.click(); }, { passive: false });
+  });
+  $("wUndo").onclick = function () { wGo(-1); };
+  $("wRedo").onclick = function () { wGo(1); };
+  $("wtext").addEventListener("keydown", function (e) {
+    if (!(e.ctrlKey || e.metaKey) || e.altKey) return;
+    var k = e.key.toLowerCase();
+    if (k === "z") { e.preventDefault(); wGo(e.shiftKey ? 1 : -1); }
+    else if (k === "y") { e.preventDefault(); wGo(1); }
   });
   $("wdone").onclick = closeWriter;
   if (window.visualViewport) {
@@ -4050,7 +4360,79 @@
     updateBackupBanner();
   };
   syncActs();
+  /* 새로고침해도 보던 화면(탭·필터·검색·열어둔 카드·스크롤)을 그대로 복원 (이 탭을 닫으면 초기화) */
+  var VIEWKEY = "reviews-viewstate-v1";
+  function saveViewState() {
+    try {
+      sessionStorage.setItem(VIEWKEY, JSON.stringify({
+        view: view, filter: filter, rfilter: rfilter, sfilter: sfilter, showTh: showTh, tlOnly: tlOnly, tlLimit: tlLimit,
+        searchOpen: searchOpen, q: $("q").value, openIds: openIds, infoOpen: infoOpen,
+        calY: calY, calM: calM, selDate: selDate, stat: stat, gy: gy, y: window.pageYOffset || 0
+      }));
+    } catch (e) {}
+  }
+  var restoredY = 0;
+  (function restoreViewState() {
+    var v;
+    try { v = JSON.parse(sessionStorage.getItem(VIEWKEY)); } catch (e) { v = null; }
+    if (!v || typeof v !== "object") return;
+    if (["list", "cal", "stat", "tl"].indexOf(v.view) >= 0) view = v.view;
+    if (typeof v.filter === "string") filter = v.filter;
+    if (typeof v.rfilter === "string") rfilter = v.rfilter;
+    if (typeof v.sfilter === "string") sfilter = v.sfilter;
+    showTh = !!v.showTh; tlOnly = !!v.tlOnly;
+    if (+v.tlLimit > 0) tlLimit = +v.tlLimit;
+    searchOpen = !!v.searchOpen;
+    if (typeof v.q === "string") $("q").value = v.q;
+    var ids = {}; data.forEach(function (r) { ids[r.id] = 1; });
+    Object.keys(v.openIds || {}).forEach(function (k) { if (ids[k] && v.openIds[k]) openIds[k] = true; });
+    Object.keys(v.infoOpen || {}).forEach(function (k) { if (ids[k] && openIds[k]) infoOpen[k] = !!v.infoOpen[k]; });
+    if (+v.calY) calY = +v.calY;
+    if (v.calM >= 0 && v.calM <= 11) calM = +v.calM;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(v.selDate)) selDate = v.selDate;
+    if (v.stat && typeof v.stat === "object") {
+      if (["range", "month", "goal"].indexOf(v.stat.mode) >= 0) stat.mode = v.stat.mode;
+      ["preset", "from", "to"].forEach(function (k) { if (v.stat[k] === null || typeof v.stat[k] === "string") stat[k] = v.stat[k]; });
+      if (+v.stat.year) stat.year = +v.stat.year;
+    }
+    if (+v.gy) gy = +v.gy;
+    restoredY = +v.y || 0;
+  })();
+  try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
   render();
+  if (restoredY) {
+    window.scrollTo(0, restoredY);
+    requestAnimationFrame(function () { window.scrollTo(0, restoredY); });
+    window.addEventListener("load", function () { window.scrollTo(0, restoredY); });
+  }
+  /* 처음 들어온 사람(기록·생각·백업·목표·작성 중 글이 하나도 없음)에게만 시작 전 안내 */
+  var WELKEY = "reviews-welcome-off-v1";
+  (function welcome() {
+    function has(k) { try { return localStorage.getItem(k) !== null; } catch (e) { return false; } }
+    var fresh = data.length === 0 && thoughts.length === 0 && acts.length === 0 && !has(LBKEY) && !has(DKEY) && !has(GKEY) && !has(WELKEY);
+    if (!fresh) return;
+    var body = $("welBody");
+    [
+      "이 앱에 쓴 후기는 서버로 전송되거나 다른 사람과 공유되지 않아요. **지금 쓰는 기기의 브라우저에만** 저장되고, 나만 볼 수 있어요.",
+      "**브라우저 캐시·사이트 데이터를 지우거나 기기를 바꾸면 기록이 모두 사라져요.** 한 번 사라진 기록은 되돌릴 방법이 없어요.",
+      "그러니 **백업을 꼭, 틈틈이** 해두세요.",
+      "**사용하기 전에 사용가이드를 먼저 확인해 보세요.**"
+    ].forEach(function (ln, i) {
+      var d = el("div", "wline"), tx = el("span", "wtx");
+      d.appendChild(el("span", "wnum", String(i + 1)));
+      hRichText(tx, ln); d.appendChild(tx); body.appendChild(d);
+    });
+    function hide() { $("welcome").hidden = true; }
+    $("welGuide").onclick = function () { hide(); openHowto(); };
+    $("welNever").onclick = function () { try { localStorage.setItem(WELKEY, "1"); } catch (e) {} hide(); };
+    setTimeout(function () { $("welcome").hidden = false; }, 250);
+  })();
+  var vsTimer = null;
+  function queueViewSave() { clearTimeout(vsTimer); vsTimer = setTimeout(saveViewState, 250); }
+  window.addEventListener("scroll", queueViewSave, { passive: true });
+  ["click", "input", "change"].forEach(function (ev) { document.addEventListener(ev, queueViewSave, true); });
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "hidden") saveViewState(); });
+  window.addEventListener("pagehide", saveViewState);
   /* 저장된 데이터를 읽지 못했다면 원본을 파일로 내려받을 기회를 줌 */
   if (corrupt.length) setTimeout(function () {
     corrupt.forEach(function (c) {
